@@ -9,3 +9,16 @@
 
 # Undo-tree save-files
 *.~undo-tree
+
+# init
+.#*
+.cache
+ac-comphist.dat
+custom.el
+elpa
+persp-confs
+recentf
+transient
+kkcrc
+eshell
+server
