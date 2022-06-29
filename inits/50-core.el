@@ -90,6 +90,16 @@
   :if (version< "28" emacs-version)
   :config (repeat-mode 1))
 
+(use-package :backup
+  :no-require t
+  :config
+  (setq backup-by-copying      t
+        backup-directory-alist `(("." . ,(expand-file-name "backup" config-dir)))
+        delete-old-versions    t
+        kept-new-versions      6
+        kept-old-versions      2
+        version-control        t))
+
 (use-package undo-tree
   :ensure t
   :bind (("M-/" . undo-tree-redo)

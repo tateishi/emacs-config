@@ -14,12 +14,13 @@
 .#*
 .cache
 ac-comphist.dat
+backup
 custom.el
 elpa
+eshell
+kkcrc
 persp-confs
 recentf
-transient
-kkcrc
-eshell
 server
+transient
 undo
