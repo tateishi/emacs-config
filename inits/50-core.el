@@ -279,16 +279,34 @@
   :commands (json-mode)
   :hook (json-mode . my-json-mode-hook))
 
-(mapc (lambda (package) (use-package package :ensure t))
-      '(cmake-mode
-        csv-mode
-        docker-compose-mode
-        dockerfile-mode
-        haskell-mode
-        meson-mode
-        python-mode
-        rust-mode
-        yaml-mode))
+;; (mapc (lambda (package) (use-package package :ensure t))
+;;       '(cmake-mode
+;;         csv-mode
+;;         docker-compose-mode
+;;         dockerfile-mode
+;;         haskell-mode
+;;         meson-mode
+;;         python-mode
+;;         rust-mode
+;;         yaml-mode))
+
+(defmacro expand-package (&rest packages)
+  (declare (indent defun))
+  (append '(progn)
+          (mapcar (lambda (p) `(use-package ,p :ensure t))
+                  packages)))
+
+(expand-package
+  cmake-mode
+  csv-mode
+  docker-compose-mode
+  dockerfile-mode
+  haskell-mode
+  meson-mode
+  python-mode
+  rust-mode
+  yaml-mode)
+
 
 ;;;
 ;;; python-black
