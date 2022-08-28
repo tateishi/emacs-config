@@ -44,6 +44,11 @@
   (set-language-environment "Japanese")
   (prefer-coding-system 'utf-8-unix))
 
+(use-package mozc
+  :ensure t
+  :config
+  (setq default-input-method "japanese-mozc"))
+
 (use-package appearance
   :no-require t
   :config
