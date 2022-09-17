@@ -302,6 +302,7 @@
                   packages)))
 
 (expand-package
+  ansible
   cmake-mode
   csv-mode
   docker-compose-mode
