@@ -308,6 +308,7 @@
   docker-compose-mode
   dockerfile-mode
   haskell-mode
+  ledger-mode
   meson-mode
   python-mode
   rust-mode
