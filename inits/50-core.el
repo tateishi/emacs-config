@@ -202,6 +202,19 @@
   (marginalia-mode))
 
 ;;;
+;;; google translate
+;;;
+
+(use-package google-translate
+  :ensure t
+  :bind
+  (("C-c t" . google-translate-smooth-translate))
+  :config
+  (setq google-translate-translation-directions-alist '(("en" . "ja")
+                                                        ("ja" . "en")))
+  )
+
+;;;
 ;;; program modes
 ;;;
 
