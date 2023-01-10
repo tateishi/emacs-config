@@ -388,6 +388,7 @@
 
 ;;; modus themes
 ;;; url: https://gitlab.com/protesilaos/modus-themes
+;;; url: https://protesilaos.com/emacs/modus-themes
 
 (use-package modus-themes
   :ensure t
@@ -398,10 +399,11 @@
         modus-themes-region '(bg-only no-extend))
 
   ;; Load the theme files before enabling a theme
-  (modus-themes-load-themes)
+;;  (modus-themes-load-themes)
   :config
   ;; Load the theme of your choice:
-  (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
+;;  (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
+  (modus-themes-select 'modus-vivendi)
   :bind ("<f5>" . modus-themes-toggle))
 
 ;;;
