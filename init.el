@@ -26,6 +26,8 @@
 (eval-when-compile
   (require 'use-package))
 
+(add-to-list 'load-path (locate-user-emacs-file "lisp"))
+
 (use-package init-loader
   :ensure t
   :functions init-locader-load
