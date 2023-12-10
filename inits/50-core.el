@@ -409,13 +409,10 @@
   (setq modus-themes-italic-constructs nil
         modus-themes-bold-constructs nil
         modus-themes-region '(bg-only no-extend))
+  (modus-themes-select 'modus-vivendi)
 
-  ;; Load the theme files before enabling a theme
-;;  (modus-themes-load-themes)
   :config
   ;; Load the theme of your choice:
-;;  (modus-themes-load-vivendi) ;; OR (modus-themes-load-operandi)
-  (modus-themes-select 'modus-vivendi)
   :bind ("<f5>" . modus-themes-toggle))
 
 ;;;
