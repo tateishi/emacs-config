@@ -215,7 +215,98 @@
   )
 
 ;;;
+;;; smartparens
+;;;
+
+(use-package smartparens
+  :ensure t
+  :delight
+  :hook (after-init-hook . smartparens-global-strict-mode)
+  :custom
+  (electric-pair-mode nil)
+  :config
+  (require 'smartparens-config))
+
+;;;
+;;; rainbow-delimiters
+;;;
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook ((prog-mode-hook . rainbow-delimiters-mode)))
+
+;;;
+;;; highlight-indent-guides
+;;;
+
+(use-package highlight-indent-guides
+  :ensure t
+  :delight
+  :hook ((prog-mode-hook yaml-mode-hook) . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-auto-enabled t)
+  (highlight-indent-guides-responsive t)
+  (highlight-indent-guides-character |\|))
+
+;;;
+;;; whitespace-mode
+;;;
+
+(use-package whitespace
+  :ensure t
+  :demand t
+  :delight
+  :bind ("C-c W" . whitespace-cleanup)
+  :custom
+  (whitespace-style '(face trailing tabs spaces empty space-mark tab-mark))
+  (whitespace-display-mappings '((space-mark ?\u3000 [?\u25a1])
+                                 (tab-mark ?\t [?\u00BB ?\t]
+                                           [?\\ ?\t])))
+  (whitespace-space-regexp "\\(\u3000+\\)")
+  (whitespace-global-modes '(not dired-mode tar-mode magit-mode))
+  (global-whitespace-mode t)
+  (whitespace-action '(auto-cleanup))
+  :config
+  (set-face-attribute 'whitespace-trailing nil
+                      :background "Black"
+                      :foreground "DeepPink"
+                      :underline t)
+  (set-face-attribute 'whitespace-tab nil
+                      :background "Black"
+                      :foreground "LightSkyBlue"
+                      :underline t)
+  (set-face-attribute 'whitespace-space nil
+                      :background "Black"
+                      :foreground "GreenYellow"
+                      :weight 'bold)
+  (set-face-attribute 'whitespace-empty nil
+                      :background "Black"))
+
+;;;
+;;; Eglot (emacs client of language server)
+;;;
+
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '(python-mode "pylsp")))
+
+;;;
+;;; flycheck
+;;;
+
+(use-package flycheck
+  :ensure t
+  :init
+  (add-hook 'after-init-hook 'global-flycheck-mode))
+
+
+;;;
 ;;; program modes
+;;;
+
+;;;
+;;; cc mode
 ;;;
 
 (defun my-cc-mode-hook ()
@@ -231,6 +322,19 @@
   (c-mode-common . my-cc-mode-hook)
   (c-mode-common . my-enable-trailing-whitespace))
 
+;;;
+;;; python mode
+;;;
+
+(use-package python-mode
+  :ensure t
+  :init
+  (add-hook 'python-mode-hook #'smartparens-mode)
+  )
+
+;;;
+;;; markdown-mode
+;;;
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -335,7 +439,6 @@
   haskell-mode
   ledger-mode
   meson-mode
-  python-mode
   rust-mode
   yaml-mode)
 
