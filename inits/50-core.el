@@ -222,7 +222,6 @@
   :ensure t
   :delight
   :hook
-  (after-init . smartparens-global-strict-mode)
   (prog-mode . smartparens-mode)
   :custom
   (electric-pair-mode nil)
@@ -245,7 +244,6 @@
 (use-package highlight-indent-guides
   :ensure t
   :delight
-  :hook ((prog-mode-hook yaml-mode-hook) . highlight-indent-guides-mode)
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled t)
