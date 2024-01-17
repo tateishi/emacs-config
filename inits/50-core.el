@@ -388,8 +388,9 @@
   :ensure t
   :commands (web-mode)
   :mode (("\\.html\\'" . web-mode)
-         ("\\.tmpl\\'" . web-mode)
          ("\\.jinja\\'" . web-mode)
+         ("\\.svelte\\'" . web-mode)
+         ("\\.tmpl\\'" . web-mode)
          ("\\.vue\\'" . web-mode))
   :hook (web-mode . my-web-mode-hook))
 
