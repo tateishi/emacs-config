@@ -221,7 +221,9 @@
 (use-package smartparens
   :ensure t
   :delight
-  :hook (after-init-hook . smartparens-global-strict-mode)
+  :hook
+  (after-init . smartparens-global-strict-mode)
+  (prog-mode . smartparens-mode)
   :custom
   (electric-pair-mode nil)
   :config
@@ -233,7 +235,8 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook ((prog-mode-hook . rainbow-delimiters-mode)))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 ;;;
 ;;; highlight-indent-guides
