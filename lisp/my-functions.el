@@ -45,4 +45,11 @@
   (interactive "MAccount:")
   (insert (format account-header-format acc)))
 
+(defun get-commit-message ()
+  (format "%s 作業分" (format-time-string "%Y/%m/%d")))
+
+(defun insert-commit-message ()
+  (interactive)
+  (insert (get-commit-message)))
+
 (provide 'my-functions)
