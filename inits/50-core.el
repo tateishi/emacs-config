@@ -32,6 +32,12 @@
 ;;; general setting
 ;;;
 
+(use-package startup
+  :no-require t
+  :config
+  (setq initial-buffer-choice t
+        warning-minimum-level :error))
+
 (use-package misc
   :no-require t
   :config
@@ -248,7 +254,7 @@
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled t)
   (highlight-indent-guides-responsive t)
-  (highlight-indent-guides-character |\|))
+  (highlight-indent-guides-character ?|))
 
 ;;;
 ;;; whitespace-mode
@@ -350,7 +356,6 @@
   (setq-local ledger-complete-in-steps t))
 
 (use-package shiwake-mode
-  :ensure t
   :load-path "lisp"
   :commands (shiwake-mode)
   :custom (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
@@ -691,7 +696,6 @@ _q_: exit
   (setq indent-tabs-mode nil))
 
 (use-package kinshu-mode
-  :ensure t
   :load-path "lisp"
   :commands (kinshu-mode)
   :hook (kinshu-mode . my-kinshu-mode-hook))
