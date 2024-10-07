@@ -35,6 +35,7 @@
                     ))
 
 (use-package fonts
+  :no-require t
   :if window-system
   :init
   (my/select-favorite-font font-list))
