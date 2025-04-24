@@ -24,6 +24,7 @@
 
 (defvar font-list '(
                     "HackGen Console NF-14"
+                    "HackGen Console-14"
                     "HackGenNerd Console-12"
                     "Myrica M-12"
                     "Noto Sans Mono CJK JP Regular-11"
