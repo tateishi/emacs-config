@@ -81,11 +81,28 @@
       (delete-region beg end)
       (insert res))))
 
+(defun shiwake-replace-account(new)
+  "Rename account under point to NEW."
+  (interactive
+   (let* ((new-name (ledger-read-account-with-prompt "New account")))
+     (list new-name)))
+  (save-excursion
+    (goto-char (pos-bol))
+    (when (re-search-forward ledger-account-name-or-directive-regex nil t)
+      (replace-match new 'fixedcase 'literal nil 1))
+    (when ledger-post-auto-align
+      (ledger-post-align-postings (point-min) (point-max)))))
+
+(defun shiwake-toggle-pending-current-transaction ()
+  "Set the transaction at point using pending."
+  (interactive)
+  (ledger-toggle-current-transaction 'pending))
+
 (defvar shiwake-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-j") #'shiwake-date)
     (define-key map (kbd "C-c C-h") #'shiwake-account)
-    (define-key map (kbd "C-c C-n") #'shiwake-read-account)
+    (define-key map (kbd "C-c C-n") #'shiwake-replace-account)
     map))
 
 (define-derived-mode shiwake-mode ledger-mode "Shiwake"
