@@ -88,8 +88,11 @@
      (list new-name)))
   (save-excursion
     (goto-char (pos-bol))
-    (when (re-search-forward ledger-account-name-or-directive-regex nil t)
-      (replace-match new 'fixedcase 'literal nil 1))
+    (if (re-search-forward ledger-account-name-or-directive-regex (line-end-position) t)
+        (replace-match new 'fixedcase 'literal nil 1)
+      (insert new)
+      (indent-for-tab-command)
+      )
     (when ledger-post-auto-align
       (ledger-post-align-postings (point-min) (point-max)))))
 
