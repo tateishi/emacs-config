@@ -81,7 +81,7 @@
       (delete-region beg end)
       (insert res))))
 
-(defun shiwake-replace-account(new)
+(defun shiwake-replace-account (new)
   "Rename account under point to NEW."
   (interactive
    (let* ((new-name (ledger-read-account-with-prompt "New account")))
