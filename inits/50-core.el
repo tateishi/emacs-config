@@ -358,7 +358,9 @@
 (use-package shiwake-mode
   :load-path "lisp"
   :commands (shiwake-mode)
-  :custom (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
+  :custom
+  (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
+  (ledger-payees-file "~/wks/ledger/accounts/payees.dat")
   :init
   (setq ledger-reports
         '(("残高" "%(binary) -f /home/ubuntu/wks/ledger/ledger_kakei/main.ledger --sort date,-amount reg %(account)")

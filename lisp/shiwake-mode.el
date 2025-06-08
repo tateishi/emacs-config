@@ -96,6 +96,24 @@
     (when ledger-post-auto-align
       (ledger-post-align-postings (point-min) (point-max)))))
 
+(defun shiwake-insert-payee (new)
+  "Insert payee NEW."
+  (interactive
+   (let* ((new-name (ledger-read-payee-with-prompt "New Payee")))
+     (list new-name)))
+  (save-excursion
+    (let ((cur-pos (point)))
+      (goto-char (pos-bol))
+      (if (re-search-forward ledger-payee-name-or-directive-regex (line-end-position) t)
+          (replace-match new 'fixedcase 'literal nil 1)
+        (goto-char cur-pos)
+        (insert new)
+        (indent-for-tab-command)
+        )
+      (when ledger-post-auto-align
+        (ledger-post-align-postings (point-min) (point-max))))
+    ))
+
 (defun shiwake-toggle-pending-current-transaction ()
   "Set the transaction at point using pending."
   (interactive)
@@ -106,6 +124,7 @@
     (define-key map (kbd "C-c C-j") #'shiwake-date)
     (define-key map (kbd "C-c C-h") #'shiwake-account)
     (define-key map (kbd "C-c C-n") #'shiwake-replace-account)
+    (define-key map (kbd "C-c C-m") #'shiwake-insert-payee)
     map))
 
 (define-derived-mode shiwake-mode ledger-mode "Shiwake"
