@@ -119,12 +119,29 @@
   (interactive)
   (ledger-toggle-current-transaction 'pending))
 
+(defun shiwake-mode-clean-buffer ()
+  "Indent, remove multiple line feeds the buffer."
+  (interactive)
+  (let ((start (point-min-marker))
+        (end (point-max-marker))
+        (distance-in-xact (- (point) (ledger-navigate-beginning-of-xact))))
+    (let ((target (buffer-substring (line-beginning-position) (line-end-position))))
+      (goto-char start)
+      (untabify start end)
+      (ledger-post-align-postings start end)
+      (ledger-mode-remove-extra-lines)
+      (goto-char start)
+      (search-forward target)
+      (beginning-of-line)
+      (forward-char distance-in-xact))))
+
 (defvar shiwake-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-c C-j") #'shiwake-date)
     (define-key map (kbd "C-c C-h") #'shiwake-account)
-    (define-key map (kbd "C-c C-n") #'shiwake-replace-account)
+    (define-key map (kbd "C-c C-j") #'shiwake-date)
+    (define-key map (kbd "C-c C-l") #'shiwake-mode-clean-buffer)
     (define-key map (kbd "C-c C-m") #'shiwake-insert-payee)
+    (define-key map (kbd "C-c C-n") #'shiwake-replace-account)
     map))
 
 (define-derived-mode shiwake-mode ledger-mode "Shiwake"
