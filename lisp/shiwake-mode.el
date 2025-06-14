@@ -135,6 +135,16 @@
       (beginning-of-line)
       (forward-char distance-in-xact))))
 
+(defface shiwake-mode-font-tag-face
+  '((t :inherit font-lock-comment-face :inverse-video t))
+  "Default face for tag.")
+
+(defvar shiwake-font-lock-keywords
+  (append
+   '((" \\(:[^:\n]*:\\([^:\n]*:\\)*\\)" (1 'shiwake-mode-font-tag-face)))
+   ledger-font-lock-keywords
+   ))
+
 (defvar shiwake-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-h") #'shiwake-account)
@@ -147,7 +157,8 @@
 (define-derived-mode shiwake-mode ledger-mode "Shiwake"
   "Shiwake-mode is a my major mode for editing ledger data.
 
-\\{shiwake-mode-map}")
+\\{shiwake-mode-map}"
+  (setq font-lock-defaults '(shiwake-font-lock-keywords t)))
 
 (provide 'shiwake-mode)
 
