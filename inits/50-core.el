@@ -125,8 +125,8 @@
 (use-package eldoc
   :ensure t
   :hook ((emacs-lisp-mode-hook . turn-on-eldoc-mode)
-	 (lisp-interaction-mode-hook . turn-on-eldoc-mode)
-	 (ielm-mode-hook . turn-on-eldoc-mode)))
+         (lisp-interaction-mode-hook . turn-on-eldoc-mode)
+         (ielm-mode-hook . turn-on-eldoc-mode)))
 
 ;; (use-package auto-complete
 ;;   :config
