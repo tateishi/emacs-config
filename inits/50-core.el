@@ -89,7 +89,7 @@
 (use-package general
   :no-require t
   :hook ((before-save . delete-trailing-whitespace))
-  :init
+  :config
   (show-paren-mode t)
   (setq-default require-final-newline t))
 
