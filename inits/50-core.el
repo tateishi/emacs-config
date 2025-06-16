@@ -105,12 +105,12 @@
 (use-package :backup
   :no-require t
   :config
-  (setq backup-by-copying      t
-        backup-directory-alist `(("." . ,(expand-file-name "backup" config-dir)))
-        delete-old-versions    t
-        kept-new-versions      6
-        kept-old-versions      2
-        version-control        t))
+  (setq backup-by-copying t)
+  (setq backup-directory-alist (list (cons ".*" (expand-file-name "backup" config-dir))))
+  (setq delete-old-versions t)
+  (setq kept-new-versions 6)
+  (setq kept-old-versions 2)
+  (setq version-control t))
 
 (use-package undo-tree
   :ensure t
@@ -119,8 +119,7 @@
   :config
   (global-undo-tree-mode)
   (setq undo-tree-auto-save-history t)
-  (setq undo-tree-history-directory-alist `(("." . ,(expand-file-name "undo" config-dir)))))
-
+  (setq undo-tree-history-directory-alist (list (cons ".*" (expand-file-name "undo" config-dir)))))
 
 (use-package eldoc
   :ensure t
