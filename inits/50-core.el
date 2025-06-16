@@ -79,9 +79,11 @@
 ;;;
 
 (defun my-disable-trailing-whitespace ()
+  "Disable `show-trailing-whitespace'."
   (setq show-trailing-whitespace nil))
 
 (defun my-enable-trailing-whitespace ()
+  "Enable `show-trailing-whitespace'."
   (setq show-trailing-whitespace t))
 
 (use-package general
