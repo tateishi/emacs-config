@@ -35,8 +35,7 @@
 (use-package startup
   :no-require t
   :config
-  (setq initial-buffer-choice t
-        warning-minimum-level :error))
+  (setq initial-buffer-choice t))
 
 (use-package misc
   :no-require t
@@ -153,6 +152,11 @@
 ;;; helm
 ;;;
 
+(use-package helm
+  :ensure t
+  :commands
+  (helm-M-x helm-apropos helm-find-files helm-for-files))
+
 ;; (use-package helm
 ;;   :bind
 ;;   (("C-x C-f" . helm-find-files)
@@ -164,6 +168,11 @@
 ;;;
 ;;; helm-ag
 ;;;
+
+(use-package helm-ag
+  :ensure t
+  :commands
+  (helm-ag))
 
 ;; (use-package helm-ag)
 
@@ -602,13 +611,13 @@
     "
 MAIN
 --------------------------------------------------------------------------------
-_h_: left char   _f_: forward sexp     _0_: treemacs  _m_: MOVE
-_l_: right char  _b_: backward sexp    _1_: window 1  _w_: ace-window
-_j_: down line   _u_: up list          _2_: window 2  _g_: helm-ag
-_k_: up line     _U_: backward up list _3_: window 3  _:_: goto-char
-_+_: larger      _d_: down list        _4_: window 4  _._: tag
-_-_: smaller     _x_: helm-M-x         _5_: window 5  _,_: back
-_q_: exit        _o_: helm-for-files   _6_: window 6
+_h_: left char   _f_: forward sexp     _m_: MOVE        _0_: treemacs
+_l_: right char  _b_: backward sexp    _w_: ace-window
+_j_: down line   _u_: up list          _g_: helm-ag
+_k_: up line     _U_: backward up list _:_: goto-char
+_+_: larger      _d_: down list        _._: tag
+_-_: smaller     _x_: helm-M-x         _,_: back
+_q_: exit        _o_: helm-for-files
                _a_: helm-apropos
 "
     ("+" text-scale-increase)
@@ -633,15 +642,9 @@ _q_: exit        _o_: helm-for-files   _6_: window 6
     ("w" ace-window)
     (":" avy-goto-char-timer)
     ("." xref-find-definitions)
-    ("," xref-pop-marker-stack)
+    ("," xref-go-back)
     ("m" hydra-move/body        :exit t)
     ("0" treemacs-select-window :exit t)
-    ("1" winum-select-window-1  :exit t)
-    ("2" winum-select-window-2  :exit t)
-    ("3" winum-select-window-3  :exit t)
-    ("4" winum-select-window-4  :exit t)
-    ("5" winum-select-window-5  :exit t)
-    ("6" winum-select-window-6  :exit t)
     ("q" nil                    :exit t)))
 
 (use-package hydra-move :no-require t
