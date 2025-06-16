@@ -133,8 +133,7 @@
 
 
 (defun my-company-mode-hook ()
-  "Hook for company-mode"
-
+  "Hook for company-mode."
   (setq company-minimum-prefix-length 2))
 
 (use-package company
