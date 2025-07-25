@@ -214,7 +214,7 @@
          :map minibuffer-local-map
          ("M-A" . marginalia-cycle))
   :config
-  (add-to-list 'marginalia-annotator-registry
+  (add-to-list 'marginalia-annotators
                '(command marginalia-annotate-command builtin))
   (marginalia-mode))
 
