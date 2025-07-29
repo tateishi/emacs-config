@@ -353,6 +353,7 @@
 ;;;
 ;;; markdown-mode
 ;;;
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -360,6 +361,18 @@
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+;;;
+;;; jinja2-mode
+;;;
+
+(use-package jinja2-mode
+  :ensure t
+  :mode ("\\.j2\\'" "\\.jinja\\'" "\\.jinja2\\'"))
+
+;;;
+;;; ledger-mode / shiwake-mode
+;;;
 
 (defun my-ledger-mode-hook ()
   (setq-local tab-always-indent 'complete)
