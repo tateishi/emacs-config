@@ -385,6 +385,8 @@
   :custom
   (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
   (ledger-payees-file "~/wks/ledger/accounts/payees.dat")
+  (ledger-copy-transaction-insert-blank-line-after t)
+
   :init
   (setq ledger-reports
         '(("残高" "%(binary) -f /home/ubuntu/wks/ledger/ledger_kakei/main.ledger --sort date,-amount reg %(account)")
