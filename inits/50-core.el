@@ -233,6 +233,7 @@
 
 (use-package google-translate
   :ensure t
+  :defines google-translate-translation-directions-alist
   :bind
   (("C-c t" . google-translate-smooth-translate))
   :config
@@ -625,7 +626,15 @@
 
 (use-package hydra
   :ensure t
-  :functions hydra-main/body hydra-windmove/body
+  :functions
+  hydra-main/body
+  hydra-windmove/body
+  hydra--call-interactively-remap-maybe
+  hydra-default-pre
+  hydra-idle-message
+  hydra-keyboard-quit
+  hydra-set-transient-map
+  hydra-show-hint
   :bind (("C-c h"   . hydra-main/body)
          ("M-m"     . hydra-main/body)
          ("M-<SPC>" . hydra-main/body)
