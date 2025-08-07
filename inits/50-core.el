@@ -131,17 +131,26 @@
 ;;   :config
 ;;   (global-auto-complete-mode t))
 
-
-(defun my-company-mode-hook ()
-  "Hook for company-mode."
-  (setq company-minimum-prefix-length 2))
+;;
+;; 補完パッケージ company
+;;
 
 (use-package company
   :ensure t
-  :hook
-  (company-mode-hook . my-company-mode-hook)
-  :config
-  (global-company-mode))
+  :after company-statistics
+  :custom
+  (company-minimum-prefix-length 2)
+  (company-transformers
+   '(company-sort-by-statistics
+     company-sort-by-occurrence
+     company-sort-by-backend-importance))
+  :hook ((after-init-hook . global-company-mode)))
+
+(use-package company-statistics
+  :ensure t
+  :hook ((after-init-hook . company-statistics-mode)))
+
+;;
 
 (use-package avy
   :ensure t

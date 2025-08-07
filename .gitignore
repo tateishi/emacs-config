@@ -15,10 +15,12 @@
 .cache
 ac-comphist.dat
 backup
+company-statistics-cache.el
 custom.el
 eln-cache
 elpa
 eshell
+ielm-history.eld
 kkcrc
 persp-confs
 projects
