@@ -58,8 +58,7 @@
 
 (use-package init-loader
   :ensure t
-  :functions init-locader-load
-  :init (setq init-loader-byte-compile t)
+  :custom (init-loader-byte-compile t)
   :config (init-loader-load))
 
 ;;; init.el ends here
