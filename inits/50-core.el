@@ -414,17 +414,6 @@
 ;;; web-mode
 ;;; url: https://web-mode.org/
 
-(defun my-web-mode-hook ()
-  "Hook for web-mode"
-  (setq web-mode-enable-auto-closing t)
-  (setq web-mode-enable-engine-detection t)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-attr-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-script-padding 0)
-  (setq web-mode-style-padding 0))
-
 (use-package web-mode
   :ensure t
   :commands (web-mode)
@@ -433,28 +422,33 @@
          ("\\.svelte\\'" . web-mode)
          ("\\.tmpl\\'" . web-mode)
          ("\\.vue\\'" . web-mode))
-  :hook (web-mode . my-web-mode-hook))
-
-
-(defun my-typescript-mode-hook ()
-  "Hook for typescript-mode"
-  (setq typescript-indent-level 2))
+  :custom
+  (web-mode-enable-auto-closing t)
+  (web-mode-enable-engine-detection t)
+  (web-mode-markup-indent-offset 2)
+  (web-mode-attr-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-script-padding 0)
+  (web-mode-style-padding 0))
 
 (use-package typescript-mode
   :ensure t
   :commands (typescript-mode)
-  :hook (typescript-mode . my-typescript-mode-hook))
+  :custom
+  (typescript-indent-level 2))
 
 
-(defun my-json-mode-hook ()
-  "Hook for json-mode"
-  (setq js-indent-level 2
-        json-reformat:indent-width 2))
+;; (defun my-json-mode-hook ()
+;;   "Hook for json-mode"
+;;   (setq js-indent-level 2
+;;         json-reformat:indent-width 2))
 
 (use-package json-mode
   :ensure t
   :commands (json-mode)
-  :hook (json-mode . my-json-mode-hook))
+  :custom
+  (js-indent-level 2))
 
 ;; (mapc (lambda (package) (use-package package :ensure t))
 ;;       '(cmake-mode
