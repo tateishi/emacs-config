@@ -336,18 +336,17 @@
 ;;; cc mode
 ;;;
 
-(defun my-cc-mode-hook ()
-  (google-set-c-style)
-  (google-make-newline-indent)
-  (setq c-basic-offset 4))
-
 (use-package cc-mode
   :ensure t
-  :init
-  (use-package google-c-style :ensure t)
   :hook
-  (c-mode-common . my-cc-mode-hook)
   (c-mode-common . my-enable-trailing-whitespace))
+
+(use-package google-c-style
+  :ensure t
+  :after cc-mode
+  :hook
+  (c-mode-common . google-set-c-style)
+  (c-mode-common . google-make-newline-indent))
 
 ;;;
 ;;; python mode
