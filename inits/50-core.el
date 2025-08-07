@@ -468,13 +468,27 @@
 ;;         rust-mode
 ;;         yaml-mode))
 
-(defmacro expand-package (&rest packages)
-  (declare (indent defun))
-  (append '(progn)
-          (mapcar (lambda (p) `(use-package ,p :ensure t))
-                  packages)))
+;; (defmacro expand-package (&rest packages)
+;;   (declare (indent defun))
+;;   (append '(progn)
+;;           (mapcar (lambda (p) `(use-package ,p :ensure t))
+;;                   packages)))
 
-(expand-package
+(defmacro expand-packages (&rest packages)
+  "PACKAGES を順にuse-packageに適用する.
+
+\(expand-package
+  package-1
+  package-2\)
+=>
+\(progn
+  \(use-package package-1 :ensure t\)
+  \(use-package package-2 :ensure t\)\)"
+  (declare (indent defun))
+  `(progn
+     ,@(mapcar (lambda (p) `(use-package ,p :ensure t)) packages)))
+
+(expand-packages
   ansible
   cmake-mode
   csv-mode
