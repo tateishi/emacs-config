@@ -395,6 +395,7 @@
   (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
   (ledger-payees-file "~/wks/ledger/accounts/payees.dat")
   (ledger-copy-transaction-insert-blank-line-after t)
+  (ledger-post-amount-alignment-at :decimal)
 
   :init
   (setq ledger-reports
