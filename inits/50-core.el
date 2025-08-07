@@ -559,14 +559,11 @@
 (use-package modus-themes
   :ensure t
   :init
-  ;; Add all your customizations prior to loading the themes
-  (setq modus-themes-italic-constructs nil
-        modus-themes-bold-constructs nil
-        modus-themes-region '(bg-only no-extend))
   (modus-themes-select 'modus-vivendi)
-
+  :custom
+  (modus-themes-italic-constructs nil)
+  (modus-themes-bold-constructs nil)
   :config
-  ;; Load the theme of your choice:
   :bind ("<f5>" . modus-themes-toggle))
 
 ;;;
