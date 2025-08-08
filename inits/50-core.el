@@ -57,6 +57,15 @@
   (tab-bar-mode 1)
   (tool-bar-mode -1)
 
+  :bind
+  (("C-h" . backward-delete-char-untabify)
+   ("C-z" . scroll-down-command)
+   ("C-c c" . compile)
+   ("C-x t t" . tab-bar-switch-to-tab)
+   ("<C-return>" . other-window)
+   ("<M-return>" . other-frame)
+   ("C-c o"   . swap-first-window))
+
   :hook
   ((before-save . delete-trailing-whitespace)))
 
@@ -612,21 +621,6 @@
 (use-package ace-window
   :ensure t
   :bind (("C-x o" . ace-window)))
-
-;;;
-;;; key bind
-;;;
-
-(use-package key-bind
-  :no-require t
-  :bind
-  (("C-h" . backward-delete-char-untabify)
-   ("C-z" . scroll-down-command)
-   ("C-c c" . compile)
-   ("C-x t t" . tab-bar-switch-to-tab)
-   ("<C-return>" . other-window)
-   ("<M-return>" . other-frame)
-   ("C-c o"   . swap-first-window)))
 
 ;;;
 ;;; hydra
