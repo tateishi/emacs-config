@@ -72,8 +72,8 @@
 
 (use-package mozc
   :ensure t
-  :config
-  (setq default-input-method "japanese-mozc"))
+  :custom
+  (default-input-method "japanese-mozc"))
 
 ;;;
 ;;; for microsoft windows
