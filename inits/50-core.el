@@ -547,8 +547,8 @@
   :ensure t
   :bind
   ("C-x j" . open-junk-file)
-  :config
-  (setq open-junk-file-format "~/junk/%Y/%m/%Y-%m-%d-%H%M%S."))
+  :custom
+  (open-junk-file-format "~/.texts/%Y/%m/%Y-%m-%d-%H%M%S."))
 
 ;;;
 ;;; user interface
