@@ -525,6 +525,7 @@
 ;;;
 ;;; migemo
 ;;;
+
 (when (executable-find "cmigemo")
   (use-package migemo
     :ensure t
