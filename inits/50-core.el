@@ -201,7 +201,24 @@
 
 (use-package orderless
   :ensure t
-  :custom (completion-styles '(orderless)))
+  :defines consult--regexp-compiler
+  :functions consult--highlight-regexps consult--convert-regexp consult--split-escaped migemo-get-pattern
+  :preface
+  (defun my-orderless-migemo-dispatcher (pattern _index _total)
+    (when (and (featurep 'migemo)
+               (string-match-p "\\`[[:ascii:]]+\\'" pattern))
+      `(orderless-regexp . ,(migemo-get-pattern pattern))))
+
+  (defun my-consult--migemo-regexp-compiler (input type ignore-case)
+    (let ((migemo-regexp (mapcar #'migemo-get-pattern (consult--split-escaped input))))
+      (cons (mapcar (lambda (reg) (consult--convert-regexp reg type)) migemo-regexp)
+            (lambda (str) (consult--highlight-regexps migemo-regexp ignore-case str)))))
+
+  :custom
+  (completion-styles '(orderless))
+  (orderless-style-dispatchers '(my-orderless-migemo-dispatcher))
+  :config
+  (setq consult--regexp-compiler #'my-consult--migemo-regexp-compiler))
 
 ;;;
 ;;; consult
