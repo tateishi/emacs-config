@@ -32,16 +32,37 @@
 ;;; general setting
 ;;;
 
-(use-package startup
-  :no-require t
-  :config
-  (setq initial-buffer-choice t))
+(use-package emacs
+  :preface
+  (defun my-disable-trailing-whitespace ()
+    "Disable `show-trailing-whitespace'."
+    (setq show-trailing-whitespace nil))
 
-(use-package misc
-  :no-require t
+  (defun my-enable-trailing-whitespace ()
+    "Enable `show-trailing-whitespace'."
+    (setq show-trailing-whitespace t))
+
+  :custom
+  (indent-tabs-mode nil)
+  (initial-buffer-choice t)
+  (require-final-newline t)
+  (vc-follow-symlinks t)
+
   :config
-  (setq-default indent-tabs-mode nil)
-  (setq vc-follow-symlinks t))
+  (column-number-mode t)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (show-paren-mode t)
+  (size-indication-mode t)
+  (tab-bar-mode 1)
+  (tool-bar-mode -1)
+
+  :hook
+  ((before-save . delete-trailing-whitespace)))
+
+;;;
+;;; Japanese
+;;;
 
 (use-package Japanese
   :no-require t
@@ -54,16 +75,6 @@
   :config
   (setq default-input-method "japanese-mozc"))
 
-(use-package appearance
-  :no-require t
-  :config
-  (column-number-mode t)
-  (size-indication-mode t)
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tab-bar-mode 1))
-
 ;;;
 ;;; for microsoft windows
 ;;;
@@ -73,25 +84,6 @@
   :if (eq system-type 'windows-nt)
   :config
   (setq default-process-coding-system '(utf-8-dos . cp932)))
-
-;;;
-;;; edit
-;;;
-
-(defun my-disable-trailing-whitespace ()
-  "Disable `show-trailing-whitespace'."
-  (setq show-trailing-whitespace nil))
-
-(defun my-enable-trailing-whitespace ()
-  "Enable `show-trailing-whitespace'."
-  (setq show-trailing-whitespace t))
-
-(use-package general
-  :no-require t
-  :hook ((before-save . delete-trailing-whitespace))
-  :config
-  (show-paren-mode t)
-  (setq-default require-final-newline t))
 
 ;;;
 ;;; repeat-mode
