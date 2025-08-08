@@ -400,11 +400,6 @@
 ;;; ledger-mode / shiwake-mode
 ;;;
 
-(defun my-ledger-mode-hook ()
-  (setq-local tab-always-indent 'complete)
-  (setq-local completion-cycle-threshold t)
-  (setq-local ledger-complete-in-steps t))
-
 (use-package shiwake-mode
   :load-path "lisp"
   :commands (shiwake-mode)
@@ -413,21 +408,16 @@
   (ledger-payees-file "~/wks/ledger/accounts/payees.dat")
   (ledger-copy-transaction-insert-blank-line-after t)
   (ledger-post-amount-alignment-at :decimal)
-
-  :init
-  (setq ledger-reports
-        '(("残高" "%(binary) -f /home/ubuntu/wks/ledger/ledger_kakei/main.ledger --sort date,-amount reg %(account)")
-          ("残高忠利" "%(binary) -f /home/ubuntu/wks/ledger/ledger_tadatoshi/main.ledger --sort date,-amount reg %(account)")
-          ("残高花子" "%(binary) -f /home/ubuntu/wks/ledger/ledger_hanako/main.ledger --sort date,-amount reg %(account)")
-          ("店別" "%(binary) -f /home/ubuntu/wks/ledger/ledger_kakei/main.ledger --sort date,-amount reg @%(payee)")
-          ("bal" "%(binary) -f /home/ubuntu/wks/ledger/ledger_kakei/main.ledger bal")
-          ("bal this month" "%(binary) -f /home/ubuntu/wks/ledger/ledger_kakei/main.ledger -p %(month) bal")
-          ("reg" "%(binary) -f %(ledger-file) reg")
-          ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-          ("account" "%(binary) -f %(ledger-file) reg %(account)")))
-
+  (ledger-complete-in-steps t)
+  (ledger-reports
+   '(("残高" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account)")
+     ("店別" "%(binary) -f %(ledger-file) --sort date,-amount reg @%(payee)")
+     ("bal" "%(binary)  -f %(ledger-file) bal")
+     ("bal this month" "%(binary) -f %(ledger-file)  -p %(month) bal")
+     ("reg" "%(binary) -f %(ledger-file) reg")
+     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)")))
   :hook
-  (ledger-mode . my-ledger-mode-hook)
   (ledger-mode . my-enable-trailing-whitespace))
 
 ;;; web-mode
