@@ -526,18 +526,25 @@
 ;;; migemo
 ;;;
 
-(when (executable-find "cmigemo")
-  (defvar config-migemo/dir "/usr/share/cmigemo/utf-8")
-  (use-package migemo
-    :ensure t
-    :custom
-    (migemo-directory
-     (if (file-directory-p config-migemo/dir)
-         config-migemo/dir
-       (format "%s/dict/utf-8" (directory-file-name (file-name-directory (or (executable-find "cmigemo") ""))))))
-    :functions (migemo-init)
-    :config
-    (migemo-init)))
+(use-package migemo
+  :if (executable-find "cmigemo")
+  :ensure t
+  :preface
+  (setq my-migemo-path "/usr/share/cmigemo/utf-8")
+  (defun my-migemo-directory (path)
+    (if (file-directory-p path)
+        path
+      (let ((migemo-path (file-name-directory (or (executable-find "cmigemo") ""))))
+        (expand-file-name "dict/utf8" migemo-path))))
+  (defun my-migemo-dictionary (path)
+    (if (file-directory-p path)
+        (expand-file-name "migemo-dict" path)))
+  :custom
+  (migemo-directory (my-migemo-directory my-migemo-path))
+  (migemo-dictionary (my-migemo-dictionary my-migemo-path))
+  :functions migemo-init
+  :config
+  (migemo-init))
 
 ;;;
 ;;; open junk file
