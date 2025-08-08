@@ -108,10 +108,11 @@
   :ensure t
   :bind (("M-/" . undo-tree-redo)
          ("C-x u" . undo-tree-visualize))
+  :custom
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist (list (cons ".*" (expand-file-name "undo" config-dir))))
   :config
-  (global-undo-tree-mode)
-  (setq undo-tree-auto-save-history t)
-  (setq undo-tree-history-directory-alist (list (cons ".*" (expand-file-name "undo" config-dir)))))
+  (global-undo-tree-mode))
 
 (use-package eldoc
   :ensure t
