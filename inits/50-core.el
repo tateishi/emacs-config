@@ -101,7 +101,8 @@
 (use-package repeat-mode
   :no-require t
   :if (version< "28" emacs-version)
-  :config (repeat-mode 1))
+  :config
+  (repeat-mode))
 
 (use-package :backup
   :no-require t
@@ -146,11 +147,13 @@
    '(company-sort-by-statistics
      company-sort-by-occurrence
      company-sort-by-backend-importance))
-  :hook ((after-init-hook . global-company-mode)))
+  :hook
+  ((after-init-hook . global-company-mode)))
 
 (use-package company-statistics
   :ensure t
-  :hook ((after-init-hook . company-statistics-mode)))
+  :hook
+  ((after-init-hook . company-statistics-mode)))
 
 ;;
 
@@ -193,8 +196,9 @@
 
 (use-package vertico
   :ensure t
+  :custom
+  (vertico-count 20)
   :config
-  (setq vertico-count 20)
   (vertico-mode))
 
 ;;;
@@ -266,13 +270,12 @@
 
 (use-package smartparens
   :ensure t
-  :delight
-  :hook
-  (prog-mode . smartparens-mode)
   :custom
   (electric-pair-mode nil)
   :config
-  (require 'smartparens-config))
+  (require 'smartparens-config)
+  :hook
+  (prog-mode . smartparens-mode))
 
 ;;;
 ;;; rainbow-delimiters
@@ -289,7 +292,6 @@
 
 (use-package highlight-indent-guides
   :ensure t
-  :delight
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled t)
@@ -302,8 +304,6 @@
 
 (use-package whitespace
   :ensure t
-  :demand t
-  :delight
   :bind ("C-c W" . whitespace-cleanup)
   :custom
   (whitespace-style '(face trailing tabs spaces empty space-mark tab-mark))
@@ -344,9 +344,8 @@
 
 (use-package flycheck
   :ensure t
-  :init
-  (add-hook 'after-init-hook 'global-flycheck-mode))
-
+  :hook
+  (after-init-hook . global-flycheck-mode))
 
 ;;;
 ;;; program modes
@@ -374,9 +373,24 @@
 
 (use-package python-mode
   :ensure t
-  :init
-  (add-hook 'python-mode-hook #'smartparens-mode)
-  )
+  :hook
+  (python-mode-hook . smartparens-mode))
+
+;;;
+;;; python-black
+;;;
+
+(use-package python-black
+  :ensure t
+  :after python)
+
+;;;
+;;; py-isort
+;;;
+
+(use-package py-isort
+  :ensure t
+  :after python)
 
 ;;;
 ;;; markdown-mode
@@ -388,7 +402,8 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :custom
+  (markdown-command "multimarkdown"))
 
 ;;;
 ;;; jinja2-mode
@@ -457,12 +472,6 @@
   :custom
   (typescript-indent-level 2))
 
-
-;; (defun my-json-mode-hook ()
-;;   "Hook for json-mode"
-;;   (setq js-indent-level 2
-;;         json-reformat:indent-width 2))
-
 (use-package json-mode
   :ensure t
   :commands (json-mode)
@@ -511,23 +520,6 @@
   meson-mode
   rust-mode
   yaml-mode)
-
-
-;;;
-;;; python-black
-;;;
-
-(use-package python-black
-  :ensure t
-  :after python)
-
-;;;
-;;; py-isort
-;;;
-
-(use-package py-isort
-  :ensure t
-  :after python)
 
 ;;;
 ;;; magit
