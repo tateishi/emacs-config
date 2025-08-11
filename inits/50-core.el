@@ -84,6 +84,12 @@
   :custom
   (default-input-method "japanese-mozc"))
 
+(when (version<= "30.1" emacs-version)
+  (use-package cjk-ambiguous
+    :no-require t
+  :custom
+  (cjk-ambiguous-chars-are-wide nil)))
+
 ;;;
 ;;; for microsoft windows
 ;;;
