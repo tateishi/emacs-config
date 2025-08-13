@@ -101,6 +101,16 @@
   (setq default-process-coding-system '(utf-8-dos . cp932)))
 
 ;;;
+;;; ORG mode
+;;;
+
+(use-package org
+  :ensure t
+  :bind (("C-c a" . org-agenda)
+         ("C-c l" . org-store-link))
+  :custom (org-agenda-files (list org-directory)))
+
+;;;
 ;;; repeat-mode
 ;;;
 
