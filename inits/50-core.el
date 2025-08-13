@@ -77,7 +77,8 @@
   :no-require t
   :config
   (set-language-environment "Japanese")
-  (prefer-coding-system 'utf-8-unix))
+  (prefer-coding-system 'utf-8-unix)
+  (setq system-time-locale "ja_JP.UTF-8"))
 
 (use-package mozc
   :ensure t
@@ -108,7 +109,17 @@
   :ensure t
   :bind (("C-c a" . org-agenda)
          ("C-c l" . org-store-link))
-  :custom (org-agenda-files (list org-directory)))
+  :custom
+ (org-agenda-files (list org-directory))
+ (org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
+ (org-display-custom-times t))
+
+(use-package org-journal
+  :ensure t
+  :bind (("C-c j" . org-journal-new-entry))
+  :custom
+  (org-journal-dir "~/org/local/journal/")
+  (org-journal-date-format "%Y-%m-%d (%A)"))
 
 ;;;
 ;;; repeat-mode
