@@ -110,9 +110,9 @@
   :bind (("C-c a" . org-agenda)
          ("C-c l" . org-store-link))
   :custom
- (org-agenda-files (list org-directory))
- (org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
- (org-display-custom-times t))
+  (org-agenda-files (list org-directory))
+  (org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
+  (org-display-custom-times t))
 
 (use-package org-journal
   :ensure t
