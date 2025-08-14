@@ -82,4 +82,15 @@
   (interactive)
   (insert (get-commit-message)))
 
+;;;
+;;; OSC52 clipboard
+;;;
+
+(defun osc52-copy-region (start end)
+  "Copy region to clipboard using OSC52, handling multibyte characters."
+  (interactive "r")
+  (let ((text (encode-coding-string (buffer-substring-no-properties start end) 'utf-8)))
+    (send-string-to-terminal
+     (concat "\e]52;c;" (base64-encode-string text t) "\a"))))
+
 (provide 'my-functions)
