@@ -88,8 +88,8 @@
 (when (version<= "30.1" emacs-version)
   (use-package cjk-ambiguous
     :no-require t
-  :custom
-  (cjk-ambiguous-chars-are-wide nil)))
+    :custom
+    (cjk-ambiguous-chars-are-wide nil)))
 
 ;;;
 ;;; for microsoft windows
@@ -261,8 +261,7 @@
 (use-package consult
   :ensure t
   :bind
-  (("C-x b" . consult-buffer))
-)
+  (("C-x b" . consult-buffer)))
 
 ;;;
 ;;; marginalia
