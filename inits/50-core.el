@@ -210,10 +210,10 @@
 ;;; helm-ag
 ;;;
 
-(use-package helm-ag
-  :ensure t
-  :commands
-  (helm-ag))
+;; (use-package helm-ag
+;;   :ensure t
+;;   :commands
+;;   (helm-ag))
 
 ;; (use-package helm-ag)
 
@@ -677,7 +677,7 @@ MAIN
 --------------------------------------------------------------------------------
 _h_: left char   _f_: forward sexp     _m_: MOVE        _0_: treemacs
 _l_: right char  _b_: backward sexp    _w_: ace-window
-_j_: down line   _u_: up list          _g_: helm-ag
+_j_: down line   _u_: up list
 _k_: up line     _U_: backward up list _:_: goto-char
 _+_: larger      _d_: down list        _._: tag
 _-_: smaller     _x_: helm-M-x         _,_: back
@@ -702,7 +702,6 @@ _q_: exit        _o_: helm-for-files
     ("x" helm-M-x)
     ("o" helm-for-files)
     ("a" helm-apropos)
-    ("g" helm-ag)
     ("w" ace-window)
     (":" avy-goto-char-timer)
     ("." xref-find-definitions)
