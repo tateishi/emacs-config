@@ -110,7 +110,8 @@
   :bind (("C-c a" . org-agenda)
          ("C-c l" . org-store-link))
   :custom
-  (org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+  (org-agenda-files (if (file-exists-p org-directory)
+                        (directory-files-recursively org-directory "\\.org$")))
   (org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
   (org-display-custom-times t))
 
