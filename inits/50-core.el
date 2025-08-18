@@ -77,10 +77,32 @@
   (prefer-coding-system 'utf-8-unix)
   (setq system-time-locale "ja_JP.UTF-8"))
 
+;;;
+;;; Google mozc
+;;;
+
 (use-package mozc
+  :disabled t
   :ensure t
   :custom
   (default-input-method "japanese-mozc"))
+
+;;;
+;;; DDSKK
+;;;
+
+(use-package ddskk
+  :ensure t
+  :custom
+  (default-input-method "japanese-skk")
+  :bind
+  (("C-x C-j" . skk-mode))
+  :config
+  (setq skk-get-jisyo-directory (expand-file-name "skk" config-dir)))
+
+;;;
+;;; CJK ambiguous width chars are narrow
+;;;
 
 (when (version<= "30.1" emacs-version)
   (use-package cjk-ambiguous
