@@ -91,10 +91,23 @@
 ;;; DDSKK
 ;;;
 
+(defun with-jisyo-dir (dir jisyo-list)
+  (mapcar (lambda (e)
+            (if (consp e)
+                (cons (expand-file-name (car e) dir) (cdr e))
+              (expand-file-name e dir)))
+          jisyo-list))
+(put 'with-jisyo-dir 'lisp-indent-function 1)
+
 (use-package ddskk
   :ensure t
   :custom
   (default-input-method "japanese-skk")
+  (skk-user-directory (expand-file-name "ddskk" config-dir))
+  (skk-large-jisyo (expand-file-name "skk/SKK-JISYO.L" config-dir))
+  (skk-extra-jisyo-file-list (with-jisyo-dir (expand-file-name "skk" config-dir)
+                               '(("SKK-JISYO.jinmei" . euc-japan)
+                                 ("SKK-JISYO.zipcode" . euc-japan))))
   :bind
   (("C-x C-j" . skk-mode))
   :config
