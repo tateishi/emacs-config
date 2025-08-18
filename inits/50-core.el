@@ -108,6 +108,7 @@
   (skk-extra-jisyo-file-list (with-jisyo-dir (expand-file-name "skk" config-dir)
                                '(("SKK-JISYO.jinmei" . euc-japan)
                                  ("SKK-JISYO.zipcode" . euc-japan))))
+  (skk-sticky-key ";")
   :bind
   (("C-x C-j" . skk-mode))
   :config
