@@ -60,11 +60,8 @@
   :bind
   (("C-h" . backward-delete-char-untabify)
    ("C-z" . scroll-down-command)
-   ("C-c c" . compile)
-   ("C-x t t" . tab-bar-switch-to-tab)
    ("<C-return>" . other-window)
-   ("<M-return>" . other-frame)
-   ("C-c o"   . swap-first-window))
+   ("<M-return>" . other-frame))
 
   :hook
   ((before-save . delete-trailing-whitespace)))
@@ -260,7 +257,9 @@
 (use-package consult
   :ensure t
   :bind
-  (("C-x b" . consult-buffer)))
+  (("C-x b" . consult-buffer)
+   ("C-x l" . consult-line)
+   ("C-x m" . consult-grep)))
 
 ;;;
 ;;; marginalia
