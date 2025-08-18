@@ -92,6 +92,9 @@
 ;;;
 
 (defun with-jisyo-dir (dir jisyo-list)
+  "辞書ファイルのリストにパスを付ける.
+
+JISYO-LISTのファイル名にDIRを付ける"
   (mapcar (lambda (e)
             (if (consp e)
                 (cons (expand-file-name (car e) dir) (cdr e))
