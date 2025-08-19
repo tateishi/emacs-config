@@ -615,6 +615,8 @@ JISYO-LISTのファイル名にDIRを付ける"
     :custom
     (migemo-directory (my-migemo-directory my-migemo-path))
     (migemo-dictionary (my-migemo-dictionary my-migemo-path))
+    (migemo-user-dictionary (expand-file-name "user-dict" "~/.local/share/cmigemo/"))
+    (migemo-options `("-q" "--emacs" "-s" ,migemo-user-dictionary))
     :functions migemo-init
     :config
     (migemo-init)))
