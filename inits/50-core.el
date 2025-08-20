@@ -378,21 +378,12 @@ JISYO-LISTのファイル名にDIRを付ける"
   (whitespace-global-modes '(not dired-mode tar-mode magit-mode))
   (global-whitespace-mode t)
   (whitespace-action '(auto-cleanup))
-  :config
-  (set-face-attribute 'whitespace-trailing nil
-                      :background "Black"
-                      :foreground "DeepPink"
-                      :underline t)
-  (set-face-attribute 'whitespace-tab nil
-                      :background "Black"
-                      :foreground "LightSkyBlue"
-                      :underline t)
-  (set-face-attribute 'whitespace-space nil
-                      :background "Black"
-                      :foreground "GreenYellow"
-                      :weight 'bold)
-  (set-face-attribute 'whitespace-empty nil
-                      :background "Black"))
+  :custom-face
+  ;; (whitespace-trailing ((t (:background "Black" :foreground "DeepPink" :underline t))))
+  ;; (whitespace-tab ((t (:background "Black" :foreground "LightSkyBlue" :underline t))))
+  ;; (whitespace-space ((t (:background "Black" :foreground "GreenYellow" :weight bold))))
+  ;; (whitespace-empty ((t (:background "Black"))))
+  )
 
 ;;;
 ;;; Eglot (emacs client of language server)
