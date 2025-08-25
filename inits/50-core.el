@@ -141,6 +141,10 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;; ORG mode
 ;;;
 
+;;
+;; helper commands/functions.
+;;
+
 (defun my-show-org-buffer (file)
   (interactive)
   (if (get-buffer file)
@@ -153,6 +157,10 @@ JISYO-LISTのファイル名にDIRを付ける"
   (interactive)
   (my-show-org-buffer "notes.org"))
 
+;;
+;; package definition
+;;
+
 (use-package org
   :ensure t
   :bind (("C-c a" . org-agenda)
@@ -164,7 +172,8 @@ JISYO-LISTのファイル名にDIRを付ける"
                         (directory-files-recursively org-directory "\\.org$")))
   (org-timestamp-formats '("%Y-%m-%d %a" . "%Y-%m-%d %a %H:%M"))
   (org-capture-templates
-   '(("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "* %?\nEntered on %U\n %i\n %a"))))
+   '(("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "* %?\nEntered on %U\n %i\n %a")))
+  (org-refile-targets '((org-agenda-files :maxlevel . 3))))
 
 (use-package org-journal
   :ensure t
