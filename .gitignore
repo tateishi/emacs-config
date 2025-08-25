@@ -15,6 +15,7 @@
 .cache
 ac-comphist.dat
 backup
+bookmarks
 company-statistics-cache.el
 custom.el
 ddskk

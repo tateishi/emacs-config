@@ -141,14 +141,30 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;; ORG mode
 ;;;
 
+(defun my-show-org-buffer (file)
+  (interactive)
+  (if (get-buffer file)
+      (let ((buffer (get-buffer file)))
+        (switch-to-buffer buffer)
+        (message "%s" file))
+    (find-file (expand-file-name file org-directory))))
+
+(defun my-show-org-notes-buffer ()
+  (interactive)
+  (my-show-org-buffer "notes.org"))
+
 (use-package org
   :ensure t
   :bind (("C-c a" . org-agenda)
-         ("C-c l" . org-store-link))
+         ("C-c l" . org-store-link)
+         ("C-c c" . org-capture)
+         ("C-c b" . my-show-org-notes-buffer))
   :custom
   (org-agenda-files (if (file-exists-p org-directory)
                         (directory-files-recursively org-directory "\\.org$")))
-  (org-timestamp-formats '("%Y-%m-%d %a" . "%Y-%m-%d %a %H:%M")))
+  (org-timestamp-formats '("%Y-%m-%d %a" . "%Y-%m-%d %a %H:%M"))
+  (org-capture-templates
+   '(("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "* %?\nEntered on %U\n %i\n %a"))))
 
 (use-package org-journal
   :ensure t
