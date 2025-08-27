@@ -615,26 +615,27 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;; migemo
 ;;;
 
+(setq my-migemo-path "/usr/share/cmigemo/utf-8")
+
+(defun my-migemo-directory (path)
+  (if (file-directory-p path)
+      path
+    (let ((migemo-path (file-name-directory (or (executable-find "cmigemo") ""))))
+      (expand-file-name "dict/utf8" migemo-path))))
+
+(defun my-migemo-dictionary (path)
+  (if (file-directory-p path)
+      (expand-file-name "migemo-dict" path)))
+
 (when (executable-find "cmigemo")
   (use-package migemo
     :ensure t
-    :preface
-    (setq my-migemo-path "/usr/share/cmigemo/utf-8")
-    (defun my-migemo-directory (path)
-      (if (file-directory-p path)
-          path
-        (let ((migemo-path (file-name-directory (or (executable-find "cmigemo") ""))))
-          (expand-file-name "dict/utf8" migemo-path))))
-    (defun my-migemo-dictionary (path)
-      (if (file-directory-p path)
-          (expand-file-name "migemo-dict" path)))
-    :custom
-    (migemo-directory (my-migemo-directory my-migemo-path))
-    (migemo-dictionary (my-migemo-dictionary my-migemo-path))
-    (migemo-user-dictionary (expand-file-name "user-dict" "~/.local/share/cmigemo/"))
-    (migemo-options `("-q" "--emacs" "-s" ,migemo-user-dictionary))
     :functions migemo-init
     :config
+    (setq migemo-directory (my-migemo-directory my-migemo-path))
+    (setq migemo-dictionary (my-migemo-dictionary my-migemo-path))
+    (setq migemo-user-dictionary (expand-file-name "user-dict" "~/.local/share/cmigemo/"))
+    (setq migemo-options `("-q" "--emacs" "-s" ,migemo-user-dictionary))
     (migemo-init)))
 
 ;;;
