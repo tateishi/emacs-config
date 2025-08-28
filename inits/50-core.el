@@ -212,6 +212,19 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   (global-undo-tree-mode))
 
+;;;
+;;; avy
+;;;
+
+(use-package avy
+  :ensure t
+  :bind
+  ("C-c :" . avy-goto-char-timer))
+
+;;;
+;;; eldoc
+;;;
+
 (use-package eldoc
   :ensure t
   :hook ((emacs-lisp-mode-hook . turn-on-eldoc-mode)
@@ -242,15 +255,6 @@ JISYO-LISTのファイル名にDIRを付ける"
      company-sort-by-backend-importance))
   :hook
   (after-init . global-company-mode))
-
-;;;
-;;; avy
-;;;
-
-(use-package avy
-  :ensure t
-  :bind
-  ("C-c :" . avy-goto-char-timer))
 
 ;;;
 ;;; helm
