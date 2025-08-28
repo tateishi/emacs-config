@@ -222,9 +222,14 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;   :config
 ;;   (global-auto-complete-mode t))
 
-;;
-;; 補完パッケージ company
-;;
+;;;
+;;; 補完パッケージ company
+;;;
+
+(use-package company-statistics
+  :ensure t
+  :hook
+  (after-init . company-statistics-mode))
 
 (use-package company
   :ensure t
@@ -236,14 +241,11 @@ JISYO-LISTのファイル名にDIRを付ける"
      company-sort-by-occurrence
      company-sort-by-backend-importance))
   :hook
-  ((after-init-hook . global-company-mode)))
+  (after-init . global-company-mode))
 
-(use-package company-statistics
-  :ensure t
-  :hook
-  ((after-init-hook . company-statistics-mode)))
-
-;;
+;;;
+;;; avy
+;;;
 
 (use-package avy
   :ensure t
