@@ -316,7 +316,7 @@ JISYO-LISTのファイル名にDIRを付ける"
             (lambda (str) (consult--highlight-regexps migemo-regexp ignore-case str)))))
 
   :custom
-  (completion-styles '(orderless))
+  (completion-styles '(orderless basic partial-completion emacs22))
   (orderless-style-dispatchers '(my-orderless-migemo-dispatcher))
   :config
   (setq consult--regexp-compiler #'my-consult--migemo-regexp-compiler))
