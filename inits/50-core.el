@@ -47,6 +47,7 @@
   (initial-buffer-choice t)
   (require-final-newline t)
   (vc-follow-symlinks t)
+  (tab-always-indent 'complete)
 
   :config
   (column-number-mode t)
