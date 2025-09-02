@@ -31,6 +31,7 @@
 ;;; Code:
 
 (require 'ledger-mode)
+(require 'shiwake-insert-interest)
 
 (defconst shiwake-date-template
   "
@@ -166,6 +167,7 @@ NEW-DATE は YYYY/MM/DD 形式の文字列.日付がなければ何もしない.
     (define-key map (kbd "C-c C-m") #'shiwake-insert-payee)
     (define-key map (kbd "C-c C-n") #'shiwake-replace-account)
     (define-key map (kbd "C-c C-j") #'shiwake-mode-replace-first-date-in-current-line)
+    (define-key map (kbd "C-c ,") #'shiwake-insert-interest-transaction)
     map))
 
 (define-derived-mode shiwake-mode ledger-mode "Shiwake"
