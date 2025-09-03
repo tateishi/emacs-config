@@ -99,8 +99,8 @@ COMMODITY: 通貨"
          (template (if has-fraction shiwake--tx-template-frac shiwake--tx-template)))
     (cl-destructuring-bind (days interest national-tax local-tax interest-after-tax)
         (shiwake--calc-tax principal interest-ratio start-date end-date has-fraction)
-      (message "%d %.4f %s %s %s %s %s %d %.2f %.2f %.2f %s" principal interest-ratio start-date end-date payee account commodity days interest national-tax local-tax has-fraction)
-      (message "tmepl: %s" template)
+;;      (message "%d %.4f %s %s %s %s %s %d %.2f %.2f %.2f %s" principal interest-ratio start-date end-date payee account commodity days interest national-tax local-tax has-fraction)
+;;      (message "tmepl: %s" template)
       (format template end-date payee interest national-tax local-tax account commodity))))
 
 
@@ -121,7 +121,7 @@ ACCOUNT: 科目"
                 (replace-regexp-in-string "-" "/" (org-read-date nil nil nil "満期日: "))
                 (ledger-read-payee-with-prompt "相手先: ")
                 (ledger-read-account-with-prompt "科目: ")))
-  (message "%d %s %.4f %s %s %s %s" principal commodity rate start-date end-date payee account)
+;;  (message "%d %s %.4f %s %s %s %s" principal commodity rate start-date end-date payee account)
   (insert (shiwake--interest-tx principal rate start-date end-date payee account commodity))
   )
 
