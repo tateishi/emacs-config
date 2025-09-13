@@ -605,6 +605,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   dockerfile-mode
   haskell-mode
   ledger-mode
+  lua-mode
   meson-mode
   rust-mode
   yaml-mode)
