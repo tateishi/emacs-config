@@ -566,6 +566,13 @@ JISYO-LISTのファイル名にDIRを付ける"
   :custom
   (js-indent-level 2))
 
+;;;
+;;; kanata-mode
+;;;
+
+(use-package kanata-kbd-mode
+  :vc (:url "https://github.com/chmouel/kanata-kbd-mode/" :rev :newest))
+
 ;; (mapc (lambda (package) (use-package package :ensure t))
 ;;       '(cmake-mode
 ;;         csv-mode
