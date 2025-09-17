@@ -517,6 +517,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   (ledger-reports
    '(("残高" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account)")
      ("店別" "%(binary) -f %(ledger-file) --sort date,-amount reg @%(payee)")
+     ("TAG別" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account) and \%%(tagname)")
      ("bal" "%(binary)  -f %(ledger-file) bal")
      ("bal this month" "%(binary) -f %(ledger-file)  -p %(month) bal")
      ("reg" "%(binary) -f %(ledger-file) reg")
