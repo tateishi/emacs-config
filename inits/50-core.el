@@ -79,6 +79,16 @@
   (setq system-time-locale "ja_JP.UTF-8"))
 
 ;;;
+;;; keyfreq
+;;;
+
+(use-package keyfreq
+  :ensure t
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
+;;;
 ;;; Google mozc
 ;;;
 
