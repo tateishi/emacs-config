@@ -32,6 +32,7 @@
 
 (require 'ledger-mode)
 (require 'shiwake-insert-interest)
+(require 'shiwake-tags)
 
 (defconst shiwake-date-template
   "

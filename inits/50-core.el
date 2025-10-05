@@ -521,6 +521,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   :custom
   (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
   (ledger-payees-file "~/wks/ledger/accounts/payees.dat")
+  (shiwake-tagnames-file "~/wks/ledger/accounts/tags.dat")
   (ledger-copy-transaction-insert-blank-line-after t)
   (ledger-post-amount-alignment-at :decimal)
   (ledger-complete-in-steps t)
@@ -534,7 +535,9 @@ JISYO-LISTのファイル名にDIRを付ける"
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)")))
   :hook
-  (ledger-mode . my-enable-trailing-whitespace))
+  (ledger-mode . my-enable-trailing-whitespace)
+  :config
+  (add-to-list 'ledger-report-format-specifiers '("tagname" . shiwake-report-tagname-format-specifier)))
 
 ;;;
 ;;; kinshu mode
