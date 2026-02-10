@@ -155,9 +155,21 @@ NEW-DATE は YYYY/MM/DD 形式の文字列.日付がなければ何もしない.
   '((t :inherit font-lock-comment-face :inverse-video t))
   "Default face for tag.")
 
+(defface shiwake-mode-meta-key-face
+  '((t (:foreground "#83a598" :weight bold)))
+  "Face for Ledger metadata keys like key: in comments.")
+
+(defface shiwake-mode-meta-value-face
+  '((t (:foreground "#b8bb26")))
+  "Face for Ledger metadata values like key: VALUE in comments.")
+
 (defvar shiwake-font-lock-keywords
   (append
-   '((" \\(:[^:\n]*:\\([^:\n]*:\\)*\\)" (1 'shiwake-mode-font-tag-face)))
+   '((" \\(:[^:\n]*:\\([^:\n]*:\\)*\\)" (1 'shiwake-mode-font-tag-face))
+     (";[ \t]*\\([[:alnum:]_@#%+.-]+\\):" (1 'shiwake-mode-meta-key-face))
+     (";[ \t]*\\([[:alnum:]_@#%+.-]+\\):" (1 'shiwake-mode-meta-key-face))
+
+     )
    ledger-font-lock-keywords
    ))
 
