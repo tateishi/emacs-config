@@ -515,6 +515,10 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;; ledger-mode / shiwake-mode
 ;;;
 
+(defun my-ledger-comment-column ()
+  "Set comment column for ledger-mode."
+  (setq-local comment-column 55))
+
 (use-package shiwake-mode
   :load-path "lisp"
   :commands (shiwake-mode)
@@ -525,6 +529,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   (ledger-copy-transaction-insert-blank-line-after t)
   (ledger-post-amount-alignment-at :decimal)
   (ledger-complete-in-steps t)
+  (ledger-default-date-format ledger-iso-date-format)
   (ledger-reports
    '(("残高" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account)")
      ("店別" "%(binary) -f %(ledger-file) --sort date,-amount reg @%(payee)")
@@ -536,6 +541,7 @@ JISYO-LISTのファイル名にDIRを付ける"
      ("account" "%(binary) -f %(ledger-file) reg %(account)")))
   :hook
   (ledger-mode . my-enable-trailing-whitespace)
+  (ledger-mode . my-ledger-comment-column)
   :config
   (add-to-list 'ledger-report-format-specifiers '("tagname" . shiwake-report-tagname-format-specifier)))
 
