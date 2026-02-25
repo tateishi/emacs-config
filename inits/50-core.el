@@ -587,6 +587,12 @@ JISYO-LISTのファイル名にDIRを付ける"
   :custom
   (js-indent-level 2))
 
+(use-package prettier-js
+  :ensure t
+  :hook
+  (typescript-mode . prettier-js-mode)
+  (tsx-mode . prettier-js-mode))
+
 ;;;
 ;;; kanata-mode
 ;;;
@@ -741,6 +747,15 @@ JISYO-LISTのファイル名にDIRを付ける"
 (use-package ace-window
   :ensure t
   :bind (("C-x o" . ace-window)))
+;;;
+;;; anonymous mode
+;;;
+
+(use-package anonymous-mode
+  :vc (:url "https://github.com/tateishi/anonymous-mode/" :rev :newest)
+  :mode "\\.anon\\'"
+  :custom
+  (anonymous-indent-offset 4))
 
 (provide '50-core)
 
