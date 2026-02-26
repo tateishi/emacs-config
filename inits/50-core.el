@@ -520,7 +520,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   (setq-local comment-column 55))
 
 (use-package shiwake-mode
-  :load-path "lisp"
+  :vc (:url "https://github.com/tateishi/shiwake-mode/" :rev :newest)
   :commands (shiwake-mode)
   :custom
   (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
