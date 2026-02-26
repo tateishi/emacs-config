@@ -551,8 +551,7 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;;
 
 (use-package kinshu-mode
-  :load-path "lisp"
-  :commands (kinshu-mode))
+  :vc (:url "https://github.com/tateishi/kinshu-mode/" :rev :newest))
 
 ;;; web-mode
 ;;; url: https://web-mode.org/
