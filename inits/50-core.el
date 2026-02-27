@@ -72,6 +72,7 @@
 ;;;
 
 (use-package clipetty
+  :if (not (display-graphic-p))
   :ensure t
   :bind ("M-w" . clipetty-kill-ring-save))
 
