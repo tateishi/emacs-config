@@ -68,6 +68,14 @@
   ((before-save . delete-trailing-whitespace)))
 
 ;;;
+;;; clip board
+;;;
+
+(use-package clipetty
+  :ensure t
+  :bind ("M-w" . clipetty-kill-ring-save))
+
+;;;
 ;;; Japanese
 ;;;
 
@@ -746,6 +754,7 @@ JISYO-LISTのファイル名にDIRを付ける"
 (use-package ace-window
   :ensure t
   :bind (("C-x o" . ace-window)))
+
 ;;;
 ;;; anonymous mode
 ;;;
