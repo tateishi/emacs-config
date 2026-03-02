@@ -653,6 +653,15 @@ JISYO-LISTのファイル名にDIRを付ける"
   yaml-mode)
 
 ;;;
+;;; snippet
+;;;
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
+
+;;;
 ;;; magit
 ;;;
 
