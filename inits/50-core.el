@@ -259,11 +259,18 @@ JISYO-LIST は
   :config
   (repeat-mode 1))
 
-(use-package :backup
-  :no-require t
+;; ----------------------------------------------------------------
+;; backup
+;; ----------------------------------------------------------------
+(use-package emacs
+  :config
+  (let ((dir (locate-user-emacs-file "backup")))
+    (unless (file-directory-p dir)
+      (make-directory dir t))
+    (setopt backup-directory-alist
+            `(("." . ,dir))))
   :custom
   (backup-by-copying t)
-  (backup-directory-alist (list (cons ".*" (locate-user-emacs-file "backup"))))
   (delete-old-versions t)
   (kept-new-versions 6)
   (kept-old-versions 2)
