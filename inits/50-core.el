@@ -312,32 +312,6 @@ JISYO-LIST は
   (after-init . company-statistics-mode))
 
 ;; ----------------------------------------------------------------
-;; helm
-;; ----------------------------------------------------------------
-(use-package helm
-  :ensure t
-  :commands
-  (helm-M-x helm-apropos helm-find-files helm-for-files))
-
-;; (use-package helm
-;;   :bind
-;;   (("C-x C-f" . helm-find-files)
-;;    ("M-x"     . helm-M-x)
-;;    ("C-x b"   . helm-for-files)
-;;    :map helm-map
-;;    ("C-h"     . delete-backward-char)))
-
-;; ----------------------------------------------------------------
-;; helm-ag
-;; ----------------------------------------------------------------
-;; (use-package helm-ag
-;;   :ensure t
-;;   :commands
-;;   (helm-ag))
-
-;; (use-package helm-ag)
-
-;; ----------------------------------------------------------------
 ;; vertico
 ;; ----------------------------------------------------------------
 (use-package vertico
