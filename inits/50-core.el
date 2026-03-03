@@ -197,7 +197,7 @@ JISYO-LIST は
 
   :preface
   (defun my-cjk-ambiguous-width ()
-    (setq cjk-ambiguous-chars-are-wide nil)
+    (setopt cjk-ambiguous-chars-are-wide nil)
     (when (fboundp 'clear-font-cache)
       (clear-font-cache)))
 
