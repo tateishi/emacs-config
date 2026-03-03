@@ -28,10 +28,9 @@
 
 ;;; Code:
 
-;;;
-;;; general setting
-;;;
-
+;; ----------------------------------------------------------------
+;; general setting
+;; ----------------------------------------------------------------
 (use-package emacs
   :preface
   (defun my-disable-trailing-whitespace ()
@@ -92,19 +91,17 @@
   (diff-mode . my-disable-trailing-whitespace)
   (git-mode . my-disable-trailing-whitespace))
 
-;;;
-;;; clip board
-;;;
-
+;; ----------------------------------------------------------------
+;; clip board
+;; ----------------------------------------------------------------
 (use-package clipetty
   :if (not (display-graphic-p))
   :ensure t
   :bind ("M-w" . clipetty-kill-ring-save))
 
-;;;
-;;; Japanese
-;;;
-
+;; ----------------------------------------------------------------
+;; Japanese
+;; ----------------------------------------------------------------
 (use-package Japanese
   :no-require t
   :config
@@ -112,30 +109,27 @@
   (prefer-coding-system 'utf-8-unix)
   (setq system-time-locale "ja_JP.UTF-8"))
 
-;;;
-;;; keyfreq
-;;;
-
+;; ----------------------------------------------------------------
+;; keyfreq
+;; ----------------------------------------------------------------
 (use-package keyfreq
   :ensure t
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
 
-;;;
-;;; Google mozc
-;;;
-
+;; ----------------------------------------------------------------
+;; Google mozc
+;; ----------------------------------------------------------------
 (use-package mozc
   :disabled t
   :ensure t
   :custom
   (default-input-method "japanese-mozc"))
 
-;;;
-;;; DDSKK
-;;;
-
+;; ----------------------------------------------------------------
+;; DDSKK
+;; ----------------------------------------------------------------
 (defun with-jisyo-dir (dir jisyo-list)
   "辞書ファイルのリストにパスを付ける.
 
@@ -162,34 +156,28 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   (setq skk-get-jisyo-directory (locate-user-emacs-file "skk")))
 
-;;;
-;;; CJK ambiguous width chars are narrow
-;;;
-
+;; ----------------------------------------------------------------
+;; CJK ambiguous width chars are narrow
+;; ----------------------------------------------------------------
 (when (version<= "30.1" emacs-version)
   (use-package cjk-ambiguous
     :no-require t
     :custom
     (cjk-ambiguous-chars-are-wide nil)))
 
-;;;
-;;; for microsoft windows
-;;;
-
+;; ----------------------------------------------------------------
+;; for microsoft windows
+;; ----------------------------------------------------------------
 (use-package ms-windows
   :no-require t
   :if (eq system-type 'windows-nt)
   :config
   (setq default-process-coding-system '(utf-8-dos . cp932)))
 
-;;;
-;;; ORG mode
-;;;
-
-;;
+;; ----------------------------------------------------------------
+;; ORG mode
+;; ----------------------------------------------------------------
 ;; helper commands/functions.
-;;
-
 (defun my-show-org-buffer (file)
   (interactive)
   (if (get-buffer file)
@@ -202,10 +190,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   (interactive)
   (my-show-org-buffer "notes.org"))
 
-;;
 ;; package definition
-;;
-
 (use-package org
   :ensure t
   :bind (("C-c a" . org-agenda)
@@ -227,10 +212,9 @@ JISYO-LISTのファイル名にDIRを付ける"
   (org-journal-dir "~/org/local/journal/")
   (org-journal-date-format "%Y-%m-%d (%A)"))
 
-;;;
-;;; repeat-mode
-;;;
-
+;; ----------------------------------------------------------------
+;; repeat-mode
+;; ----------------------------------------------------------------
 (use-package repeat-mode
   :no-require t
   :if (version< "28" emacs-version)
@@ -257,19 +241,17 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   (global-undo-tree-mode))
 
-;;;
-;;; avy
-;;;
-
+;; ----------------------------------------------------------------
+;; avy
+;; ----------------------------------------------------------------
 (use-package avy
   :ensure t
   :bind
   ("C-c :" . avy-goto-char-timer))
 
-;;;
-;;; eldoc
-;;;
-
+;; ----------------------------------------------------------------
+;; eldoc
+;; ----------------------------------------------------------------
 (use-package eldoc
   :ensure t
   :hook
@@ -281,10 +263,9 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;   :config
 ;;   (global-auto-complete-mode t))
 
-;;;
-;;; 補完パッケージ company
-;;;
-
+;; ----------------------------------------------------------------
+;; 補完パッケージ company
+;; ----------------------------------------------------------------
 (use-package company-statistics
   :ensure t
   :hook
@@ -302,10 +283,9 @@ JISYO-LISTのファイル名にDIRを付ける"
   :hook
   (after-init . global-company-mode))
 
-;;;
-;;; helm
-;;;
-
+;; ----------------------------------------------------------------
+;; helm
+;; ----------------------------------------------------------------
 (use-package helm
   :ensure t
   :commands
@@ -319,10 +299,9 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;;    :map helm-map
 ;;    ("C-h"     . delete-backward-char)))
 
-;;;
-;;; helm-ag
-;;;
-
+;; ----------------------------------------------------------------
+;; helm-ag
+;; ----------------------------------------------------------------
 ;; (use-package helm-ag
 ;;   :ensure t
 ;;   :commands
@@ -330,10 +309,9 @@ JISYO-LISTのファイル名にDIRを付ける"
 
 ;; (use-package helm-ag)
 
-;;;
-;;; vertico
-;;;
-
+;; ----------------------------------------------------------------
+;; vertico
+;; ----------------------------------------------------------------
 (use-package vertico
   :ensure t
   :custom
@@ -341,10 +319,9 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   (vertico-mode))
 
-;;;
-;;; orderless
-;;;
-
+;; ----------------------------------------------------------------
+;; orderless
+;; ----------------------------------------------------------------
 (use-package orderless
   :ensure t
   :defines consult--regexp-compiler
@@ -366,10 +343,9 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   (setq consult--regexp-compiler #'my-consult--migemo-regexp-compiler))
 
-;;;
-;;; consult
-;;;
-
+;; ----------------------------------------------------------------
+;; consult
+;; ----------------------------------------------------------------
 (use-package consult
   :ensure t
   :bind
@@ -377,10 +353,9 @@ JISYO-LISTのファイル名にDIRを付ける"
    ("C-x l" . consult-line)
    ("C-x m" . consult-grep)))
 
-;;;
-;;; marginalia
-;;;
-
+;; ----------------------------------------------------------------
+;; marginalia
+;; ----------------------------------------------------------------
 (use-package marginalia
   :ensure t
   :bind (("M-A" . marginalia-cycle)
@@ -391,10 +366,9 @@ JISYO-LISTのファイル名にDIRを付ける"
                '(command marginalia-annotate-command builtin))
   (marginalia-mode))
 
-;;;
-;;; google translate
-;;;
-
+;; ----------------------------------------------------------------
+;; google translate
+;; ----------------------------------------------------------------
 (use-package google-translate
   :ensure t
   :defines google-translate-translation-directions-alist
@@ -405,10 +379,9 @@ JISYO-LISTのファイル名にDIRを付ける"
                                                         ("ja" . "en")))
   )
 
-;;;
-;;; smartparens
-;;;
-
+;; ----------------------------------------------------------------
+;; smartparens
+;; ----------------------------------------------------------------
 (use-package smartparens
   :ensure t
   :custom
@@ -418,19 +391,17 @@ JISYO-LISTのファイル名にDIRを付ける"
   :hook
   (prog-mode . smartparens-mode))
 
-;;;
-;;; rainbow-delimiters
-;;;
-
+;; ----------------------------------------------------------------
+;; rainbow-delimiters
+;; ----------------------------------------------------------------
 (use-package rainbow-delimiters
   :ensure t
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
-;;;
-;;; highlight-indent-guides
-;;;
-
+;; ----------------------------------------------------------------
+;; highlight-indent-guides
+;; ----------------------------------------------------------------
 (use-package highlight-indent-guides
   :ensure t
   :custom
@@ -439,10 +410,9 @@ JISYO-LISTのファイル名にDIRを付ける"
   (highlight-indent-guides-responsive t)
   (highlight-indent-guides-character ?|))
 
-;;;
-;;; whitespace-mode
-;;;
-
+;; ----------------------------------------------------------------
+;; whitespace-mode
+;; ----------------------------------------------------------------
 (use-package whitespace
   :ensure t
   :bind ("C-c W" . whitespace-cleanup)
@@ -462,31 +432,24 @@ JISYO-LISTのファイル名にDIRを付ける"
   ;; (whitespace-empty ((t (:background "Black"))))
   )
 
-;;;
-;;; Eglot (emacs client of language server)
-;;;
-
+;; ----------------------------------------------------------------
+;; Eglot (emacs client of language server)
+;; ----------------------------------------------------------------
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs '(python-mode "pylsp")))
 
-;;;
-;;; flycheck
-;;;
-
+;; ----------------------------------------------------------------
+;; flycheck
+;; ----------------------------------------------------------------
 (use-package flycheck
   :ensure t
   :hook
   (after-init-hook . global-flycheck-mode))
 
-;;;
-;;; program modes
-;;;
-
-;;;
-;;; cc mode
-;;;
-
+;; ----------------------------------------------------------------
+;; cc mode
+;; ----------------------------------------------------------------
 (use-package cc-mode
   :ensure t
   :hook
@@ -499,35 +462,31 @@ JISYO-LISTのファイル名にDIRを付ける"
   (c-mode-common . google-set-c-style)
   (c-mode-common . google-make-newline-indent))
 
-;;;
-;;; python mode
-;;;
-
+;; ----------------------------------------------------------------
+;; python mode
+;; ----------------------------------------------------------------
 (use-package python-mode
   :ensure t
   :hook
   (python-mode-hook . smartparens-mode))
 
-;;;
-;;; python-black
-;;;
-
+;; ----------------------------------------------------------------
+;; python-black
+;; ----------------------------------------------------------------
 (use-package python-black
   :ensure t
   :after python)
 
-;;;
-;;; py-isort
-;;;
-
+;; ----------------------------------------------------------------
+;; py-isort
+;; ----------------------------------------------------------------
 (use-package py-isort
   :ensure t
   :after python)
 
-;;;
-;;; markdown-mode
-;;;
-
+;; ----------------------------------------------------------------
+;; markdown-mode
+;; ----------------------------------------------------------------
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -537,18 +496,16 @@ JISYO-LISTのファイル名にDIRを付ける"
   :custom
   (markdown-command "multimarkdown"))
 
-;;;
-;;; jinja2-mode
-;;;
-
+;; ----------------------------------------------------------------
+;; jinja2-mode
+;; ----------------------------------------------------------------
 (use-package jinja2-mode
   :ensure t
   :mode ("\\.j2\\'" "\\.jinja\\'" "\\.jinja2\\'"))
 
-;;;
-;;; ledger-mode / shiwake-mode
-;;;
-
+;; ----------------------------------------------------------------
+;; ledger-mode / shiwake-mode
+;; ----------------------------------------------------------------
 (defun my-ledger-comment-column ()
   "Set comment column for ledger-mode."
   (setq-local comment-column 55))
@@ -580,16 +537,16 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   (add-to-list 'ledger-report-format-specifiers '("tagname" . shiwake-report-tagname-format-specifier)))
 
-;;;
-;;; kinshu mode
-;;;
-
+;; ----------------------------------------------------------------
+;; kinshu mode
+;; ----------------------------------------------------------------
 (use-package kinshu-mode
   :vc (:url "https://github.com/tateishi/kinshu-mode/" :rev :newest))
 
-;;; web-mode
-;;; url: https://web-mode.org/
-
+;; ----------------------------------------------------------------
+;; web-mode
+;; url: https://web-mode.org/
+;; ----------------------------------------------------------------
 (use-package web-mode
   :ensure t
   :commands (web-mode)
@@ -608,12 +565,18 @@ JISYO-LISTのファイル名にDIRを付ける"
   (web-mode-script-padding 0)
   (web-mode-style-padding 0))
 
+;; ----------------------------------------------------------------
+;; typescript
+;; ----------------------------------------------------------------
 (use-package typescript-mode
   :ensure t
   :commands (typescript-mode)
   :custom
   (typescript-indent-level 2))
 
+;; ----------------------------------------------------------------
+;; json
+;; ----------------------------------------------------------------
 (use-package json-mode
   :ensure t
   :commands (json-mode)
@@ -626,30 +589,15 @@ JISYO-LISTのファイル名にDIRを付ける"
   (typescript-mode . prettier-js-mode)
   (tsx-mode . prettier-js-mode))
 
-;;;
-;;; kanata-mode
-;;;
-
+;; ----------------------------------------------------------------
+;; kanata-mode
+;; ----------------------------------------------------------------
 (use-package kanata-kbd-mode
   :vc (:url "https://github.com/chmouel/kanata-kbd-mode/" :rev :newest))
 
-;; (mapc (lambda (package) (use-package package :ensure t))
-;;       '(cmake-mode
-;;         csv-mode
-;;         docker-compose-mode
-;;         dockerfile-mode
-;;         haskell-mode
-;;         meson-mode
-;;         python-mode
-;;         rust-mode
-;;         yaml-mode))
-
-;; (defmacro expand-package (&rest packages)
-;;   (declare (indent defun))
-;;   (append '(progn)
-;;           (mapcar (lambda (p) `(use-package ,p :ensure t))
-;;                   packages)))
-
+;; ----------------------------------------------------------------
+;; progmodes
+;; ----------------------------------------------------------------
 (defmacro expand-packages (&rest packages)
   "PACKAGES を順にuse-packageに適用する.
 
@@ -677,29 +625,26 @@ JISYO-LISTのファイル名にDIRを付ける"
   rust-mode
   yaml-mode)
 
-;;;
-;;; snippet
-;;;
-
+;; ----------------------------------------------------------------
+;; yasnippet
+;; ----------------------------------------------------------------
 (use-package yasnippet
   :ensure t
   :config
   (yas-global-mode 1))
 
-;;;
-;;; magit
-;;;
-
+;; ----------------------------------------------------------------
+;; magit
+;; ----------------------------------------------------------------
 (use-package magit
   :ensure t
   :bind
   (("C-x C-g" . magit-status)
    ("C-x g"   . magit-status)))
 
-;;;
-;;; migemo
-;;;
-
+;; ----------------------------------------------------------------
+;; migemo
+;; ----------------------------------------------------------------
 (setq my-migemo-path "/usr/share/cmigemo/utf-8")
 
 (defun my-migemo-directory (path)
@@ -723,10 +668,9 @@ JISYO-LISTのファイル名にDIRを付ける"
     (setq migemo-options `("-q" "--emacs" "-s" ,migemo-user-dictionary))
     (migemo-init)))
 
-;;;
-;;; open junk file
-;;;
-
+;; ----------------------------------------------------------------
+;; open junk file
+;; ----------------------------------------------------------------
 (use-package open-junk-file
   :ensure t
   :bind
@@ -734,14 +678,11 @@ JISYO-LISTのファイル名にDIRを付ける"
   :custom
   (open-junk-file-format "~/.texts/%Y/%m/%Y-%m-%d-%H%M%S."))
 
-;;;
-;;; user interface
-;;;
-
-;;; modus themes
-;;; url: https://gitlab.com/protesilaos/modus-themes
-;;; url: https://protesilaos.com/emacs/modus-themes
-
+;; ----------------------------------------------------------------
+;; modus themes
+;; url: https://gitlab.com/protesilaos/modus-themes
+;; url: https://protesilaos.com/emacs/modus-themes
+;; ----------------------------------------------------------------
 (use-package modus-themes
   :ensure t
   :init
@@ -752,10 +693,9 @@ JISYO-LISTのファイル名にDIRを付ける"
   :config
   :bind ("<f5>" . modus-themes-toggle))
 
-;;;
-;;; calendar mode
-;;;
-
+;; ----------------------------------------------------------------
+;; calendar mode
+;; ----------------------------------------------------------------
 (use-package calendar
   :ensure t
   :custom
@@ -764,14 +704,23 @@ JISYO-LISTのファイル名にDIRを付ける"
   (calendar-longitude 136.90)
   (calendar-location-name "名古屋市, 愛知県"))
 
+;; ----------------------------------------------------------------
+;; which-key
+;; ----------------------------------------------------------------
 (use-package which-key
   :ensure t
   :config (which-key-mode t))
 
+;; ----------------------------------------------------------------
+;; persp-mode
+;; ----------------------------------------------------------------
 (use-package persp-mode
   :ensure t
   :config (persp-mode t))
 
+;; ----------------------------------------------------------------
+;; treemacs
+;; ----------------------------------------------------------------
 (use-package treemacs
   :ensure t
   :bind (("<f9>" . treemacs-select-window)
@@ -782,18 +731,16 @@ JISYO-LISTのファイル名にDIRを付ける"
   (setq treemacs-python-executable (or (executable-find "python3") (executable-find "python")))
   (setq treemacs-width 25))
 
-;;;
-;;; window manipulation
-;;;
-
+;; ----------------------------------------------------------------
+;; ace window
+;; ----------------------------------------------------------------
 (use-package ace-window
   :ensure t
   :bind (("C-x o" . ace-window)))
 
-;;;
-;;; anonymous mode
-;;;
-
+;; ----------------------------------------------------------------
+;; anonymous mode
+;; ----------------------------------------------------------------
 (use-package anonymous-mode
   :vc (:url "https://github.com/tateishi/anonymous-mode/" :rev :newest)
   :mode "\\.anon\\'"
