@@ -54,4 +54,5 @@
   (setq init-loader-byte-compile t)
   (init-loader-load))
 
+(provide 'init)
 ;;; init.el ends here
