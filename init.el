@@ -29,36 +29,61 @@
 
 ;;; Code:
 
-(setq gc-cons-threshold (* 1024 1024 1024))
-(defvar warning-minimum-level :emergency)
+;; ----------------------------------------------------------------
+;; GC (起動時 256MB, 起動後 24MB)
+;; ----------------------------------------------------------------
+(setq gc-cons-threshold (* 256 1024 1024))
 
-(defvar config-dir (file-name-directory load-file-name)
-  "The root dir of the Emacs config.")
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 64 1024 1024))))
 
-(setq custom-file (expand-file-name "custom.el" config-dir))
-(if (file-exists-p custom-file) (load custom-file))
+;; ----------------------------------------------------------------
+;; 警告レベル
+;; ----------------------------------------------------------------
+(setq warning-minimum-level :error)
 
+;; ----------------------------------------------------------------
+;; custom-file
+;; ----------------------------------------------------------------
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file 'noerror)
 
+;; ----------------------------------------------------------------
+;; package.el 初期化 (emacs 27+)
+;; ----------------------------------------------------------------
 (require 'package)
 
+(setq package-enable-at-startup nil)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
 
-(let ((package 'use-package))
-  (unless (package-installed-p package)
-    (package-install package)))
+;; ----------------------------------------------------------------
+;; use-package のロード
+;; ----------------------------------------------------------------
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(eval-when-compile
-  (require 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
 
-(add-to-list 'load-path (locate-user-emacs-file "lisp"))
+;; ----------------------------------------------------------------
+;; load-path
+;; ----------------------------------------------------------------
+(let ((dir (locate-user-emacs-file "lisp")))
+  (when (file-directory-p dir)
+    (add-to-list 'load-path dir)))
 
+;; ----------------------------------------------------------------
+;; init-loader
+;; ----------------------------------------------------------------
 (use-package init-loader
-  :ensure t
-  :custom (init-loader-byte-compile t)
-  :config (init-loader-load))
+  :config
+  (setq init-loader-byte-compile t)
+  (init-loader-load))
 
 ;;; init.el ends here

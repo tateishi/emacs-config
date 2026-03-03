@@ -126,16 +126,16 @@ JISYO-LISTのファイル名にDIRを付ける"
   :ensure t
   :custom
   (default-input-method "japanese-skk")
-  (skk-user-directory (expand-file-name "ddskk" config-dir))
-  (skk-large-jisyo (expand-file-name "skk/SKK-JISYO.L" config-dir))
-  (skk-extra-jisyo-file-list (with-jisyo-dir (expand-file-name "skk" config-dir)
+  (skk-user-directory (locate-user-emacs-file "ddskk"))
+  (skk-large-jisyo (locate-user-emacs-file "skk/SKK-JISYO.L"))
+  (skk-extra-jisyo-file-list (with-jisyo-dir (locate-user-emacs-file "skk")
                                '(("SKK-JISYO.jinmei" . euc-japan)
                                  ("SKK-JISYO.zipcode" . euc-japan))))
   (skk-sticky-key ";")
   :bind
   (("C-x C-j" . skk-mode))
   :config
-  (setq skk-get-jisyo-directory (expand-file-name "skk" config-dir)))
+  (setq skk-get-jisyo-directory (locate-user-emacs-file "skk")))
 
 ;;;
 ;;; CJK ambiguous width chars are narrow
@@ -216,7 +216,7 @@ JISYO-LISTのファイル名にDIRを付ける"
   :no-require t
   :custom
   (backup-by-copying t)
-  (backup-directory-alist (list (cons ".*" (expand-file-name "backup" config-dir))))
+  (backup-directory-alist (list (cons ".*" (locate-user-emacs-file "backup"))))
   (delete-old-versions t)
   (kept-new-versions 6)
   (kept-old-versions 2)
@@ -228,7 +228,7 @@ JISYO-LISTのファイル名にDIRを付ける"
          ("C-x u" . undo-tree-visualize))
   :custom
   (undo-tree-auto-save-history t)
-  (undo-tree-history-directory-alist (list (cons ".*" (expand-file-name "undo" config-dir))))
+  (undo-tree-history-directory-alist (list (cons ".*" (locate-user-emacs-file "undo"))))
   :config
   (global-undo-tree-mode))
 
