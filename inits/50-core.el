@@ -291,22 +291,25 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; 補完パッケージ company
 ;; ----------------------------------------------------------------
-(use-package company-statistics
-  :ensure t
-  :hook
-  (after-init . company-statistics-mode))
-
 (use-package company
   :ensure t
-  :after company-statistics
   :custom
   (company-minimum-prefix-length 2)
-  (company-transformers
-   '(company-sort-by-statistics
-     company-sort-by-occurrence
-     company-sort-by-backend-importance))
   :hook
   (after-init . global-company-mode))
+
+(use-package company-statistics
+  :ensure t
+  :after company
+
+  :config
+  (dolist (tr '(company-sort-by-statistics
+                company-sort-by-occurrence
+                company-sort-by-backend-importance))
+    (add-to-list 'company-transformers tr t))
+
+  :hook
+  (after-init . company-statistics-mode))
 
 ;; ----------------------------------------------------------------
 ;; helm
