@@ -127,6 +127,7 @@
   :if (not noninteractive)
   :ensure t
   :init
+  (mkdir (locate-user-emacs-file "keyfreq"))
   (setq keyfreq-file (locate-user-emacs-file "keyfreq/keyfreq.el"))
   (setq keyfreq-file-lock (locate-user-emacs-file "keyfreq/keyfreq.lock"))
   (setq keyfreq-excluded-commands '(self-insert-command))
