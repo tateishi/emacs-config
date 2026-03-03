@@ -276,6 +276,9 @@ JISYO-LIST は
   (kept-old-versions 2)
   (version-control t))
 
+;; ----------------------------------------------------------------
+;; undo tree
+;; ----------------------------------------------------------------
 (use-package undo-tree
   :ensure t
   :bind (("M-/" . undo-tree-redo)
@@ -284,6 +287,11 @@ JISYO-LIST は
   (undo-tree-auto-save-history t)
   (undo-tree-history-directory-alist (list (cons ".*" (locate-user-emacs-file "undo"))))
   :config
+  (let ((dir (locate-user-emacs-file "undo")))
+    (unless (file-directory-p dir)
+      (make-directory dir t))
+    (setopt undo-tree-history-directory-alist
+            `(("." . ,dir))))
   (global-undo-tree-mode))
 
 ;; ----------------------------------------------------------------
