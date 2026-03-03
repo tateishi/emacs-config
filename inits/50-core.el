@@ -127,7 +127,7 @@
   :if (not noninteractive)
   :ensure t
   :init
-  (mkdir (locate-user-emacs-file "keyfreq"))
+  (make-directory (locate-user-emacs-file "keyfreq") t)
   (setq keyfreq-file (locate-user-emacs-file "keyfreq/keyfreq.el"))
   (setq keyfreq-file-lock (locate-user-emacs-file "keyfreq/keyfreq.lock"))
   (setq keyfreq-excluded-commands '(self-insert-command))
@@ -148,24 +148,38 @@
 ;; ----------------------------------------------------------------
 ;; DDSKK
 ;; ----------------------------------------------------------------
-(defun with-jisyo-dir (dir jisyo-list)
-  "辞書ファイルのリストにパスを付ける.
+(defun my/with-jisyo-dir (dir jisyo-list)
+  "DIR を JISYO-LIST の各要素に付けて返す。
 
-JISYO-LISTのファイル名にDIRを付ける"
-  (mapcar (lambda (e)
-            (if (consp e)
-                (cons (expand-file-name (car e) dir) (cdr e))
-              (expand-file-name e dir)))
-          jisyo-list))
-(put 'with-jisyo-dir 'lisp-indent-function 1)
+JISYO-LIST は
+  (\"FILE\")
+  または (\"FILE\" . CODING)
+のどちらでも良い。"
+  (let ((dir (file-name-as-directory (expand-file-name dir))))
+    (mapcar (lambda (e)
+              (pcase e
+                ;; ("SKK-JISYO.xxx" . euc-japan) の形
+                (`(,file . ,coding)
+                 (cons (expand-file-name file dir) coding))
+                ;; "SKK-JISYO.xxx" の形
+                ((pred stringp)
+                 (expand-file-name e dir))
+                ;; それ以外はそのまま（想定外入力でも落ちにくく）
+                (_ e)))
+            jisyo-list)))
+
+(put 'my/with-jisyo-dir 'lisp-indent-function 1)
 
 (use-package ddskk
   :ensure t
+  :init
+  (make-directory (locate-user-emacs-file "ddskk") t)
+  (make-directory (locate-user-emacs-file "skk") t)
   :custom
   (default-input-method "japanese-skk")
   (skk-user-directory (locate-user-emacs-file "ddskk"))
   (skk-large-jisyo (locate-user-emacs-file "skk/SKK-JISYO.L"))
-  (skk-extra-jisyo-file-list (with-jisyo-dir (locate-user-emacs-file "skk")
+  (skk-extra-jisyo-file-list (my/with-jisyo-dir (locate-user-emacs-file "skk")
                                '(("SKK-JISYO.jinmei" . euc-japan)
                                  ("SKK-JISYO.zipcode" . euc-japan))))
   (skk-sticky-key ";")
