@@ -254,11 +254,10 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; repeat-mode
 ;; ----------------------------------------------------------------
-(use-package repeat-mode
-  :no-require t
-  :if (version< "28" emacs-version)
+(use-package emacs
+  :if (>= emacs-major-version 28)
   :config
-  (repeat-mode))
+  (repeat-mode 1))
 
 (use-package :backup
   :no-require t
