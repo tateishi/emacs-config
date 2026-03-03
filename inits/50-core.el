@@ -124,7 +124,13 @@
 ;; keyfreq
 ;; ----------------------------------------------------------------
 (use-package keyfreq
+  :if (not noninteractive)
   :ensure t
+  :init
+  (setq keyfreq-file (locate-user-emacs-file "keyfreq/keyfreq.el"))
+  (setq keyfreq-file-lock (locate-user-emacs-file "keyfreq/keyfreq.lock"))
+  (setq keyfreq-excluded-commands '(self-insert-command))
+
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
