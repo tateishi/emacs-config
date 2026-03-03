@@ -176,11 +176,18 @@ JISYO-LISTのファイル名にDIRを付ける"
 ;; ----------------------------------------------------------------
 ;; CJK ambiguous width chars are narrow
 ;; ----------------------------------------------------------------
-(when (version<= "30.1" emacs-version)
-  (use-package cjk-ambiguous
-    :no-require t
-    :custom
-    (cjk-ambiguous-chars-are-wide nil)))
+(use-package cjk-ambiguous
+  :no-require t
+  :if (boundp 'cjk-ambiguous-chars-are-wide)
+
+  :preface
+  (defun my-cjk-ambiguous-width ()
+    (setq cjk-ambiguous-chars-are-wide nil)
+    (when (fboundp 'clear-font-cache)
+      (clear-font-cache)))
+
+  :hook
+  (emacs-startup . my-cjk-ambiguous-width))
 
 ;; ----------------------------------------------------------------
 ;; for microsoft windows
