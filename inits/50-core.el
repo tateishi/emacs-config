@@ -107,7 +107,7 @@
    'latin-1)
   ;; 文字集合の優先順位
   (set-charset-priority
-   'unicode 'japanese-jisx0208 'latin)
+   'unicode 'japanese-jisx0208 'latin-iso8859-1)
 
   :custom
   (system-time-locale "ja_JP.UTF-8"))
