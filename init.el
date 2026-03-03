@@ -1,7 +1,7 @@
 ;;;; init.el --- My init entrypoint -*- lexical-binding: t -*-
 
 
-;; Copyright (C) 2021-2025  TATEISHI Tadatoshi
+;; Copyright (C) 2021-2026  TATEISHI Tadatoshi
 
 ;; Author: TATEISHI Tadatoshi <ishio39@gmail.com>
 ;; Created: 2021/04/12
@@ -30,53 +30,21 @@
 ;;; Code:
 
 ;; ----------------------------------------------------------------
-;; GC (起動時 256MB, 起動後 24MB)
-;; ----------------------------------------------------------------
-(setq gc-cons-threshold (* 256 1024 1024))
-
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 64 1024 1024))))
-
-;; ----------------------------------------------------------------
-;; 警告レベル
-;; ----------------------------------------------------------------
-(setq warning-minimum-level :error)
-
-;; ----------------------------------------------------------------
 ;; custom-file
 ;; ----------------------------------------------------------------
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror)
 
 ;; ----------------------------------------------------------------
-;; package.el 初期化 (emacs 27+)
-;; ----------------------------------------------------------------
-(require 'package)
-
-(setq package-enable-at-startup nil)
-(setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ("gnu" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-
-;; ----------------------------------------------------------------
 ;; use-package のロード
 ;; ----------------------------------------------------------------
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
+  (unless package-archive-contents
+    (package-refresh-contents))
   (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-;; ----------------------------------------------------------------
-;; load-path
-;; ----------------------------------------------------------------
-(let ((dir (locate-user-emacs-file "lisp")))
-  (when (file-directory-p dir)
-    (add-to-list 'load-path dir)))
 
 ;; ----------------------------------------------------------------
 ;; init-loader
