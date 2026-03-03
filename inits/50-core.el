@@ -211,7 +211,7 @@ JISYO-LIST は
   :no-require t
   :if (eq system-type 'windows-nt)
   :config
-  (setq default-process-coding-system '(utf-8-dos . cp932)))
+  (setq-default default-process-coding-system '(utf-8-dos . cp932)))
 
 ;; ----------------------------------------------------------------
 ;; ORG mode
