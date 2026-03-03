@@ -116,7 +116,7 @@
 ;; clip board
 ;; ----------------------------------------------------------------
 (use-package clipetty
-  :if (not (display-graphic-p))
+  :if (not (or (display-graphic-p) noninteractive))
   :ensure t
   :bind ("M-w" . clipetty-kill-ring-save))
 
