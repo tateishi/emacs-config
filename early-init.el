@@ -68,6 +68,11 @@
 (setq package-enable-at-startup t)
 (setq package-quickstart t)
 
+(require 'package)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu"   . "https://elpa.gnu.org/packages/")))
+
 ;; ----------------------------------------------------------------
 ;; 新しい方の elc/el を優先（古いバイトコードを無視してトラブル減）
 ;; ----------------------------------------------------------------
