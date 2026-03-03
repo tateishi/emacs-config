@@ -73,9 +73,10 @@
   (insert (format account-header-format acc)))
 
 (defun get-commit-message ()
-  (format "%s 作業分" (format-time-string "%Y/%m/%d")))
+  (format "%s 作業分" (format-time-string "%Y-%m-%d")))
 
 (defun insert-commit-message ()
+  "作業日を使った定型のメッセージを入力する."
   (interactive)
   (insert (get-commit-message)))
 
