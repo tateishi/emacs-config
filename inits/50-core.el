@@ -35,12 +35,18 @@
 (use-package emacs
   :preface
   (defun my-disable-trailing-whitespace ()
-    "Disable `show-trailing-whitespace'."
+    "Disable `show-trailing-whitespace' in current buffer."
     (setq show-trailing-whitespace nil))
 
   (defun my-enable-trailing-whitespace ()
-    "Enable `show-trailing-whitespace'."
+    "Enable `show-trailing-whitespace' in current buffer."
     (setq show-trailing-whitespace t))
+
+  (defun my-delete-trailing-whitespace-maybe ()
+    "Delete trailing whitespaces unless the major mode is in the blocklist."
+    (unless (or (derived-mode-p 'markdown-mode 'org-mode 'diff-mode 'magit-mode)
+                (bound-and-true-p visual-line-mode))
+      (delete-trailing-whitespace)))
 
   :custom
   (indent-tabs-mode nil)
@@ -48,6 +54,14 @@
   (require-final-newline t)
   (vc-follow-symlinks t)
   (tab-always-indent 'complete)
+  (use-short-answers t)
+  (kill-do-not-save-duplicates t)
+  (save-interprogram-paste-before-kill t)
+  (show-paren-delay 0.0)
+  (show-paren-style 'parenthesis)
+
+  :init
+  (setq x-underline-at-descent-line t)
 
   :config
   (column-number-mode t)
@@ -65,7 +79,18 @@
    ("<M-return>" . other-frame))
 
   :hook
-  ((before-save . delete-trailing-whitespace)))
+  ;; 末尾空白の削除 除外するmodeはプログラム内で対応
+  (before-save . my-delete-trailing-whitespace-maybe)
+  ;; 行番号の表示
+  (prog-mode . display-line-numbers-mode)
+  ;; 末尾空白の可視化
+  (prog-mode . my-enable-trailing-whitespace)
+  (text-mode . my-enable-trailing-whitespace)
+  ;; 末尾空白の可視化抑制
+  (markdown-mode . my-disable-trailing-whitespace)
+  (org-mode . my-disable-trailing-whitespace)
+  (diff-mode . my-disable-trailing-whitespace)
+  (git-mode . my-disable-trailing-whitespace))
 
 ;;;
 ;;; clip board
