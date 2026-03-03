@@ -92,22 +92,33 @@
   (git-mode . my-disable-trailing-whitespace))
 
 ;; ----------------------------------------------------------------
+;; 日本語設定 UTF-8
+;; ----------------------------------------------------------------
+(use-package japanese
+  :no-require t
+
+  :init
+  (set-language-environment "Japanese")
+  (prefer-coding-system 'utf-8-unix)
+  ;; encodingの優先順位
+  (set-coding-system-priority
+   'utf-8 'utf-16 'utf-7 'utf-8-with-signature
+   'iso-2022-jp 'euc-jp 'japanese-shift-jis
+   'latin-1)
+  ;; 文字集合の優先順位
+  (set-charset-priority
+   'unicode 'japanese-jisx0208 'latin)
+
+  :custom
+  (system-time-locale "ja_JP.UTF-8"))
+
+;; ----------------------------------------------------------------
 ;; clip board
 ;; ----------------------------------------------------------------
 (use-package clipetty
   :if (not (display-graphic-p))
   :ensure t
   :bind ("M-w" . clipetty-kill-ring-save))
-
-;; ----------------------------------------------------------------
-;; Japanese
-;; ----------------------------------------------------------------
-(use-package Japanese
-  :no-require t
-  :config
-  (set-language-environment "Japanese")
-  (prefer-coding-system 'utf-8-unix)
-  (setq system-time-locale "ja_JP.UTF-8"))
 
 ;; ----------------------------------------------------------------
 ;; keyfreq
