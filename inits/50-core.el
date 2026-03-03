@@ -289,20 +289,6 @@ JISYO-LIST は
   ("C-c :" . avy-goto-char-timer))
 
 ;; ----------------------------------------------------------------
-;; eldoc
-;; ----------------------------------------------------------------
-(use-package eldoc
-  :ensure t
-  :hook
-  (emacs-lisp-mode . turn-on-eldoc-mode)
-  (lisp-interaction-mode . turn-on-eldoc-mode)
-  (ielm-mode . turn-on-eldoc-mode))
-
-;; (use-package auto-complete
-;;   :config
-;;   (global-auto-complete-mode t))
-
-;; ----------------------------------------------------------------
 ;; 補完パッケージ company
 ;; ----------------------------------------------------------------
 (use-package company-statistics
