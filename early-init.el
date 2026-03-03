@@ -95,7 +95,7 @@
 
 ;; 初期フレームの軽量化（必要に応じてコメント解除）
 (push '(internal-border-width . 0) default-frame-alist)
-(push '(undecorated . t)            default-frame-alist) ; OS により無視されることあり
+;;(push '(undecorated . t)            default-frame-alist) ; OS により無視されることあり
 
 ;; ----------------------------------------------------------------
 ;; ネイティブコンパイル（Emacs 28+）の警告を静かに
