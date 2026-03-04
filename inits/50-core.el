@@ -498,6 +498,19 @@ JISYO-LIST は
 ;; Eglot (emacs client of language server)
 ;; ----------------------------------------------------------------
 (use-package eglot
+  :preface
+  (defun my-eglot-format ()
+    (when (and (bound-and-true-p eglot-managed-p)
+               (eglot--server-capable :documentFormattingProvider))
+      (eglot-format-buffer)))
+
+  :custom
+  (eglot-extend-to-xref t)
+  (eglot-autoshutdown t)
+
+  :commands
+  (eglot eglot-ensure)
+
   :config
   (add-to-list 'eglot-server-programs '(python-mode "pylsp")))
 
