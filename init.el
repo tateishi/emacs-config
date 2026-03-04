@@ -39,8 +39,8 @@
 ;; use-package のロード
 ;; ----------------------------------------------------------------
 (unless (package-installed-p 'use-package)
-  (unless package-archive-contents
-    (package-refresh-contents))
+;;  (unless package-archive-contents
+;;    (package-refresh-contents))
   (package-install 'use-package))
 
 (require 'use-package)
