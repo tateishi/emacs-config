@@ -453,6 +453,9 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 (use-package rainbow-delimiters
   :ensure t
+  :commands
+  (rainbow-delimiters-mode)
+
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
