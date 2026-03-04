@@ -519,8 +519,8 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 (use-package flycheck
   :ensure t
-  :hook
-  (after-init-hook . global-flycheck-mode))
+  :init
+  (global-flycheck-mode))
 
 ;; ----------------------------------------------------------------
 ;; cc mode
