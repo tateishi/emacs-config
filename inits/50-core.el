@@ -360,6 +360,8 @@ JISYO-LIST は
 
   :custom
   (completion-styles '(orderless basic partial-completion emacs22))
+  (completion-category-overrides '((file (styles basic partial-completion)
+                                         (display-sort-function . minibuffer-sort-alphabetically))))
   (orderless-style-dispatchers '(my-orderless-migemo-dispatcher))
   :config
   (setq consult--regexp-compiler #'my-consult--migemo-regexp-compiler))
