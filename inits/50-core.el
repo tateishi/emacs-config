@@ -385,13 +385,41 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 (use-package google-translate
   :ensure t
-  :defines google-translate-translation-directions-alist
+  :preface
+  (defun my-google-translate--text-at-point ()
+    (cond
+     ((use-region-p)
+      (buffer-substring-no-properties (region-beginning) (region-end)))
+     ((thing-at-point 'sentence t))
+     ((thing-at-point 'word t))
+     (t "")))
+
+  (defun my-google-translate-en->ja ()
+    "英->日翻訳 リージョン優先 なければ単語/文を推定."
+    (interactive)
+    (google-translate-translate "en" "ja" (my-google-translate--text-at-point)))
+
+  (defun my-google-translate-ja->en ()
+    "日->英翻訳 リージョン優先 なければ単語/文を推定."
+    (interactive)
+    (google-translate-translate "ja" "en" (my-google-translate--text-at-point)))
+
+  (defun my-google-translate-en<->ja (&optional reverse)
+    "通常は英->日,C-u付きで日->英."
+    (interactive "P")
+    (if reverse
+        (my-google-translate-ja->en)
+      (my-google-translate-en->ja)))
+
+  :custom
+  (google-translate-translation-directions-alist '(("en" . "ja") ("ja" . "en")))
+  (google-translate-default-source-language "en")
+  (google-translate-default-target-language "ja")
+  (google-translate-output-destination 'popup)
+  (google-translate-show-phonetic t)
+
   :bind
-  (("C-c t" . google-translate-smooth-translate))
-  :config
-  (setq google-translate-translation-directions-alist '(("en" . "ja")
-                                                        ("ja" . "en")))
-  )
+  (("C-c t" . my-google-translate-en<->ja)))
 
 ;; ----------------------------------------------------------------
 ;; smartparens
