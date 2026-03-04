@@ -309,21 +309,17 @@ JISYO-LIST は
   :ensure t
   :custom
   (company-minimum-prefix-length 2)
-  :hook
-  (after-init . global-company-mode))
+  :config
+  (global-company-mode))
 
 (use-package company-statistics
   :ensure t
   :after company
-
   :config
-  (dolist (tr '(company-sort-by-statistics
-                company-sort-by-occurrence
-                company-sort-by-backend-importance))
-    (add-to-list 'company-transformers tr t))
-
-  :hook
-  (after-init . company-statistics-mode))
+  (setq company-transformers '(company-sort-by-statistics
+                               company-sort-by-occurrence
+                               company-sort-by-backend-importance))
+  (company-statistics-mode))
 
 ;; ----------------------------------------------------------------
 ;; vertico
@@ -336,12 +332,21 @@ JISYO-LIST は
   (vertico-mode))
 
 ;; ----------------------------------------------------------------
+;; consult
+;; ----------------------------------------------------------------
+(use-package consult
+  :ensure t
+  :bind
+  (("C-x b" . consult-buffer)
+   ("C-x l" . consult-line)
+   ("C-x m" . consult-grep)))
+
+;; ----------------------------------------------------------------
 ;; orderless
 ;; ----------------------------------------------------------------
 (use-package orderless
   :ensure t
-  :defines consult--regexp-compiler
-  :functions consult--highlight-regexps consult--convert-regexp consult--split-escaped migemo-get-pattern
+  :after consult
   :preface
   (defun my-orderless-migemo-dispatcher (pattern _index _total)
     (when (and (featurep 'migemo)
@@ -360,23 +365,14 @@ JISYO-LIST は
   (setq consult--regexp-compiler #'my-consult--migemo-regexp-compiler))
 
 ;; ----------------------------------------------------------------
-;; consult
-;; ----------------------------------------------------------------
-(use-package consult
-  :ensure t
-  :bind
-  (("C-x b" . consult-buffer)
-   ("C-x l" . consult-line)
-   ("C-x m" . consult-grep)))
-
-;; ----------------------------------------------------------------
 ;; marginalia
 ;; ----------------------------------------------------------------
 (use-package marginalia
   :ensure t
-  :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+  :bind
+  (("M-A" . marginalia-cycle)
+   :map minibuffer-local-map
+   ("M-A" . marginalia-cycle))
   :config
   (add-to-list 'marginalia-annotators
                '(command marginalia-annotate-command builtin))
