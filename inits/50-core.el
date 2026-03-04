@@ -474,7 +474,9 @@ JISYO-LIST は
 ;; whitespace-mode
 ;; ----------------------------------------------------------------
 (use-package whitespace
-  :ensure t
+  :commands
+  (whitespace-mode global-whitespace-mode whitespace-cleanup)
+
   :bind ("C-c W" . whitespace-cleanup)
   :custom
   (whitespace-style '(face trailing tabs spaces empty space-mark tab-mark))
