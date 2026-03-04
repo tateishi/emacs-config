@@ -426,12 +426,27 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 (use-package smartparens
   :ensure t
+  :commands
+  (smartparens-mode smartparens-strict-mode show-smartparens-mode)
+
+  :preface
+  (defun my-sp-disable-electric-pair ()
+    "smartparens を使うバッファでは electric-pairを無効化する."
+    (electric-pair-local-mode -1))
+
   :custom
-  (electric-pair-mode nil)
-  :config
-  (require 'smartparens-config)
+  (sp-highlight-pair-overlay t)
+  (sp-highlight-wrap-overlay t)
+
   :hook
-  (prog-mode . smartparens-mode))
+  (prog-mode . smartparens-mode)
+  (prog-mode . show-smartparens-mode)
+  (prog-mode . my-sp-disable-electric-pair)
+  (emacs-lisp-mode . smartparens-strict-mode)
+  (lisp-mode . smartparens-strict-mode)
+
+  :config
+  (require 'smartparens-config))
 
 ;; ----------------------------------------------------------------
 ;; rainbow-delimiters
