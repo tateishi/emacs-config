@@ -602,19 +602,49 @@ JISYO-LIST は
 ;; persp-mode
 ;; ----------------------------------------------------------------
 (use-package persp-mode
-  :config (persp-mode t))
+  :custom
+  (persp-auto-resume-time -1)
+  (persp-auto-save-opt 0)
+  :config
+  (persp-mode t))
 
 ;; ----------------------------------------------------------------
 ;; treemacs
 ;; ----------------------------------------------------------------
 (use-package treemacs
-  :bind (("<f9>" . treemacs-select-window)
-         :map treemacs-mode-map
-         ("<f9>"  . treemacs-quit))
+  :preface
+  (defun my-treemacs-detect-python ()
+    "Detect a suitable Python executable for Treemacs."
+    (or (executable-find "python3")
+        (executable-find "python")
+        (when (eq system-type 'windows-nw)
+          (let ((candidates '("c:/windows/py.exe" "c:/python312/python.exe")))
+            (seq-find #'file-exists-p candidates)))))
+
+  :commands
+  (treemacs treemacs-select-window)
+
+  :bind
+  (("<f9>" . treemacs)
+   ("M-0" . treemacs-select-window))
+  :bind
+  (:map treemacs-mode-map
+        ("<f9>" . treemacs-quit))
+
+  :custom
+  (treemacs-width  25)
+  (treemacs-no-png-images nil)
+  (treemacs-indentation 2)
+  (treemacs-file-event-delay 500)
+
   :config
-  (load "treemacs-autoloads")
-  (setq treemacs-python-executable (or (executable-find "python3") (executable-find "python")))
-  (setq treemacs-width 25))
+  (let ((py (my-treemacs-detect-python)))
+    (when py
+      (setq treemacs-python-executable py)))
+  (treemacs-follow-mode 1)
+  (treemacs-filewatch-mode 1)
+  (when (executable-find "git")
+    (treemacs-git-mode 'simple)))
 
 ;; ----------------------------------------------------------------
 ;; ace window
