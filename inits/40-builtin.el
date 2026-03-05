@@ -62,6 +62,7 @@
 (tab-bar-mode 1)
 (tool-bar-mode -1)
 (which-key-mode t)
+(winner-mode 1)
 
 ;; ----------------------------------------------------------------
 ;; global key map
