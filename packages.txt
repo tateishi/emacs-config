@@ -4,6 +4,7 @@ clipetty
 company
 consult
 ddskk
+eyebrowse
 flycheck
 google-c-style
 google-translate
