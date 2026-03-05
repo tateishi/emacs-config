@@ -94,10 +94,11 @@
 ;; ----------------------------------------------------------------
 ;; 日本語設定 UTF-8
 ;; ----------------------------------------------------------------
-(use-package japanese
-  :no-require t
+(use-package emacs
+  :custom
+  (system-time-locale "ja_JP.UTF-8")
 
-  :init
+  :config
   (set-language-environment "Japanese")
   (prefer-coding-system 'utf-8-unix)
   ;; encodingの優先順位
@@ -107,17 +108,13 @@
    'latin-1)
   ;; 文字集合の優先順位
   (set-charset-priority
-   'unicode 'japanese-jisx0208 'latin-iso8859-1)
-
-  :custom
-  (system-time-locale "ja_JP.UTF-8"))
+   'unicode 'japanese-jisx0208 'latin-iso8859-1))
 
 ;; ----------------------------------------------------------------
 ;; clip board
 ;; ----------------------------------------------------------------
 (use-package clipetty
   :if (not (or (display-graphic-p) noninteractive))
-  :ensure t
   :bind ("M-w" . clipetty-kill-ring-save))
 
 ;; ----------------------------------------------------------------
@@ -125,7 +122,7 @@
 ;; ----------------------------------------------------------------
 (use-package keyfreq
   :if (not noninteractive)
-  :ensure t
+
   :init
   (make-directory (locate-user-emacs-file "keyfreq") t)
   (setq keyfreq-file (locate-user-emacs-file "keyfreq/keyfreq.el"))
@@ -141,7 +138,6 @@
 ;; ----------------------------------------------------------------
 (use-package mozc
   :disabled t
-  :ensure t
   :custom
   (default-input-method "japanese-mozc"))
 
@@ -171,10 +167,10 @@ JISYO-LIST は
 (put 'my/with-jisyo-dir 'lisp-indent-function 1)
 
 (use-package ddskk
-  :ensure t
   :init
   (make-directory (locate-user-emacs-file "ddskk") t)
   (make-directory (locate-user-emacs-file "skk") t)
+
   :custom
   (default-input-method "japanese-skk")
   (skk-user-directory (locate-user-emacs-file "ddskk"))
@@ -183,16 +179,17 @@ JISYO-LIST は
                                '(("SKK-JISYO.jinmei" . euc-japan)
                                  ("SKK-JISYO.zipcode" . euc-japan))))
   (skk-sticky-key ";")
+
   :bind
   (("C-x C-j" . skk-mode))
+
   :config
   (setq skk-get-jisyo-directory (locate-user-emacs-file "skk")))
 
 ;; ----------------------------------------------------------------
 ;; CJK ambiguous width chars are narrow
 ;; ----------------------------------------------------------------
-(use-package cjk-ambiguous
-  :no-require t
+(use-package emacs
   :if (boundp 'cjk-ambiguous-chars-are-wide)
 
   :preface
@@ -207,9 +204,9 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; for microsoft windows
 ;; ----------------------------------------------------------------
-(use-package ms-windows
-  :no-require t
+(use-package emacs
   :if (eq system-type 'windows-nt)
+
   :config
   (setq-default default-process-coding-system '(utf-8-dos . cp932)))
 
@@ -231,25 +228,26 @@ JISYO-LIST は
 
 ;; package definition
 (use-package org
-  :ensure t
-  :bind (("C-c a" . org-agenda)
-         ("C-c l" . org-store-link)
-         ("C-c c" . org-capture)
-         ("C-c b" . my-show-org-notes-buffer))
   :custom
   (org-agenda-files (if (file-exists-p org-directory)
                         (directory-files-recursively org-directory "\\.org$")))
   (org-timestamp-formats '("%Y-%m-%d %a" . "%Y-%m-%d %a %H:%M"))
   (org-capture-templates
    '(("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "* %?\nEntered on %U\n %i\n %a")))
-  (org-refile-targets '((org-agenda-files :maxlevel . 3))))
+  (org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+  :bind
+  (("C-c a" . org-agenda)
+   ("C-c l" . org-store-link)
+   ("C-c c" . org-capture)
+   ("C-c b" . my-show-org-notes-buffer)))
 
 (use-package org-journal
-  :ensure t
-  :bind (("C-c j" . org-journal-new-entry))
   :custom
   (org-journal-dir "~/org/local/journal/")
-  (org-journal-date-format "%Y-%m-%d (%A)"))
+  (org-journal-date-format "%Y-%m-%d (%A)")
+
+  :bind (("C-c j" . org-journal-new-entry)))
 
 ;; ----------------------------------------------------------------
 ;; repeat-mode
@@ -280,7 +278,6 @@ JISYO-LIST は
 ;; undo tree
 ;; ----------------------------------------------------------------
 (use-package undo-tree
-  :ensure t
   :bind (("M-/" . undo-tree-redo)
          ("C-x u" . undo-tree-visualize))
   :custom
@@ -298,7 +295,6 @@ JISYO-LIST は
 ;; avy
 ;; ----------------------------------------------------------------
 (use-package avy
-  :ensure t
   :bind
   ("C-c :" . avy-goto-char-timer))
 
@@ -306,14 +302,12 @@ JISYO-LIST は
 ;; 補完パッケージ company
 ;; ----------------------------------------------------------------
 (use-package company
-  :ensure t
   :custom
   (company-minimum-prefix-length 2)
   :config
   (global-company-mode))
 
 (use-package company-statistics
-  :ensure t
   :after company
   :config
   (setq company-transformers '(company-sort-by-statistics
@@ -325,7 +319,6 @@ JISYO-LIST は
 ;; vertico
 ;; ----------------------------------------------------------------
 (use-package vertico
-  :ensure t
   :custom
   (vertico-count 20)
   :config
@@ -335,7 +328,6 @@ JISYO-LIST は
 ;; consult
 ;; ----------------------------------------------------------------
 (use-package consult
-  :ensure t
   :bind
   (("C-x b" . consult-buffer)
    ("C-x l" . consult-line)
@@ -345,7 +337,6 @@ JISYO-LIST は
 ;; orderless
 ;; ----------------------------------------------------------------
 (use-package orderless
-  :ensure t
   :after consult
   :preface
   (defun my-orderless-migemo-dispatcher (pattern _index _total)
@@ -370,7 +361,6 @@ JISYO-LIST は
 ;; marginalia
 ;; ----------------------------------------------------------------
 (use-package marginalia
-  :ensure t
   :bind
   (("M-A" . marginalia-cycle)
    :map minibuffer-local-map
@@ -384,7 +374,6 @@ JISYO-LIST は
 ;; google translate
 ;; ----------------------------------------------------------------
 (use-package google-translate
-  :ensure t
   :preface
   (defun my-google-translate--text-at-point ()
     (cond
@@ -425,7 +414,6 @@ JISYO-LIST は
 ;; smartparens
 ;; ----------------------------------------------------------------
 (use-package smartparens
-  :ensure t
   :commands
   (smartparens-mode smartparens-strict-mode show-smartparens-mode)
 
@@ -452,7 +440,6 @@ JISYO-LIST は
 ;; rainbow-delimiters
 ;; ----------------------------------------------------------------
 (use-package rainbow-delimiters
-  :ensure t
   :commands
   (rainbow-delimiters-mode)
 
@@ -463,7 +450,6 @@ JISYO-LIST は
 ;; highlight-indent-guides
 ;; ----------------------------------------------------------------
 (use-package highlight-indent-guides
-  :ensure t
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled t)
@@ -518,7 +504,6 @@ JISYO-LIST は
 ;; flycheck
 ;; ----------------------------------------------------------------
 (use-package flycheck
-  :ensure t
   :init
   (global-flycheck-mode))
 
@@ -526,12 +511,10 @@ JISYO-LIST は
 ;; cc mode
 ;; ----------------------------------------------------------------
 (use-package cc-mode
-  :ensure t
   :hook
   (c-mode-common . my-enable-trailing-whitespace))
 
 (use-package google-c-style
-  :ensure t
   :after cc-mode
   :hook
   (c-mode-common . google-set-c-style)
@@ -541,7 +524,6 @@ JISYO-LIST は
 ;; python mode
 ;; ----------------------------------------------------------------
 (use-package python-mode
-  :ensure t
   :hook
   (python-mode-hook . smartparens-mode))
 
@@ -549,21 +531,18 @@ JISYO-LIST は
 ;; python-black
 ;; ----------------------------------------------------------------
 (use-package python-black
-  :ensure t
   :after python)
 
 ;; ----------------------------------------------------------------
 ;; py-isort
 ;; ----------------------------------------------------------------
 (use-package py-isort
-  :ensure t
   :after python)
 
 ;; ----------------------------------------------------------------
 ;; markdown-mode
 ;; ----------------------------------------------------------------
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode)
@@ -575,7 +554,6 @@ JISYO-LIST は
 ;; jinja2-mode
 ;; ----------------------------------------------------------------
 (use-package jinja2-mode
-  :ensure t
   :mode ("\\.j2\\'" "\\.jinja\\'" "\\.jinja2\\'"))
 
 ;; ----------------------------------------------------------------
@@ -623,7 +601,6 @@ JISYO-LIST は
 ;; url: https://web-mode.org/
 ;; ----------------------------------------------------------------
 (use-package web-mode
-  :ensure t
   :commands (web-mode)
   :mode (("\\.html\\'" . web-mode)
          ("\\.jinja\\'" . web-mode)
@@ -644,7 +621,6 @@ JISYO-LIST は
 ;; typescript
 ;; ----------------------------------------------------------------
 (use-package typescript-mode
-  :ensure t
   :commands (typescript-mode)
   :custom
   (typescript-indent-level 2))
@@ -653,13 +629,11 @@ JISYO-LIST は
 ;; json
 ;; ----------------------------------------------------------------
 (use-package json-mode
-  :ensure t
   :commands (json-mode)
   :custom
   (js-indent-level 2))
 
 (use-package prettier-js
-  :ensure t
   :hook
   (typescript-mode . prettier-js-mode)
   (tsx-mode . prettier-js-mode))
@@ -681,11 +655,11 @@ JISYO-LIST は
   package-2\)
 =>
 \(progn
-  \(use-package package-1 :ensure t\)
-  \(use-package package-2 :ensure t\)\)"
+  \(use-package package-1\)
+  \(use-package package-2\)\)"
   (declare (indent defun))
   `(progn
-     ,@(mapcar (lambda (p) `(use-package ,p :ensure t)) packages)))
+     ,@(mapcar (lambda (p) `(use-package ,p)) packages)))
 
 (expand-packages
   ansible
@@ -704,7 +678,6 @@ JISYO-LIST は
 ;; yasnippet
 ;; ----------------------------------------------------------------
 (use-package yasnippet
-  :ensure t
   :config
   (yas-global-mode 1))
 
@@ -712,7 +685,6 @@ JISYO-LIST は
 ;; magit
 ;; ----------------------------------------------------------------
 (use-package magit
-  :ensure t
   :bind
   (("C-x C-g" . magit-status)
    ("C-x g"   . magit-status)))
@@ -734,7 +706,6 @@ JISYO-LIST は
 
 (when (executable-find "cmigemo")
   (use-package migemo
-    :ensure t
     :functions migemo-init
     :config
     (setq migemo-directory (my-migemo-directory my-migemo-path))
@@ -747,7 +718,6 @@ JISYO-LIST は
 ;; open junk file
 ;; ----------------------------------------------------------------
 (use-package open-junk-file
-  :ensure t
   :bind
   ("C-x j" . open-junk-file)
   :custom
@@ -759,7 +729,6 @@ JISYO-LIST は
 ;; url: https://protesilaos.com/emacs/modus-themes
 ;; ----------------------------------------------------------------
 (use-package modus-themes
-  :ensure t
   :init
   (modus-themes-select 'modus-vivendi)
   :custom
@@ -772,7 +741,6 @@ JISYO-LIST は
 ;; calendar mode
 ;; ----------------------------------------------------------------
 (use-package calendar
-  :ensure t
   :custom
   (calendar-week-start-day 1)
   (calendar-latitude 35.18)
@@ -783,21 +751,18 @@ JISYO-LIST は
 ;; which-key
 ;; ----------------------------------------------------------------
 (use-package which-key
-  :ensure t
   :config (which-key-mode t))
 
 ;; ----------------------------------------------------------------
 ;; persp-mode
 ;; ----------------------------------------------------------------
 (use-package persp-mode
-  :ensure t
   :config (persp-mode t))
 
 ;; ----------------------------------------------------------------
 ;; treemacs
 ;; ----------------------------------------------------------------
 (use-package treemacs
-  :ensure t
   :bind (("<f9>" . treemacs-select-window)
          :map treemacs-mode-map
          ("<f9>"  . treemacs-quit))
@@ -810,7 +775,6 @@ JISYO-LIST は
 ;; ace window
 ;; ----------------------------------------------------------------
 (use-package ace-window
-  :ensure t
   :bind (("C-x o" . ace-window)))
 
 ;; ----------------------------------------------------------------
