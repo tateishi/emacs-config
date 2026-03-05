@@ -32,3 +32,6 @@ undo-tree
 vertico
 web-mode
 yasnippet
+vc shiwake-mode https://github.com/tateishi/shiwake-mode/ :newest
+vc kinshu-mode https://github.com/tateishi/kinshu-mode/ :newest
+vc kanata-kbd-mode https://github.com/chmouel/kanata-kbd-mode/ :newest
