@@ -43,20 +43,23 @@
         show-paren-style 'parenthesis
         x-underline-at-descent-line t)
 
-(setq column-number-mode t
-      menu-bar-mode -1
-      repeat-mode 1
-      scroll-bar-mode -1
-      show-paren-mode t
-      size-indication-mode t
-      tab-bar-mode 1
-      tool-bar-mode -1)
+;; ----------------------------------------------------------------
+;; global minor-modes
+;; ----------------------------------------------------------------
+(column-number-mode 1)
+(menu-bar-mode -1)
+(repeat-mode 1)
+(scroll-bar-mode -1)
+(show-paren-mode 1)
+(size-indication-mode 1)
+(tab-bar-mode 1)
+(tool-bar-mode -1)
 
 ;; ----------------------------------------------------------------
 ;; global key map
 ;; ----------------------------------------------------------------
-(global-set-key (kbd "C-h") #'backward-delete-char-untabify)
-(global-set-key (kbd "C-z") #'scroll-down-command)
+(keymap-global-set "C-h" #'backward-delete-char-untabify)
+(keymap-global-set "C-z" #'scroll-down-command)
 
 ;; ----------------------------------------------------------------
 ;; hooks
@@ -71,7 +74,7 @@
 
 (defun my-delete-trailing-whitespace-maybe ()
   "Delete trailing whitespaces unless the major mode is in the blocklist."
-  (unless (or (derived-mode-p 'markdown-mode 'org-mode 'diff-mode 'magit-mode)
+  (unless (or (derived-mode-p 'markdown-mode 'org-mode 'diff-mode)
               (bound-and-true-p visual-line-mode))
     (delete-trailing-whitespace)))
 
@@ -87,7 +90,6 @@
 
 ;; 末尾空白の可視化抑制
 (add-hook 'diff-mode-hook #'my-disable-trailing-whitespace)
-(add-hook 'git-mode-hook #'my-disable-trailing-whitespace)
 (add-hook 'markdown-mode-hook #'my-disable-trailing-whitespace)
 (add-hook 'org-mode-hook #'my-disable-trailing-whitespace)
 
@@ -104,11 +106,13 @@
   (condition-case err
       (progn
         (make-directory dir t)
-        (setopt backup-directory-alist `(("." ,dir))))
+        (setopt backup-directory-alist `(("." . ,dir)))
+        (setopt auto-save-file-name-transforms
+                `((".*" ,(file-name-as-directory dir) t))))
     (file-error
-     (user-error "バックアップディレクトリ作成に失敗: %s" (error-message-string err)))
-    (t
-     (user-error "エラー: %s" (error-message-string err)))))
+     (message "[backup] ディレクトリ作成に失敗: %s" (error-message-string err)))
+    (error
+     (message "[backup] 予期しないエラー: %s" (error-message-string err)))))
 
 ;; ----------------------------------------------------------------
 ;; 日本語設定 UTF-8
