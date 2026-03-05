@@ -29,88 +29,6 @@
 ;;; Code:
 
 ;; ----------------------------------------------------------------
-;; general setting
-;; ----------------------------------------------------------------
-(use-package emacs
-  :preface
-  (defun my-disable-trailing-whitespace ()
-    "Disable `show-trailing-whitespace' in current buffer."
-    (setq show-trailing-whitespace nil))
-
-  (defun my-enable-trailing-whitespace ()
-    "Enable `show-trailing-whitespace' in current buffer."
-    (setq show-trailing-whitespace t))
-
-  (defun my-delete-trailing-whitespace-maybe ()
-    "Delete trailing whitespaces unless the major mode is in the blocklist."
-    (unless (or (derived-mode-p 'markdown-mode 'org-mode 'diff-mode 'magit-mode)
-                (bound-and-true-p visual-line-mode))
-      (delete-trailing-whitespace)))
-
-  :custom
-  (indent-tabs-mode nil)
-  (initial-buffer-choice t)
-  (require-final-newline t)
-  (vc-follow-symlinks t)
-  (tab-always-indent 'complete)
-  (use-short-answers t)
-  (kill-do-not-save-duplicates t)
-  (save-interprogram-paste-before-kill t)
-  (show-paren-delay 0.0)
-  (show-paren-style 'parenthesis)
-
-  :init
-  (setq x-underline-at-descent-line t)
-
-  :config
-  (column-number-mode t)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (show-paren-mode t)
-  (size-indication-mode t)
-  (tab-bar-mode 1)
-  (tool-bar-mode -1)
-
-  :bind
-  (("C-h" . backward-delete-char-untabify)
-   ("C-z" . scroll-down-command)
-   ("<C-return>" . other-window)
-   ("<M-return>" . other-frame))
-
-  :hook
-  ;; 末尾空白の削除 除外するmodeはプログラム内で対応
-  (before-save . my-delete-trailing-whitespace-maybe)
-  ;; 行番号の表示
-  (prog-mode . display-line-numbers-mode)
-  ;; 末尾空白の可視化
-  (prog-mode . my-enable-trailing-whitespace)
-  (text-mode . my-enable-trailing-whitespace)
-  ;; 末尾空白の可視化抑制
-  (markdown-mode . my-disable-trailing-whitespace)
-  (org-mode . my-disable-trailing-whitespace)
-  (diff-mode . my-disable-trailing-whitespace)
-  (git-mode . my-disable-trailing-whitespace))
-
-;; ----------------------------------------------------------------
-;; 日本語設定 UTF-8
-;; ----------------------------------------------------------------
-(use-package emacs
-  :custom
-  (system-time-locale "ja_JP.UTF-8")
-
-  :config
-  (set-language-environment "Japanese")
-  (prefer-coding-system 'utf-8-unix)
-  ;; encodingの優先順位
-  (set-coding-system-priority
-   'utf-8 'utf-16 'utf-7 'utf-8-with-signature
-   'iso-2022-jp 'euc-jp 'japanese-shift-jis
-   'latin-1)
-  ;; 文字集合の優先順位
-  (set-charset-priority
-   'unicode 'japanese-jisx0208 'latin-iso8859-1))
-
-;; ----------------------------------------------------------------
 ;; clip board
 ;; ----------------------------------------------------------------
 (use-package clipetty
@@ -187,30 +105,6 @@ JISYO-LIST は
   (setq skk-get-jisyo-directory (locate-user-emacs-file "skk")))
 
 ;; ----------------------------------------------------------------
-;; CJK ambiguous width chars are narrow
-;; ----------------------------------------------------------------
-(use-package emacs
-  :if (boundp 'cjk-ambiguous-chars-are-wide)
-
-  :preface
-  (defun my-cjk-ambiguous-width ()
-    (setopt cjk-ambiguous-chars-are-wide nil)
-    (when (fboundp 'clear-font-cache)
-      (clear-font-cache)))
-
-  :hook
-  (emacs-startup . my-cjk-ambiguous-width))
-
-;; ----------------------------------------------------------------
-;; for microsoft windows
-;; ----------------------------------------------------------------
-(use-package emacs
-  :if (eq system-type 'windows-nt)
-
-  :config
-  (setq-default default-process-coding-system '(utf-8-dos . cp932)))
-
-;; ----------------------------------------------------------------
 ;; ORG mode
 ;; ----------------------------------------------------------------
 ;; helper commands/functions.
@@ -248,31 +142,6 @@ JISYO-LIST は
   (org-journal-date-format "%Y-%m-%d (%A)")
 
   :bind (("C-c j" . org-journal-new-entry)))
-
-;; ----------------------------------------------------------------
-;; repeat-mode
-;; ----------------------------------------------------------------
-(use-package emacs
-  :if (>= emacs-major-version 28)
-  :config
-  (repeat-mode 1))
-
-;; ----------------------------------------------------------------
-;; backup
-;; ----------------------------------------------------------------
-(use-package emacs
-  :config
-  (let ((dir (locate-user-emacs-file "backup")))
-    (unless (file-directory-p dir)
-      (make-directory dir t))
-    (setopt backup-directory-alist
-            `(("." . ,dir))))
-  :custom
-  (backup-by-copying t)
-  (delete-old-versions t)
-  (kept-new-versions 6)
-  (kept-old-versions 2)
-  (version-control t))
 
 ;; ----------------------------------------------------------------
 ;; undo tree
