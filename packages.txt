@@ -1,6 +1,5 @@
 ace-window
 avy
-calendar
 clipetty
 company
 consult
@@ -20,7 +19,6 @@ migemo
 modus-themes
 open-junk-file
 orderless
-org
 org-journal
 persp-mode
 prettier-js
@@ -30,8 +28,6 @@ python-mode
 treemacs
 typescript-mode
 undo-tree
-use-package
 vertico
 web-mode
-which-key
 yasnippet

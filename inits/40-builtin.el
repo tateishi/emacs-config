@@ -41,7 +41,11 @@
         save-interprogram-paste-before-kill t
         show-paren-delay 0.0
         show-paren-style 'parenthesis
-        x-underline-at-descent-line t)
+        x-underline-at-descent-line t
+        calendar-week-start-day 1
+        calendar-latitude 35.18
+        calendar-longitude 136.90
+        calendar-location-name "名古屋市, 愛知県")
 
 ;; ----------------------------------------------------------------
 ;; global minor-modes
@@ -54,6 +58,7 @@
 (size-indication-mode 1)
 (tab-bar-mode 1)
 (tool-bar-mode -1)
+(which-key-mode t)
 
 ;; ----------------------------------------------------------------
 ;; global key map
