@@ -38,6 +38,8 @@
         tab-always-indent 'complete
         use-short-answers t
         kill-do-not-save-duplicates t
+        recentf-max-saved-items 300
+        recentf-auto-cleanup 'never
         save-interprogram-paste-before-kill t
         show-paren-delay 0.0
         show-paren-style 'parenthesis
@@ -52,6 +54,7 @@
 ;; ----------------------------------------------------------------
 (column-number-mode 1)
 (menu-bar-mode -1)
+(recentf-mode 1)
 (repeat-mode 1)
 (scroll-bar-mode -1)
 (show-paren-mode 1)
@@ -143,6 +146,13 @@
 ;; ----------------------------------------------------------------
 (when (eq system-type 'windows-nt)
   (setq-default default-process-coding-system '(utf-8-dos . cp932)))
+
+;; ----------------------------------------------------------------
+;; recentf
+;; ----------------------------------------------------------------
+(with-eval-after-load 'recentf
+  (add-to-list 'recentf-exclude "\\.cache/")
+  (add-to-list 'recentf-exclude "\\.git/"))
 
 ;; ----------------------------------------------------------------
 ;; provide

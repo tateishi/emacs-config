@@ -192,7 +192,8 @@ JISYO-LIST は
   :bind
   (("C-x b" . consult-buffer)
    ("C-x l" . consult-line)
-   ("C-x m" . consult-grep)))
+   ("C-x m" . consult-grep)
+   ("C-x C-r" . consult-recent-file)))
 
 ;; ----------------------------------------------------------------
 ;; orderless
