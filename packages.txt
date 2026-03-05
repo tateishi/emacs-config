@@ -18,7 +18,6 @@ marginalia
 markdown-mode
 migemo
 modus-themes
-mozc
 open-junk-file
 orderless
 org
