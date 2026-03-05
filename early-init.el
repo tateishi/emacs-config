@@ -65,14 +65,8 @@
 ;; ----------------------------------------------------------------
 ;; パッケージ初期化の制御
 ;; ----------------------------------------------------------------
-(setq package-enable-at-startup t)
+(setq package-enable-at-startup nil)
 (setq package-quickstart t)
-
-(require 'package)
-(setq package-archives
-      '(("gnu"    . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-        ("melpa"  . "https://melpa.org/packages/")))
 
 ;; ----------------------------------------------------------------
 ;; 新しい方の elc/el を優先（古いバイトコードを無視してトラブル減）
