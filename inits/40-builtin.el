@@ -60,9 +60,10 @@
 (show-paren-mode 1)
 (size-indication-mode 1)
 (tab-bar-mode 1)
+(tab-bar-history-mode 1)
 (tool-bar-mode -1)
 (which-key-mode t)
-(winner-mode 1)
+;;(winner-mode 1)
 
 ;; ----------------------------------------------------------------
 ;; global key map
