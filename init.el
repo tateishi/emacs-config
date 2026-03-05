@@ -1,4 +1,4 @@
-;;;; init.el --- My init entrypoint -*- lexical-binding: t -*-
+;;; init.el --- My init entrypoint -*- lexical-binding: t -*-
 
 
 ;; Copyright (C) 2021-2026  TATEISHI Tadatoshi

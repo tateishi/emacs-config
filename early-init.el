@@ -1,4 +1,4 @@
-;;;; early-init.el --- Early init for faster, cleaner startup -*- lexical-binding: t -*-
+;;; early-init.el --- Early init for faster, cleaner startup -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2026  TATEISHI Tadatoshi
 
