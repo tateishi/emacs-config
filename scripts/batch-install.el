@@ -115,7 +115,9 @@
                    (t rev))))
     (message "[batch] vc install/upgrade %s from %s (rev=%s)" name url rev-arg)
     ;; package-vc-install は spec でも呼べる（:url など）[2](https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-02/msg02307.html)
-    (package-vc-install `(,pkg :url ,url :rev ,rev-arg))))
+    ;; 上書き確認をスキップするために yes-or-no-p を常に t を返す関数に置き換える
+    (cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest _args) t)))
+       (package-vc-install `(,pkg :url ,url :rev ,rev-arg)))))
 
 ;; ------- エントリ解析 -------
 (defun batch--dispatch-entry (line)
