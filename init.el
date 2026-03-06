@@ -1,10 +1,10 @@
 ;;; init.el --- My init entrypoint -*- lexical-binding: t -*-
 
-
 ;; Copyright (C) 2021-2026  TATEISHI Tadatoshi
 
 ;; Author: TATEISHI Tadatoshi <ishio39@gmail.com>
 ;; Created: 2021/04/12
+;; Package-Requires: ((emacs "30.1"))
 
 ;; This file is NOT part of GNU Emacs.
 

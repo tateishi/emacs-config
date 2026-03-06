@@ -4,6 +4,7 @@
 
 ;; Author: TATEISHI Tadatoshi <ishio39@gmail.com>
 ;; Created: 2025/08/16
+;; Package-Requires: ((emacs "30.1"))
 
 ;; This file is NOT part of GNU Emacs.
 
