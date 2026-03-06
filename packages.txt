@@ -22,6 +22,7 @@ open-junk-file
 orderless
 org-journal
 persp-mode
+powershell
 prettier-js
 py-isort
 python-black

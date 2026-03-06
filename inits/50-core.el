@@ -534,6 +534,7 @@ JISYO-LIST は
   ledger-mode
   lua-mode
   meson-mode
+  powershell
   rust-mode
   yaml-mode)
 
