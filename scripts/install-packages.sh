@@ -7,4 +7,4 @@ PKGLIST=${1:-packages.txt}
 
 # -Q: init.el を読まないクリーン環境で実行
 $EMACS -Q --batch -l scripts/batch-install.el \
-       --eval "(batch-install-packages \"${PKGLIST}\")"
+       --eval "(batch-install-packages \"${PKGLIST}\" t)"

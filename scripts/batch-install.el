@@ -50,7 +50,7 @@
         (forward-line 1))
       (nreverse acc))))
 
-(defun batch--ensure-archives ()
+(defun batch--ensure-archives (&optional update)
   "パッケージアーカイブを確実に更新。失敗時は kill-emacs 1。"
   (message "[batch] refreshing package archives...")
   (condition-case err
@@ -58,7 +58,8 @@
         (unless package-archive-contents
           (package-refresh-contents))
         ;; すでに取得済みでも最新へ更新したい場合は常に refresh したいなら下を有効化：
-        ;; (package-refresh-contents)
+        (when update
+          (package-refresh-contents))
         (message "[batch] archives ready"))
     (error
      (message "[batch] archive refresh failed: %S" err)
@@ -139,12 +140,12 @@ TYPE: 'elpa or 'vc"
       (cons 'elpa (list (intern (car parts))))))))
 
 ;;;###autoload
-(defun batch-install-packages (file)
+(defun batch-install-packages (file &optional update)
   "FILE（1行1エントリ）に従い一括で install/upgrade を行う。"
   (let* ((lines (batch--read-entries file)))
     (message "[batch] entries: %S" lines)
     ;; ELPA/MELPA を使う可能性があるならアーカイブ更新
-    (batch--ensure-archives)
+    (batch--ensure-archives update)
     (dolist (line lines)
       (let* ((spec (batch--dispatch-entry line))
              (type (car spec))
