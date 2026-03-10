@@ -1,21 +1,32 @@
 ace-window
+ansible
 avy
 clipetty
+cmake-mode
 company
+company-statistics
 consult
+csv-mode
 ddskk
+docker-compose-mode
+dockerfile-mode
 eyebrowse
 flycheck
 google-c-style
 google-translate
+haskell-mode
 highlight-indent-guides
 hydra
 init-loader
 jinja2-mode
+json-mode
 keyfreq
+ledger-mode
+lua-mode
 magit
 marginalia
 markdown-mode
+meson-mode
 migemo
 modus-themes
 open-junk-file
@@ -27,13 +38,17 @@ prettier-js
 py-isort
 python-black
 python-mode
+rainbow-delimiters
+rust-mode
+smartparens
 treemacs
 typescript-mode
 undo-tree
 vertico
 web-mode
+yaml-mode
 yasnippet
-vc shiwake-mode https://github.com/tateishi/shiwake-mode/ :newest
-vc kinshu-mode https://github.com/tateishi/kinshu-mode/ :newest
-vc kanata-kbd-mode https://github.com/chmouel/kanata-kbd-mode/ :newest
 vc anonymous-mode https://github.com/tateishi/anonymous-mode/ :newest
+vc kanata-kbd-mode https://github.com/chmouel/kanata-kbd-mode/ :newest
+vc kinshu-mode https://github.com/tateishi/kinshu-mode/ :newest
+vc shiwake-mode https://github.com/tateishi/shiwake-mode/ :newest
