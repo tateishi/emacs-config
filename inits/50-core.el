@@ -452,7 +452,8 @@ JISYO-LIST は
   (ledger-mode . my-enable-trailing-whitespace)
   (ledger-mode . my-ledger-comment-column)
   :config
-  (add-to-list 'ledger-report-format-specifiers '("tagname" . shiwake-report-tagname-format-specifier)))
+  (add-to-list 'ledger-report-format-specifiers '("tagname" . shiwake-report-tagname-format-specifier))
+  (add-to-list 'ledger-report-format-specifiers '("month" . shiwake-report-month-format-specifier)))
 
 ;; ----------------------------------------------------------------
 ;; kinshu mode
