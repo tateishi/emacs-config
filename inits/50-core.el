@@ -437,6 +437,7 @@ JISYO-LIST は
   (ledger-post-amount-alignment-at :decimal)
   (ledger-complete-in-steps t)
   (ledger-default-date-format ledger-iso-date-format)
+  (ledger-report-auto-refresh-sticky-cursor t)
   (ledger-reports
    '(("残高" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account)")
      ("店別" "%(binary) -f %(ledger-file) --sort date,-amount reg @%(payee)")
