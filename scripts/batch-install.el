@@ -28,7 +28,13 @@
 ;; ------- リポジトリ設定（必要に応じて調整） -------
 (setq package-archives
       '(("gnu"   . "https://elpa.gnu.org/packages/")
+        ("nongnu"   . "https://elpa.nongnu.org/nongnu/")
         ("melpa" . "https://melpa.org/packages/")))
+
+(setq package-archive-priorities
+      '(("gnu"     . 100)
+        ("nongnu"  . 90)
+        ("melpa"   . 50)))
 
 ;; ------- 初期化 -------
 (unless package--initialized

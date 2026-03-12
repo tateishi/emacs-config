@@ -1,11 +1,14 @@
 ace-window
 ansible
 avy
+cape
 clipetty
 cmake-mode
 company
 company-statistics
 consult
+corfu
+corfu-terminal
 csv-mode
 ddskk
 docker-compose-mode
