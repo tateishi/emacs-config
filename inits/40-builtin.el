@@ -64,13 +64,26 @@
 (tab-bar-history-mode 1)
 (tool-bar-mode -1)
 (which-key-mode t)
-;;(winner-mode 1)
+(winner-mode 1)
 
 ;; ----------------------------------------------------------------
 ;; global key map
 ;; ----------------------------------------------------------------
-(keymap-global-set "C-h" #'backward-delete-char-untabify)
+;;(keymap-global-set "C-h" #'backward-delete-char-untabify)
 (keymap-global-set "C-z" #'scroll-down-command)
+(keymap-global-set "C-x t b" #'tab-bar-history-back)
+(keymap-global-set "C-x t f" #'tab-bar-history-forward)
+
+;; repeat map for tab-bar-history-mode
+(defvar my-tab-bar-history-repeat-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "b") #'tab-bar-history-back)
+    (define-key map (kbd "f") #'tab-bar-history-forward)
+    map)
+  "Repeat map for ta-bar history navigation.")
+
+(put 'tab-bar-history-back 'repeat-map 'my-tab-bar-history-repeat-map)
+(put 'tab-bar-history-forward 'repeat-map 'my-tab-bar-history-repeat-map)
 
 ;; ----------------------------------------------------------------
 ;; hooks
