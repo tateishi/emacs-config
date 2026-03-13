@@ -29,6 +29,7 @@
 
 ;;; Code:
 
+(require 'use-package)
 
 (defun my/create-fontset (font name)
   (message "%s:%s" font name)
