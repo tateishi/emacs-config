@@ -32,6 +32,7 @@
 ;; - Corfu (+ popupinfo + terminal)
 ;; - Marginalia
 ;; - Cape
+;; - Embark
 
 ;;; Code:
 
@@ -39,6 +40,8 @@
 ;; Vertico
 ;; ----------------------------------------------------------------
 (use-package vertico
+  :custom
+  (vertico-count 20)
   :init
   (vertico-mode))
 
@@ -107,8 +110,34 @@ See `consult--compile-regexp' for INPUT, TYPE and IGNORE-CASE."
    ("M-g g" . consult-goto-line)
    ("C-x m" . consult-ripgrep)
    ("C-x C-r" . consult-recent-file))
+
   :config
   (setq consult--regexp-compiler #'consult--migemo-regexp-compiler))
+
+;; ----------------------------------------------------------------
+;; Embark
+;; ----------------------------------------------------------------
+(use-package embark
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :custom
+  (embark-quit-after-action '((kill-buffer . t) (t . nil)))
+
+  :bind
+  (("C-x ." . embark-act)
+   ("C-x ;" . embark-dwim)
+   ("<F1> B" . embark-bindings))
+
+  :hook
+  (embark-pre-action . minibuffer-hide-completions))
+
+(use-package embark-consult
+  :after
+  (embark consult)
+
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 ;; ----------------------------------------------------------------
 ;; Corfu
@@ -116,6 +145,7 @@ See `consult--compile-regexp' for INPUT, TYPE and IGNORE-CASE."
 (use-package corfu
   :init
   (global-corfu-mode)
+
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0)

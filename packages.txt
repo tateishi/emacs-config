@@ -13,6 +13,7 @@ csv-mode
 ddskk
 docker-compose-mode
 dockerfile-mode
+embark
 eyebrowse
 flycheck
 google-c-style
