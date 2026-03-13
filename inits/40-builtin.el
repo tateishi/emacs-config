@@ -80,7 +80,7 @@
     (define-key map (kbd "b") #'tab-bar-history-back)
     (define-key map (kbd "f") #'tab-bar-history-forward)
     map)
-  "Repeat map for ta-bar history navigation.")
+  "Repeat map for tab bar history navigation.")
 
 (put 'tab-bar-history-back 'repeat-map 'my-tab-bar-history-repeat-map)
 (put 'tab-bar-history-forward 'repeat-map 'my-tab-bar-history-repeat-map)
