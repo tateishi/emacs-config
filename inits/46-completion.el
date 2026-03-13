@@ -25,89 +25,94 @@
 
 ;;; Commentary:
 
-;; completion setting.
+;; Modern completion configuration
+;; - Vertico (+ directory)
+;; - Orderless + Migemo dispatcher
+;; - Consult + Migemo regexp compiler
+;; - Corfu (+ popupinfo + terminal)
+;; - Marginalia
+;; - Cape
 
 ;;; Code:
 
-;; -----------------------------
+;; ----------------------------------------------------------------
 ;; Vertico
-;; -----------------------------
+;; ----------------------------------------------------------------
 (use-package vertico
   :init
   (vertico-mode))
 
-;; -----------------------------
-;; Vertico-directory
-;; -----------------------------
 (use-package vertico-directory
   :after vertico
-  :bind (:map vertico-map
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word)))
+  :bind
+  (:map vertico-map
+        ("RET" . vertico-directory-enter)
+        ("DEL" . vertico-directory-delete-char)
+        ("M-DEL" . vertico-directory-delete-word)))
 
-;; -----------------------------
+;; ----------------------------------------------------------------
 ;; Orderless
-;; -----------------------------
-;; (use-package orderless
-;;   :init
-;;   (setq completion-styles '(orderless)
-;;         completion-category-defaults nil
-;;         completion-category-overrides '((file (styles . (partial-completion))))))
-
-;; (defun orderless-migemo-dispatcher (pattern _index _total)
-;;   `(orderless-regexp . ,(migemo-get-pattern pattern)))
+;; ----------------------------------------------------------------
+(require 'migemo)
 
 (defun orderless-migemo-dispatcher (pattern _index _total)
+  "Return migemo regexp for PATTERN when ascii-only and migemo available."
   (when (and (featurep 'migemo)
              (string-match-p "\\`[[:ascii:]]+\\'" pattern))
     `(orderless-regexp . ,(migemo-get-pattern pattern))))
 
-(defun consult--migemo-regexp-compiler (input type ignore-case)
-  (let ((migemo-regexp (mapcar #'migemo-get-pattern (consult--split-escaped input))))
-    (cons (mapcar (lambda (reg) (consult--convert-regexp reg type)) migemo-regexp)
-          (lambda (str) (consult--highlight-regexps migemo-regexp ignore-case str)))))
-
 (use-package orderless
-  :init
-  (setq completion-styles '(orderless-migemo orderless)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion)))))
+  :custom
+  (completion-styles '(orderless-migemo orderless))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion)))))
+
   :config
   (orderless-define-completion-style orderless-migemo
-    (orderless-matching-styles '(orderless-regexp orderless-literal orderless-prefix orderless-flex))
+    (orderless-matching-styles
+     '(orderless-literal orderless-regexp orderless-prefix orderless-flex))
     (orderless-style-dispatchers '(orderless-migemo-dispatcher))))
 
-(setq orderless-matching-styles '(orderless-literal orderless-regexp))
-(setq orderless-style-dispatchers '(orderless-migemo-dispatcher))
-
-;; -----------------------------
+;; ----------------------------------------------------------------
 ;; Cape
-;; -----------------------------
+;; ----------------------------------------------------------------
 (use-package cape
   :init
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
-;; -----------------------------
+;; ----------------------------------------------------------------
 ;; Marginalia
-;; -----------------------------
+;; ----------------------------------------------------------------
 (use-package marginalia
   :init
   (marginalia-mode))
 
-;; -----------------------------
+;; ----------------------------------------------------------------
 ;; Consult
-;; -----------------------------
-(use-package consult
-  :bind (("C-s" . consult-line)
-         ("C-x b" . consult-buffer)
-         ("M-g g" . consult-goto-line)
-         ("M-s r" . consult-ripgrep)))
+;; ----------------------------------------------------------------
+(require 'consult)
 
-;; -----------------------------
+(defun consult--migemo-regexp-compiler (input type ignore-case)
+  "Migemo-aware regexp compiler for Consult.
+See `consult--compile-regexp' for INPUT, TYPE and IGNORE-CASE."
+  (let ((migemo-regexp (mapcar #'migemo-get-pattern (consult--split-escaped input))))
+    (cons (mapcar (lambda (reg) (consult--convert-regexp reg type)) migemo-regexp)
+          (lambda (str) (consult--highlight-regexps migemo-regexp ignore-case str)))))
+
+(use-package consult
+  :bind
+  (("C-s" . consult-line)
+   ("C-x b" . consult-buffer)
+   ("M-g g" . consult-goto-line)
+   ("C-x m" . consult-ripgrep)
+   ("C-x C-r" . consult-recent-file))
+  :config
+  (setq consult--regexp-compiler #'consult--migemo-regexp-compiler))
+
+;; ----------------------------------------------------------------
 ;; Corfu
-;; -----------------------------
+;; ----------------------------------------------------------------
 (use-package corfu
   :init
   (global-corfu-mode)
@@ -117,20 +122,17 @@
   (corfu-auto-prefix 1)
   (corfu-cycle t))
 
-;; -----------------------------
-;; Corfu-Terminal
-;; -----------------------------
-;; 端末でも使うなら
+;; Terminal support
 (use-package corfu-terminal
   :if (not (display-graphic-p))
-  :init (corfu-terminal-mode))
+  :init
+  (corfu-terminal-mode))
 
-;; -----------------------------
-;; Corfu-Popupinfo
-;; -----------------------------
+;; Popup info
 (use-package corfu-popupinfo
   :after corfu
-  :init (corfu-popupinfo-mode))
+  :init
+  (corfu-popupinfo-mode))
 
 (provide '46-completion)
 
