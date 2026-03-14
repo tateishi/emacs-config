@@ -306,8 +306,31 @@ JISYO-LIST は
   (global-flycheck-mode))
 
 ;; ----------------------------------------------------------------
+;; tree-sitter
+;; ----------------------------------------------------------------
+(add-to-list 'treesit-language-source-alist
+             '(c "https://github.com/tree-sitter/tree-sitter-c"))
+(add-to-list 'treesit-language-source-alist
+             '(cpp "https://github.com/tree-sitter/tree-sitter-cpp"))
+
+;; ----------------------------------------------------------------
 ;; cc mode
 ;; ----------------------------------------------------------------
+;; * 事前準備必要(c, c++のgrammarをインストール)
+;; M-x treesit-install-language-grammar RET
+;; c RET  ;; そのまま y で進める
+;; M-x treesit-install-language-grammar RET
+;; cpp RET  ;; そのまま y で進める
+;; c/c++ 用lsp インストールが必要
+;; apt install clangd -y
+(when (and (fboundp 'treesit-available-p) (treesit-available-p))
+  (progn
+    (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+    (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+    (setq treesit-font-lock-level 4)
+    (add-hook 'c-ts-mode-hook #'eglot-ensure)
+    (add-hook 'c++-ts-mode-hook #'eglot-ensure)))
+
 (use-package cc-mode
   :hook
   (c-mode-common . my-enable-trailing-whitespace))
