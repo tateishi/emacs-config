@@ -166,6 +166,7 @@
 ;; ----------------------------------------------------------------
 ;; recentf
 ;; ----------------------------------------------------------------
+(require 'recentf)
 (with-eval-after-load 'recentf
   (add-to-list 'recentf-exclude "\\.cache/")
   (add-to-list 'recentf-exclude "\\.git/"))
