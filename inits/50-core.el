@@ -129,7 +129,13 @@ JISYO-LIST は
   (("C-c a" . org-agenda)
    ("C-c l" . org-store-link)
    ("C-c c" . org-capture)
-   ("C-c b" . my-show-org-notes-buffer)))
+   ("C-c b" . my-show-org-notes-buffer))
+
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t))))
 
 (use-package org-journal
   :custom
