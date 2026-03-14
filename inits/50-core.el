@@ -321,9 +321,18 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; python mode
 ;; ----------------------------------------------------------------
-(use-package python-mode
-  :hook
-  (python-mode-hook . smartparens-mode))
+;; * 事前準備必要(pythonのgrammarをインストール)
+;; M-x treesit-install-language-grammar RET
+;; python RET  ;; そのまま y で進める
+(if (treesit-available-p)
+    (progn
+      (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+      (setq treesit-font-lock-level 4)
+      (add-hook 'python-ts-mode-hook #'eglot-ensure)
+      (setq tab-always-indent 'complete))
+  (use-package python-mode
+    :hook
+    (python-mode-hook . smartparens-mode)))
 
 ;; ----------------------------------------------------------------
 ;; python-black

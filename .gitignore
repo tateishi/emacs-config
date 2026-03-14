@@ -33,6 +33,7 @@ server
 skk
 tramp
 transient
+tree-sitter
 undo
 url
 user-local.el
