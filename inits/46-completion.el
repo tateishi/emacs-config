@@ -75,7 +75,7 @@
   :config
   (orderless-define-completion-style orderless-migemo
     (orderless-matching-styles
-     '(orderless-literal orderless-regexp orderless-prefix orderless-flex))
+     '(orderless-literal orderless-regexp orderless-prefixes orderless-flex))
     (orderless-style-dispatchers '(orderless-migemo-dispatcher))))
 
 ;; ----------------------------------------------------------------
