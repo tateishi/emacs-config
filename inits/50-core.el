@@ -308,10 +308,16 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; tree-sitter
 ;; ----------------------------------------------------------------
-(add-to-list 'treesit-language-source-alist
-             '(c "https://github.com/tree-sitter/tree-sitter-c"))
-(add-to-list 'treesit-language-source-alist
-             '(cpp "https://github.com/tree-sitter/tree-sitter-cpp"))
+(use-package treesit
+  :init
+  ;; grammar のソース
+  (setq treesit-language-source-alist
+        '((c       "https://github.com/tree-sitter/tree-sitter-c")
+          (cpp     "https://github.com/tree-sitter/tree-sitter-cpp")
+          (python  "https://github.com/tree-sitter/tree-sitter-python")))
+
+  :custom
+  (setq treesit-font-lock-level 4))
 
 ;; ----------------------------------------------------------------
 ;; cc mode
@@ -323,16 +329,28 @@ JISYO-LIST は
 ;; cpp RET  ;; そのまま y で進める
 ;; c/c++ 用lsp インストールが必要
 ;; apt install clangd -y
-(when (and (fboundp 'treesit-available-p) (treesit-available-p))
-  (progn
-    (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
-    (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
-    (setq treesit-font-lock-level 4)
-    (add-hook 'c-ts-mode-hook #'eglot-ensure)
-    (add-hook 'c++-ts-mode-hook #'eglot-ensure)))
+(defun my/use-c-ts-mode-if-available ()
+  "Treesitが有効なときc-ts-mode."
+  (if (treesit-language-available-p 'c)
+      (c-ts-mode)
+    (c-mode)))
+
+(defun my/use-cpp-ts-mode-if-available ()
+  "Treesitが有効なときc++-ts-mode."
+  (if (treesit-language-available-p 'cpp)
+      (c++-ts-mode)
+    (c++-mode)))
 
 (use-package cc-mode
+  :mode
+  (("\\.c\\'"   . my/use-c-ts-mode-if-available)
+   ("\\.h\\'"   . my/use-c-ts-mode-if-available)
+   ("\\.cpp\\'" . my/use-cpp-ts-mode-if-available)
+   ("\\.hpp\\'" . my/use-cpp-ts-mode-if-available))
+
   :hook
+  (c-ts-mode . eglot-ensure)
+  (c++-ts-mode . eglot-ensure)
   (c-mode-common . my-enable-trailing-whitespace))
 
 (use-package google-c-style
@@ -347,16 +365,19 @@ JISYO-LIST は
 ;; * 事前準備必要(pythonのgrammarをインストール)
 ;; M-x treesit-install-language-grammar RET
 ;; python RET  ;; そのまま y で進める
-(when (and (fboundp 'treesit-available-p) (treesit-available-p))
-  (progn
-    (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
-    (setq treesit-font-lock-level 4)
-    (add-hook 'python-ts-mode-hook #'eglot-ensure)
-    (setq tab-always-indent 'complete)))
+(defun my/use-python-ts-mode-if-available ()
+  "Treesitが有効なときpython-ts-mode."
+  (if (treesit-language-available-p 'python)
+      (python-ts-mode)
+    (python-mode)))
 
-(use-package python-mode
+(use-package python
+  :mode
+  (("\\.py\\'" . my/use-python-ts-mode-if-available))
   :hook
-  (python-mode-hook . smartparens-mode))
+  (python-ts-mode . eglot-ensure)
+  (python-mode . smartparens-mode))
+
 ;; ----------------------------------------------------------------
 ;; python-black
 ;; ----------------------------------------------------------------
