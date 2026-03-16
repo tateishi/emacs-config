@@ -161,6 +161,14 @@ JISYO-LIST は
 
   :bind (("C-c j" . org-journal-new-entry)))
 
+(use-package org-roam
+  :custom
+  (org-roam-directory (file-truename "~/wks/notes"))
+  (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
+  :config
+  (when (file-directory-p org-roam-directory)
+    (org-roam-db-autosync-mode 1)))
+
 ;; ----------------------------------------------------------------
 ;; undo tree
 ;; ----------------------------------------------------------------

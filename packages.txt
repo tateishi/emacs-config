@@ -36,6 +36,7 @@ modus-themes
 open-junk-file
 orderless
 org-journal
+org-roam
 persp-mode
 powershell
 prettier-js
