@@ -45,6 +45,8 @@ python-mode
 rainbow-delimiters
 rust-mode
 smartparens
+tempel
+tempel-collection
 treemacs
 typescript-mode
 undo-tree

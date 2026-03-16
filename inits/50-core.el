@@ -55,6 +55,23 @@
   (keyfreq-autosave-mode 1))
 
 ;; ----------------------------------------------------------------
+;; tempel template package
+;; ----------------------------------------------------------------
+(use-package tempel
+  :bind
+  (("M-+" . tempel-complete)
+   ("M-*" . tempel-insert))
+
+  :custom
+  (tempel-path (list (expand-file-name "templates/*.eld" user-emacs-directory))))
+
+(use-package tempel-collection :after tempel)
+
+(require 'corfu-auto)
+(with-eval-after-load 'corfu
+  (add-to-list 'corfu-auto-commands #'tempel-complete))
+
+;; ----------------------------------------------------------------
 ;; DDSKK
 ;; ----------------------------------------------------------------
 (defun my/with-jisyo-dir (dir jisyo-list)

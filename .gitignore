@@ -25,6 +25,7 @@ eshell
 ielm-history.eld
 keyfreq
 kkcrc
+package-quickstart.el
 persp-confs
 projects
 recentf
