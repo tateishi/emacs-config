@@ -163,8 +163,13 @@ JISYO-LIST は
 
 (use-package org-roam
   :custom
-  (org-roam-directory (file-truename "~/wks/notes"))
+  ;; (org-roam-directory (file-truename "~/org-roam"))
   (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
+  (org-roam-dailies-capture-templates
+   '(("d" "default" entry "* %?"
+      :if-new (file+head "%<%Y-%m-%d>.org"
+                         "#+title: %<%Y-%m-%d>\n"))))
+
   :config
   (when (file-directory-p org-roam-directory)
     (org-roam-db-autosync-mode 1)))
