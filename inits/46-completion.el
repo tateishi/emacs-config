@@ -113,7 +113,8 @@ See `consult--compile-regexp' for INPUT, TYPE and IGNORE-CASE."
    ("C-x b" . consult-buffer)
    ("M-g g" . consult-goto-line)
    ("C-x m" . consult-ripgrep)
-   ("C-x C-r" . consult-recent-file))
+   ("C-x C-r" . consult-recent-file)
+   ("M-y" . consult-yank-from-kill-ring))
 
   :config
   (setq consult--regexp-compiler #'consult--migemo-regexp-compiler))
