@@ -172,6 +172,12 @@
   (add-to-list 'recentf-exclude "\\.git/"))
 
 ;; ----------------------------------------------------------------
+;; dabbrev
+;; ----------------------------------------------------------------
+(require 'dabbrev)
+(setopt dabbrev-case-fold-search t)
+(setopt dabbrev-case-replace nil)
+
 ;; provide
 ;; ----------------------------------------------------------------
 (provide '40-builtin)
