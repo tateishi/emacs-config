@@ -261,6 +261,19 @@ JISYO-LIST は
   (emacs-lisp-mode . smartparens-strict-mode)
   (lisp-mode . smartparens-strict-mode)
 
+  :bind
+  (:map smartparens-mode-map
+        ("C-M-f" . sp-forward-sexp)
+        ("C-M-b" . sp-backward-sexp)
+        ("C-M-d" . sp-down-sexp)
+        ("C-M-u" . sp-up-sexp)
+        ("C-M-@" . sp-mark-sexp)
+        ("C-M-k" . sp-kill-sexp)
+        ("C-c <" . sp-backward-slurp-sexp)
+        ("C-c >" . sp-forward-slurp-sexp)
+        ("C-c [" . sp-backward-barf-sexp)
+        ("C-c ]" . sp-forward-barf-sexp))
+
   :config
   (require 'smartparens-config))
 
