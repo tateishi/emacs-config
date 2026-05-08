@@ -36,6 +36,10 @@
         ("nongnu"  . 90)
         ("melpa"   . 50)))
 
+;; ------- リポジトリ固定 -------
+(setq package-pinned-packages
+      '((smartparens . "melpa")))
+
 ;; ------- 初期化 -------
 (unless package--initialized
   (package-initialize))
