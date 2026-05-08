@@ -278,6 +278,16 @@ JISYO-LIST は
   (require 'smartparens-config))
 
 ;; ----------------------------------------------------------------
+;;
+;; aggressive-indent
+;;
+;; ----------------------------------------------------------------
+(use-package aggressive-indent
+  :hook
+  (emacs-lisp-mode . aggressive-indent-mode))
+
+;; ----------------------------------------------------------------
+;;
 ;; rainbow-delimiters
 ;; ----------------------------------------------------------------
 (use-package rainbow-delimiters

@@ -38,7 +38,8 @@
 
 ;; ------- リポジトリ固定 -------
 (setq package-pinned-packages
-      '((smartparens . "melpa")))
+      '((aggressive-indent . "melpa")
+        (smartparens . "melpa")))
 
 ;; ------- 初期化 -------
 (unless package--initialized
