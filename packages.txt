@@ -51,6 +51,7 @@ smartparens
 tempel
 tempel-collection
 treemacs
+treesit-auto
 typescript-mode
 undo-tree
 vertico

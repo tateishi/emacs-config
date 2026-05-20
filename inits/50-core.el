@@ -333,6 +333,44 @@ JISYO-LIST は
   )
 
 ;; ----------------------------------------------------------------
+;; tree-sitter
+;; ----------------------------------------------------------------
+;; (use-package treesit
+;;   :init
+;;   ;; grammar のソース
+;;   (setq treesit-language-source-alist
+;;         '((c       "https://github.com/tree-sitter/tree-sitter-c")
+;;           (cpp     "https://github.com/tree-sitter/tree-sitter-cpp")
+;;           (python  "https://github.com/tree-sitter/tree-sitter-python")
+;;           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master")
+;;           (tsx  "https://github.com/tree-sitter/tree-sitter-typescript" "master")))
+
+;;   :custom
+;;   (setq treesit-font-lock-level 4))
+
+
+;; ----------------------------------------------------------------
+;; treesit auto mode
+;; ----------------------------------------------------------------
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+
+  :config
+  (global-treesit-auto-mode))
+
+;; ----------------------------------------------------------------
+;; typescript / tsx
+;; ----------------------------------------------------------------
+(use-package typescript-ts-mode
+  :mode
+  ("\\.ts\\'" . typescript-ts-mode))
+
+(use-package tsx-ts-mode
+  :mode
+  ("\\.tsx\\'" . tsx-ts-mode))
+
+;; ----------------------------------------------------------------
 ;; Eglot (emacs client of language server)
 ;; ----------------------------------------------------------------
 (use-package eglot
@@ -349,6 +387,9 @@ JISYO-LIST は
   :commands
   (eglot eglot-ensure)
 
+  :hook
+  ((typescript-ts-mode tsx-ts-mode) . eglot-ensure)
+
   :config
   (add-to-list 'eglot-server-programs '(python-mode "pylsp")))
 
@@ -358,20 +399,6 @@ JISYO-LIST は
 (use-package flycheck
   :init
   (global-flycheck-mode))
-
-;; ----------------------------------------------------------------
-;; tree-sitter
-;; ----------------------------------------------------------------
-(use-package treesit
-  :init
-  ;; grammar のソース
-  (setq treesit-language-source-alist
-        '((c       "https://github.com/tree-sitter/tree-sitter-c")
-          (cpp     "https://github.com/tree-sitter/tree-sitter-cpp")
-          (python  "https://github.com/tree-sitter/tree-sitter-python")))
-
-  :custom
-  (setq treesit-font-lock-level 4))
 
 ;; ----------------------------------------------------------------
 ;; cc mode
@@ -523,14 +550,6 @@ JISYO-LIST は
   (web-mode-code-indent-offset 2)
   (web-mode-script-padding 0)
   (web-mode-style-padding 0))
-
-;; ----------------------------------------------------------------
-;; typescript
-;; ----------------------------------------------------------------
-(use-package typescript-mode
-  :commands (typescript-mode)
-  :custom
-  (typescript-indent-level 2))
 
 ;; ----------------------------------------------------------------
 ;; json
