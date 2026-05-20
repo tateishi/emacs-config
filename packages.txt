@@ -16,6 +16,7 @@ direnv
 docker-compose-mode
 dockerfile-mode
 embark
+exec-path-from-shell
 eyebrowse
 flycheck
 google-c-style

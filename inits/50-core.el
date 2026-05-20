@@ -34,6 +34,13 @@
 ;; ----------------------------------------------------------------
 ;; clip board
 ;; ----------------------------------------------------------------
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
+;; ----------------------------------------------------------------
+;; clip board
+;; ----------------------------------------------------------------
 (use-package clipetty
   :if (not (or (display-graphic-p) noninteractive))
   :bind ("M-w" . clipetty-kill-ring-save))
