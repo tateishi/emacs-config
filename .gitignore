@@ -2,10 +2,18 @@
 *.elc
 
 # Packaging
-.cask
+.cask*
+.eask*
+elpa*
 
 # Backup files
 *~
+
+# Customize
+custom.el
+
+# Local settings
+user-local.el
 
 # Undo-tree save-files
 *.~undo-tree
@@ -17,10 +25,8 @@ ac-comphist.dat
 backup
 bookmarks
 company-statistics-cache.el
-custom.el
 ddskk
 eln-cache
-elpa
 eshell
 ielm-history.eld
 keyfreq
@@ -38,4 +44,3 @@ transient
 tree-sitter
 undo
 url
-user-local.el

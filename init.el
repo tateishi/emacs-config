@@ -43,11 +43,12 @@
       '(("gnu"    . "https://elpa.gnu.org/packages/")
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ("melpa"  . "https://melpa.org/packages/")))
+(add-to-list 'package-directory-list
+             (locate-user-emacs-file (format ".eask/%s/elpa" emacs-version)))
 (package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
 
 ;; ----------------------------------------------------------------
 ;; init-loader
