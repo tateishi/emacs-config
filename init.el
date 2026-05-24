@@ -36,6 +36,13 @@
 (load custom-file 'noerror)
 
 ;; ----------------------------------------------------------------
+;; user-local
+;; ----------------------------------------------------------------
+(let ((user-local-file (locate-user-emacs-file "user-local.el")))
+  (when (file-exists-p user-local-file)
+    (load user-local-file 'noerror)))
+
+;; ----------------------------------------------------------------
 ;; use-package のロード
 ;; ----------------------------------------------------------------
 (require 'package)
@@ -43,8 +50,10 @@
       '(("gnu"    . "https://elpa.gnu.org/packages/")
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ("melpa"  . "https://melpa.org/packages/")))
-(add-to-list 'package-directory-list
-             (locate-user-emacs-file (format ".eask/%s/elpa" emacs-version)))
+(when (and (boundp 'my-using-eask-for-package) my-using-eask-for-package)
+  (add-to-list 'package-directory-list
+               (locate-user-emacs-file (format ".eask/%s/elpa" emacs-version))))
+
 (package-initialize)
 
 (eval-when-compile
