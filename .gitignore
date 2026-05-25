@@ -1,6 +1,11 @@
 # Compiled
 *.elc
 
+# secret and local vars
+.env
+.env.*
+!.env.example
+
 # Packaging
 .cask*
 .eask*

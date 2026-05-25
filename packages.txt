@@ -17,6 +17,7 @@ docker-compose-mode
 dockerfile-mode
 eask-mode
 embark
+envrc
 exec-path-from-shell
 eyebrowse
 flycheck

@@ -32,6 +32,7 @@
 (depends-on "dockerfile-mode")
 (depends-on "eask-mode")
 (depends-on "embark")
+(depends-on "envrc")
 (depends-on "exec-path-from-shell")
 (depends-on "eyebrowse")
 (depends-on "flycheck")
