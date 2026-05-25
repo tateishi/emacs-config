@@ -15,6 +15,7 @@ ddskk
 direnv
 docker-compose-mode
 dockerfile-mode
+eask-mode
 embark
 exec-path-from-shell
 eyebrowse

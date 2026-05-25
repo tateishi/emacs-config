@@ -1,4 +1,4 @@
-;; -*- mode: eask; lexical-binding: t -*-
+;; -*- mode: eask -*-
 
 (package "Emacs configuration"
          "0.1.0"
@@ -30,6 +30,7 @@
 (depends-on "direnv")
 (depends-on "docker-compose-mode")
 (depends-on "dockerfile-mode")
+(depends-on "eask-mode")
 (depends-on "embark")
 (depends-on "exec-path-from-shell")
 (depends-on "eyebrowse")
