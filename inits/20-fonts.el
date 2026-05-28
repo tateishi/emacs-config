@@ -29,7 +29,8 @@
 
 ;;; Code:
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 
 (defun my/create-fontset (font name)
   (message "%s:%s" font name)

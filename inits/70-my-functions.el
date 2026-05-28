@@ -29,6 +29,9 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'use-package))
+
 (defun my/set-show-trailing-whitespace ()
   (setq show-trailing-whitespace t))
 
