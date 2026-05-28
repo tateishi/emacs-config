@@ -71,7 +71,7 @@
   (completion-styles '(orderless-migemo orderless))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion)))))
-  (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
+  (orderless-matching-styles '(orderless-literal orderless-prefixes orderless-regexp))
   (orderless-component-separator "[-_ /.:]")
 
   :config
