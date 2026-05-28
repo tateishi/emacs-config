@@ -38,6 +38,7 @@
 (depends-on "flycheck")
 (depends-on "google-c-style")
 (depends-on "google-translate")
+(depends-on "gt")
 (depends-on "haskell-mode")
 (depends-on "highlight-indent-guides")
 (depends-on "hydra")
