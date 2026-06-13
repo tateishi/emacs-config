@@ -23,6 +23,7 @@ eyebrowse
 flycheck
 google-c-style
 google-translate
+gt
 haskell-mode
 highlight-indent-guides
 hydra
