@@ -405,6 +405,9 @@ JISYO-LIST は
 ;; flycheck
 ;; ----------------------------------------------------------------
 (use-package flycheck
+  :custom
+  (flycheck-idle-change-delay 5.0)
+
   :init
   (global-flycheck-mode))
 
