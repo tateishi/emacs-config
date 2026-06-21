@@ -417,8 +417,9 @@ JISYO-LIST は
 (use-package flycheck
   :custom
   (flycheck-idle-change-delay 5.0)
+  (flycheck-emacs-lisp-load-path 'inherit)
 
-  :init
+  :config
   (global-flycheck-mode))
 
 ;; ----------------------------------------------------------------
