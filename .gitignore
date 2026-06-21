@@ -23,7 +23,7 @@ user-local.el
 # Undo-tree save-files
 *.~undo-tree
 
-# init
+# init and cache
 .#*
 .cache
 ac-comphist.dat
@@ -40,7 +40,6 @@ kkcrc
 package-quickstart.el
 persp-confs
 projects
-recentf
 request
 server
 session.*

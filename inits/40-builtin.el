@@ -44,6 +44,7 @@
         kill-do-not-save-duplicates t
         recentf-max-saved-items 300
         recentf-auto-cleanup 'never
+        recentf-save-file ".cache/emacs/recentf"
         save-interprogram-paste-before-kill t
         show-paren-delay 0.0
         show-paren-style 'parenthesis
