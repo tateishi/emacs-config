@@ -36,6 +36,8 @@
 ;; gt
 ;; ----------------------------------------------------------------
 (use-package gt
+  :functions
+  (gt-translator gt-google-engine gt-taker gt-buffer-render)
   :custom
   (gt-langs '(ja en))
 

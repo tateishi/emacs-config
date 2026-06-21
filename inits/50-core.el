@@ -63,7 +63,7 @@
 
   :init
   (defconst my-keyfreq-dir (expand-file-name "keyfreq" my-xdg-cache))
-  (unless (file-directory-p my-keyfreq-dir) (make-directory my-keyfreq-dir))
+  (make-directory my-keyfreq-dir t)
   (setq keyfreq-excluded-commands '(self-insert-command))
 
   :custom
@@ -95,7 +95,7 @@
 ;; DDSKK
 ;; ----------------------------------------------------------------
 (defun my/with-jisyo-dir (dir jisyo-list)
-  "DIR を JISYO-LIST の各要素に付けて返す。
+  "DIR を JISYO-LIST の各要素に付けて返す.
 
 JISYO-LIST は
   (\"FILE\")
@@ -140,20 +140,23 @@ JISYO-LIST は
 ;; ORG mode
 ;; ----------------------------------------------------------------
 ;; helper commands/functions.
-(defun my-show-org-buffer (file)
-  (interactive)
-  (if (get-buffer file)
-      (let ((buffer (get-buffer file)))
-        (switch-to-buffer buffer)
-        (message "%s" file))
-    (find-file (expand-file-name file org-directory))))
-
-(defun my-show-org-notes-buffer ()
-  (interactive)
-  (my-show-org-buffer "notes.org"))
-
 ;; package definition
 (use-package org
+  :preface
+  (defun my-show-org-buffer (file)
+    ""
+    (interactive)
+    (if (get-buffer file)
+        (let ((buffer (get-buffer file)))
+          (switch-to-buffer buffer)
+          (message "%s" file))
+      (find-file (expand-file-name file org-directory))))
+
+  (defun my-show-org-notes-buffer ()
+    ""
+    (interactive)
+    (my-show-org-buffer "notes.org"))
+
   :custom
   (org-agenda-files (if (file-exists-p org-directory)
                         (directory-files-recursively org-directory "\\.org$")))
@@ -223,6 +226,9 @@ JISYO-LIST は
 ;; google translate
 ;; ----------------------------------------------------------------
 (use-package google-translate
+  :functions
+  (google-translate-translate)
+
   :preface
   (defun my-google-translate--text-at-point ()
     (cond
@@ -373,6 +379,9 @@ JISYO-LIST は
 ;; treesit auto mode
 ;; ----------------------------------------------------------------
 (use-package treesit-auto
+  :functions
+  (global-treesit-auto-mode)
+
   :custom
   (treesit-auto-install 'prompt)
 
@@ -394,10 +403,13 @@ JISYO-LIST は
 ;; Eglot (emacs client of language server)
 ;; ----------------------------------------------------------------
 (use-package eglot
+  :functions
+  (eglot-server-capable eglot-format-buffer)
+
   :preface
   (defun my-eglot-format ()
     (when (and (bound-and-true-p eglot-managed-p)
-               (eglot--server-capable :documentFormattingProvider))
+               (eglot-server-capable :documentFormattingProvider))
       (eglot-format-buffer)))
 
   :custom
@@ -650,15 +662,17 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; migemo
 ;; ----------------------------------------------------------------
-(setq my-migemo-path "/usr/share/cmigemo/utf-8")
+(defconst my-migemo-path "/usr/share/cmigemo/utf-8")
 
 (defun my-migemo-directory (path)
+  "PATHからmigemo pathを計算."
   (if (file-directory-p path)
       path
     (let ((migemo-path (file-name-directory (or (executable-find "cmigemo") ""))))
       (expand-file-name "dict/utf8" migemo-path))))
 
 (defun my-migemo-dictionary (path)
+  "PATHからmigemo directoryを計算."
   (if (file-directory-p path)
       (expand-file-name "migemo-dict" path)))
 
@@ -709,6 +723,9 @@ JISYO-LIST は
 ;; treemacs
 ;; ----------------------------------------------------------------
 (use-package treemacs
+  :functions
+  (treemacs-follow-mode treemacs-filewatch-mode treemacs-git-mode)
+
   :preface
   (defun my-treemacs-detect-python ()
     "Detect a suitable Python executable for Treemacs."
