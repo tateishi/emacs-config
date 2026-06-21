@@ -35,13 +35,16 @@
 ;; ----------------------------------------------------------------
 ;; XDG directories
 ;; ----------------------------------------------------------------
-(defconst my-xdg-cache
-  (cond
-   ((memq system-type '(gnu/linux darwin)) "~/.cache/emacs")
-   ((eq system-type 'windows-nt) (expand-file-name "emacs/" (getenv "LOCALAPPDATA")))
-   (t "~/.cache/emacs")))
+(require 'xdg)
 
+(defconst my-xdg-cache (expand-file-name "emacs" (xdg-cache-home)))
 (unless (file-directory-p my-xdg-cache) (make-directory my-xdg-cache))
+
+(defconst my-xdg-config (expand-file-name "emacs" (xdg-config-home)))
+(unless (file-directory-p my-xdg-config) (make-directory my-xdg-config))
+
+(defconst my-xdg-data (expand-file-name "emacs" (xdg-data-home)))
+(unless (file-directory-p my-xdg-data) (make-directory my-xdg-data))
 
 ;; ----------------------------------------------------------------
 ;; general setting
