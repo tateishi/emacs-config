@@ -31,6 +31,7 @@
 (depends-on "docker-compose-mode")
 (depends-on "dockerfile-mode")
 (depends-on "eask-mode")
+(depends-on "editorconfig")
 (depends-on "embark")
 (depends-on "envrc")
 (depends-on "exec-path-from-shell")

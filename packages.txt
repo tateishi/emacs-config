@@ -16,6 +16,7 @@ direnv
 docker-compose-mode
 dockerfile-mode
 eask-mode
+editorconfig
 embark
 envrc
 exec-path-from-shell
