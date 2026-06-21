@@ -29,22 +29,19 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'use-package))
-
 ;; ----------------------------------------------------------------
 ;; XDG directories
 ;; ----------------------------------------------------------------
 (require 'xdg)
 
 (defconst my-xdg-cache (expand-file-name "emacs" (xdg-cache-home)))
-(unless (file-directory-p my-xdg-cache) (make-directory my-xdg-cache))
+(make-directory my-xdg-cache t)
 
 (defconst my-xdg-config (expand-file-name "emacs" (xdg-config-home)))
-(unless (file-directory-p my-xdg-config) (make-directory my-xdg-config))
+(make-directory my-xdg-config t)
 
 (defconst my-xdg-data (expand-file-name "emacs" (xdg-data-home)))
-(unless (file-directory-p my-xdg-data) (make-directory my-xdg-data))
+(make-directory my-xdg-data t)
 
 ;; provide
 ;; ----------------------------------------------------------------
