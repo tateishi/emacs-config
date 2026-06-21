@@ -515,24 +515,12 @@ JISYO-LIST は
   :vc (:url "https://github.com/tateishi/shiwake-mode/" :rev :newest)
   :commands (shiwake-mode)
   :custom
-  (ledger-accounts-file "~/wks/ledger/accounts/accounts.dat")
-  (ledger-payees-file "~/wks/ledger/accounts/payees.dat")
-  (shiwake-tagnames-file "~/wks/ledger/accounts/tags.dat")
   (ledger-copy-transaction-insert-blank-line-after t)
   (ledger-post-amount-alignment-at :decimal)
   (ledger-complete-in-steps t)
   (ledger-default-date-format ledger-iso-date-format)
   (ledger-report-auto-refresh-sticky-cursor t)
-  (ledger-reports
-   '(("残高" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account)")
-     ("店別" "%(binary) -f %(ledger-file) --sort date,-amount reg @%(payee)")
-     ("TAG別" "%(binary) -f %(ledger-file) --sort date,-amount reg %(account) and \%%(tagname)")
-     ("META" "%(binary) -f %(ledger-file) reg %(account) --limit \"tag('item') == 'what'\"")
-     ("bal" "%(binary)  -f %(ledger-file) bal")
-     ("bal this month" "%(binary) -f %(ledger-file)  -p %(month) bal")
-     ("reg" "%(binary) -f %(ledger-file) reg")
-     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-     ("account" "%(binary) -f %(ledger-file) reg %(account)")))
+
   :hook
   (ledger-mode . my-enable-trailing-whitespace)
   (ledger-mode . my-ledger-comment-column)
