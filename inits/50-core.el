@@ -60,10 +60,13 @@
   :if (not noninteractive)
 
   :init
-  (make-directory (locate-user-emacs-file "keyfreq") t)
-  (setq keyfreq-file (locate-user-emacs-file "keyfreq/keyfreq.el"))
-  (setq keyfreq-file-lock (locate-user-emacs-file "keyfreq/keyfreq.lock"))
+  (defconst my-keyfreq-dir (expand-file-name "keyfreq" my-xdg-cache))
+  (unless (file-directory-p my-keyfreq-dir) (make-directory my-keyfreq-dir))
   (setq keyfreq-excluded-commands '(self-insert-command))
+
+  :custom
+  (keyfreq-file (expand-file-name "keyfreq.el" my-keyfreq-dir))
+  (keyfreq-file-lock (expand-file-name "keyfreq.lock" my-keyfreq-dir))
 
   :config
   (keyfreq-mode 1)
