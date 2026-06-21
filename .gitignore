@@ -27,13 +27,10 @@ user-local.el
 .#*
 .cache
 ac-comphist.dat
-backup
-bookmarks
 company-statistics-cache.el
 ddskk
 ellama-sessions
 eln-cache
-eshell
 ielm-history.eld
 keyfreq
 kkcrc
@@ -44,7 +41,6 @@ request
 server
 session.*
 skk
-tramp
 transient
 tree-sitter
 undo

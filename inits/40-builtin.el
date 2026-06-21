@@ -33,6 +33,17 @@
   (require 'use-package))
 
 ;; ----------------------------------------------------------------
+;; XDG directories
+;; ----------------------------------------------------------------
+(defconst my-xdg-cache
+  (cond
+   ((memq system-type '(gnu/linux darwin)) "~/.cache/emacs")
+   ((eq system-type 'windows-nt) (expand-file-name "emacs/" (getenv "LOCALAPPDATA")))
+   (t "~/.cache/emacs")))
+
+(unless (file-directory-p my-xdg-cache) (make-directory my-xdg-cache))
+
+;; ----------------------------------------------------------------
 ;; general setting
 ;; ----------------------------------------------------------------
 (setopt indent-tabs-mode nil
@@ -42,10 +53,13 @@
         tab-always-indent 'complete
         use-short-answers t
         kill-do-not-save-duplicates t
+        bookmark-file (expand-file-name "bookmarks" my-xdg-cache)
         recentf-max-saved-items 300
         recentf-auto-cleanup 'never
-        recentf-save-file ".cache/emacs/recentf"
+        recentf-save-file (expand-file-name "recentf" my-xdg-cache)
         save-interprogram-paste-before-kill t
+        savehist-file (expand-file-name "savehist" my-xdg-cache)
+        tramp-persistency-file (expand-file-name "tramp" my-xdg-cache)
         show-paren-delay 0.0
         show-paren-style 'parenthesis
         x-underline-at-descent-line t
@@ -122,25 +136,26 @@
 (add-hook 'org-mode-hook #'my-disable-trailing-whitespace)
 
 ;; ----------------------------------------------------------------
+;; auto save
+;; ----------------------------------------------------------------
+(setopt auto-save-list-file-prefix (expand-file-name "auto-save/.saves-" my-xdg-cache))
+
+;; ----------------------------------------------------------------
 ;; backup
 ;; ----------------------------------------------------------------
+
+(defvar my-backup-dir (expand-file-name "backup" my-xdg-cache)
+  "バックアップディレクトリ.")
+
+(unless (file-directory-p my-backup-dir)
+  (make-directory my-backup-dir))
+
 (setopt backup-by-copying t
         delete-old-versions t
         kept-new-versions 6
         kept-old-versions 2
-        version-control t)
-
-(let ((dir (locate-user-emacs-file "backup")))
-  (condition-case err
-      (progn
-        (make-directory dir t)
-        (setopt backup-directory-alist `(("." . ,dir)))
-        (setopt auto-save-file-name-transforms
-                `((".*" ,(file-name-as-directory dir) t))))
-    (file-error
-     (message "[backup] ディレクトリ作成に失敗: %s" (error-message-string err)))
-    (error
-     (message "[backup] 予期しないエラー: %s" (error-message-string err)))))
+        version-control t
+        backup-directory-alist `(("." . ,my-backup-dir)))
 
 ;; ----------------------------------------------------------------
 ;; 日本語設定 UTF-8
@@ -181,6 +196,12 @@
 (require 'dabbrev)
 (setopt dabbrev-case-fold-search t)
 (setopt dabbrev-case-replace nil)
+
+;; ----------------------------------------------------------------
+;; eshell
+;; ----------------------------------------------------------------
+
+(setopt  eshell-directory-name (expand-file-name "eshell" my-xdg-cache))
 
 ;; provide
 ;; ----------------------------------------------------------------
