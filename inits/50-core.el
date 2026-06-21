@@ -33,7 +33,7 @@
   (require 'use-package))
 
 ;; ----------------------------------------------------------------
-;; clip board
+;; exec path from shell
 ;; ----------------------------------------------------------------
 (use-package exec-path-from-shell
   :config
