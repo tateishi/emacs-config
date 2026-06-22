@@ -33,6 +33,7 @@
 (depends-on "eask-mode")
 (depends-on "editorconfig")
 (depends-on "embark")
+(depends-on "embark-consult")
 (depends-on "envrc")
 (depends-on "exec-path-from-shell")
 (depends-on "eyebrowse")

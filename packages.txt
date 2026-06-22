@@ -18,6 +18,7 @@ dockerfile-mode
 eask-mode
 editorconfig
 embark
+embark-consult
 envrc
 exec-path-from-shell
 eyebrowse
