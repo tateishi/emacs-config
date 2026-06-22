@@ -7,7 +7,7 @@
 (website-url "https://github.com/tateishi/emacs-config")
 (keywords "config")
 
-(files "early-init.el" "init.el" "inits/*.el")
+(files "early-init.el" "init.el" "inits/*.el" "lisp/*.el")
 (source "gnu")
 (source "nongnu")
 (source "melpa")
