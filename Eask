@@ -44,6 +44,7 @@
 (depends-on "haskell-mode")
 (depends-on "highlight-indent-guides")
 (depends-on "hydra")
+(depends-on "inhibit-mouse")
 (depends-on "init-loader")
 (depends-on "jinja2-mode")
 (depends-on "json-mode")

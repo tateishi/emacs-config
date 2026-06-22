@@ -29,6 +29,7 @@ gt
 haskell-mode
 highlight-indent-guides
 hydra
+inhibit-mouse
 init-loader
 jinja2-mode
 json-mode

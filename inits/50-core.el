@@ -35,6 +35,28 @@
 (require 'xdg-path)
 
 ;; ----------------------------------------------------------------
+;; inhibit mouse -- gui のときにマウスを無効化する。
+;; ----------------------------------------------------------------
+(use-package inhibit-mouse
+  :functions
+  (inhibit-mouse-mode)
+
+  :preface
+  (defun my-inhibit-mouse (frame)
+    "FRAMEを開くときにinihibit-mouseを有効化する."
+    (with-selected-frame frame
+      (message "inhibit: %s, %s" frame (display-graphic-p))
+      (when (display-graphic-p frame)
+        (inhibit-mouse-mode 1))))
+
+  :hook
+  (after-make-frame-functions . my-inhibit-mouse)
+
+  :config
+  (when (display-graphic-p)
+    (inhibit-mouse-mode 1)))
+
+;; ----------------------------------------------------------------
 ;; editor config
 ;; ----------------------------------------------------------------
 (use-package editorconfig
