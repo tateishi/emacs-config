@@ -456,7 +456,7 @@ JISYO-LIST は
 
   :preface
   (defun my-toggle-docstring-check ()
-    ""
+    "docstring check 有効/無効のトグル."
     (interactive)
     (if (memq 'emacs-lisp-docstring flycheck-disabled-checkers)
         (progn
