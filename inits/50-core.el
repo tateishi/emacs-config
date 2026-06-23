@@ -451,6 +451,21 @@ JISYO-LIST は
 ;; flycheck
 ;; ----------------------------------------------------------------
 (use-package flycheck
+  :functions
+  (flycheck-buffer)
+
+  :preface
+  (defun my-toggle-docstring-check ()
+    ""
+    (interactive)
+    (if (memq 'emacs-lisp-docstring flycheck-disabled-checkers)
+        (progn
+          (setq-local flycheck-disabled-checkers (remove 'emacs-lisp-docstring flycheck-disabled-checkers))
+          (message "docstring check: ON"))
+      (setq-local flycheck-disabled-checkers (cons 'emacs-lisp-docstring flycheck-disabled-checkers))
+      (message "docstring check: OFF"))
+    (flycheck-buffer))
+
   :custom
   (flycheck-idle-change-delay 5.0)
   (flycheck-emacs-lisp-load-path 'inherit)
