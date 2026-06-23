@@ -442,15 +442,19 @@ JISYO-LIST は
   (eglot eglot-ensure)
 
   :hook
-  ((typescript-ts-mode tsx-ts-mode) . eglot-ensure)
+  (prog-mode . eglot-ensure))
 
-  :config
-  (add-to-list 'eglot-server-programs '(python-mode "pylsp")))
+;; ----------------------------------------------------------------
+;; flymake
+;; ----------------------------------------------------------------
+(use-package flymake
+  :hook
+  (prog-mode . flymake-mode))
 
 ;; ----------------------------------------------------------------
 ;; flycheck
 ;; ----------------------------------------------------------------
-(use-package flycheck
+(use-package flycheck :disabled
   :functions
   (flycheck-buffer)
 
