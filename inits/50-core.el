@@ -527,20 +527,8 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; python mode
 ;; ----------------------------------------------------------------
-;; * 事前準備必要(pythonのgrammarをインストール)
-;; M-x treesit-install-language-grammar RET
-;; python RET  ;; そのまま y で進める
-(defun my/use-python-ts-mode-if-available ()
-  "Treesitが有効なときpython-ts-mode."
-  (if (treesit-language-available-p 'python)
-      (python-ts-mode)
-    (python-mode)))
-
 (use-package python
-  :mode
-  (("\\.py\\'" . my/use-python-ts-mode-if-available))
   :hook
-  (python-ts-mode . eglot-ensure)
   (python-mode . smartparens-mode))
 
 ;; ----------------------------------------------------------------
