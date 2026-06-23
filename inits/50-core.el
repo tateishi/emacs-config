@@ -80,11 +80,13 @@
 ;; ----------------------------------------------------------------
 ;; keyfreq
 ;; ----------------------------------------------------------------
+(eval-and-compile
+  (defconst my-keyfreq-dir (expand-file-name "keyfreq" my-xdg-cache)))
+
 (use-package keyfreq
   :if (not noninteractive)
 
   :init
-  (defconst my-keyfreq-dir (expand-file-name "keyfreq" my-xdg-cache))
   (make-directory my-keyfreq-dir t)
   (setq keyfreq-excluded-commands '(self-insert-command))
 
