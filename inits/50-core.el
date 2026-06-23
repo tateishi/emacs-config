@@ -554,6 +554,18 @@ JISYO-LIST は
   :after python)
 
 ;; ----------------------------------------------------------------
+;; rust-mode
+;; ----------------------------------------------------------------
+(use-package rust-mode
+  :preface
+  (defun my-rust-flymake-config ()
+    ;; "`rust-ts-mode'と`flymake'を組み合わせるときの設定."
+    (setq-local flymake-diagnostic-functions nil))
+
+  :hook
+  (rust-ts-mode . my-rust-flymake-config))
+
+;; ----------------------------------------------------------------
 ;; markdown-mode
 ;; ----------------------------------------------------------------
 (use-package markdown-mode
@@ -668,7 +680,6 @@ JISYO-LIST は
   lua-mode
   meson-mode
   powershell
-  rust-mode
   yaml-mode)
 
 ;; ----------------------------------------------------------------
