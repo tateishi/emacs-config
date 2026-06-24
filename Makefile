@@ -1,4 +1,4 @@
 update:
 	-eask install
-	-eask update
+	-eask upgrade
 	-eask compile
