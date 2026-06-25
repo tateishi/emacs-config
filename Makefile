@@ -1,11 +1,7 @@
 update:
 	-eask install
 	-eask upgrade
-	-rm lisp/*.elc
-	-rm inits/*.elc
-	-eask compile
+	-eask recompile
 
 compile:
-	-rm lisp/*.elc
-	-rm inits/*.elc
-	-eask compile
+	-eask recompile
