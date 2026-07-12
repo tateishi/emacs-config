@@ -525,6 +525,22 @@ JISYO-LIST は
   (c-mode-common . google-make-newline-indent))
 
 ;; ----------------------------------------------------------------
+;; go mode
+;; ----------------------------------------------------------------
+
+(use-package go-mode
+  :hook
+  (go-mode . (lambda ()
+               (setq tab-width 4
+                     indent-tabs-mode t))))
+
+(use-package go-ts-mode
+  :hook
+  (go-ts-mode . (lambda ()
+                  (setq tab-width 4
+                        indent-tabs-mode t))))
+
+;; ----------------------------------------------------------------
 ;; python mode
 ;; ----------------------------------------------------------------
 (use-package python
