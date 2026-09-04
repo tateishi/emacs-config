@@ -23,6 +23,7 @@ envrc
 exec-path-from-shell
 eyebrowse
 flycheck
+go-mode
 google-c-style
 google-translate
 gt
