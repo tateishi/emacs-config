@@ -34,14 +34,25 @@
 ;; ----------------------------------------------------------------
 (require 'xdg)
 
-(defconst my-xdg-cache (expand-file-name "emacs" (xdg-cache-home)))
-(make-directory my-xdg-cache t)
+(defconst my-xdg-cache
+  (if (eq system-type 'windows-nt)
+      (expand-file-name "emacs" (or (getenv "LOCALAPPDATA")
+                                    (expand-file-name "~/AppData/Local")))
+    (expand-file-name "emacs" (xdg-cache-home))))
 
 (defconst my-xdg-config (expand-file-name "emacs" (xdg-config-home)))
-(make-directory my-xdg-config t)
 
-(defconst my-xdg-data (expand-file-name "emacs" (xdg-data-home)))
-(make-directory my-xdg-data t)
+(defconst my-xdg-data
+  (if (eq system-type 'windows-nt)
+      (expand-file-name "emacs" (or (getenv "APPDATA")
+                                    (expand-file-name "~/AppData/Roaming")))
+    (expand-file-name "emacs" (xdg-data-home))))
+
+(defconst my-xdg-state
+  (if (eq system-type 'windows-nt)
+      (expand-file-name "emacs" (or (getenv "LOCALAPPDATA")
+                                    (expand-file-name "~/AppData/Local")))
+    (expand-file-name "emacs" (xdg-state-home))))
 
 ;; provide
 ;; ----------------------------------------------------------------
