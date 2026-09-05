@@ -81,7 +81,7 @@
 ;; keyfreq
 ;; ----------------------------------------------------------------
 (eval-and-compile
-  (defconst my-keyfreq-dir (expand-file-name "keyfreq" my-xdg-cache)))
+  (defconst my-keyfreq-dir (expand-file-name "keyfreq" my-xdg-state)))
 
 (use-package keyfreq
   :if (not noninteractive)
@@ -679,7 +679,6 @@ JISYO-LIST は
   ansible
   cmake-mode
   csv-mode
-  docker-compose-mode
   dockerfile-mode
   haskell-mode
   ledger-mode

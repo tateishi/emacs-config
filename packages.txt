@@ -13,7 +13,6 @@ corfu-terminal
 csv-mode
 ddskk
 direnv
-docker-compose-mode
 dockerfile-mode
 eask-mode
 editorconfig

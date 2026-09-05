@@ -28,7 +28,6 @@
 (depends-on "csv-mode")
 (depends-on "ddskk")
 (depends-on "direnv")
-;; (depends-on "docker-compose-mode")
 (depends-on "dockerfile-mode")
 (depends-on "eask-mode")
 (depends-on "editorconfig")

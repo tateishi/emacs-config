@@ -44,13 +44,13 @@
         tab-always-indent 'complete
         use-short-answers t
         kill-do-not-save-duplicates t
-        bookmark-file (expand-file-name "bookmarks" my-xdg-cache)
+        bookmark-file (expand-file-name "bookmarks" my-xdg-state)
         recentf-max-saved-items 300
         recentf-auto-cleanup 'never
-        recentf-save-file (expand-file-name "recentf" my-xdg-cache)
+        recentf-save-file (expand-file-name "recentf" my-xdg-state)
         save-interprogram-paste-before-kill t
-        savehist-file (expand-file-name "savehist" my-xdg-cache)
-        tramp-persistency-file (expand-file-name "tramp" my-xdg-cache)
+        savehist-file (expand-file-name "savehist" my-xdg-state)
+        tramp-persistency-file (expand-file-name "tramp" my-xdg-state)
         show-paren-delay 0.0
         show-paren-style 'parenthesis
         x-underline-at-descent-line t
@@ -192,7 +192,7 @@
 ;; eshell
 ;; ----------------------------------------------------------------
 
-(setopt  eshell-directory-name (expand-file-name "eshell" my-xdg-cache))
+(setopt  eshell-directory-name (expand-file-name "eshell" my-xdg-state))
 
 ;; provide
 ;; ----------------------------------------------------------------

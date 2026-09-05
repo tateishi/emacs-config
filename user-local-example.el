@@ -1,4 +1,4 @@
-;; -*- flycheck-disabled-checkers: (emacs-lisp-checkdoc); -*-
+;; -*- flycheck-disabled-checkers: (emacs-lisp-checkdoc); lexical-binding: t -*-
 
 ;; user-local.example.el
 ;; このファイルを ~/.config/emacs/user-local.el としてコピー＆編集して使ってください。

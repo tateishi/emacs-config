@@ -22,8 +22,13 @@
 
 ;;; Code:
 
+(add-to-list 'load-path (locate-user-emacs-file "lisp"))
+
 (require 'package)
 (require 'subr-x)  ;; string-trim, string-empty-p
+(require 'xdg-path)
+
+(setq package-user-dir (expand-file-name "elpa" my-xdg-data))
 
 ;; ------- リポジトリ設定（必要に応じて調整） -------
 (setq package-archives

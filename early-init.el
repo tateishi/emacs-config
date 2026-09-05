@@ -72,6 +72,7 @@
 ;; ----------------------------------------------------------------
 ;; パッケージ初期化の制御
 ;; ----------------------------------------------------------------
+(setq package-user-dir (expand-file-name "elpa" my-xdg-data))
 (setq package-enable-at-startup nil)
 (setq package-quickstart t)
 
