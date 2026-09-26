@@ -608,6 +608,7 @@ JISYO-LIST は
   (ledger-complete-in-steps t)
   (ledger-default-date-format ledger-iso-date-format)
   (ledger-report-auto-refresh-sticky-cursor t)
+  (shiwake-column-adjust-ratio 0.8)
 
   :hook
   (ledger-mode . my-enable-trailing-whitespace)
