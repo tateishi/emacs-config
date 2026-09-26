@@ -1,4 +1,4 @@
-;; -*- mode: eask -*-
+;; -*- mode: eask; lexical-binding: t; -*-
 
 (package "Emacs configuration"
          "0.1.0"
