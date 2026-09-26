@@ -613,6 +613,7 @@ JISYO-LIST は
   :hook
   (ledger-mode . my-enable-trailing-whitespace)
   (ledger-mode . my-ledger-comment-column)
+  (ledger-report-after-report . shiwake-report-goto-nearest-today)
   :config
   (add-to-list 'ledger-report-format-specifiers '("tagname" . shiwake-report-tagname-format-specifier))
   (add-to-list 'ledger-report-format-specifiers '("month" . shiwake-report-month-format-specifier)))
