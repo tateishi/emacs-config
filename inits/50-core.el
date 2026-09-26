@@ -385,6 +385,10 @@ JISYO-LIST は
 ;; ----------------------------------------------------------------
 ;; tree-sitter
 ;; ----------------------------------------------------------------
+(let ((path (expand-file-name "tree-sitter" my-xdg-data)))
+  (make-directory path t)
+  (add-to-list 'treesit-extra-load-path path))
+
 ;; (use-package treesit
 ;;   :init
 ;;   ;; grammar のソース
